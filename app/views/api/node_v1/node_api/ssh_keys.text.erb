@@ -1,0 +1,1 @@
+ssh-rsa <%= [OpenSSL::PKey::RSA.new(@node.ssh_key).to_blob].pack('m0') %> <%= @node.admin_user %>@<%= @node.name %>

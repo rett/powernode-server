@@ -1,0 +1,16 @@
+- if can?(:manage, NodeTemplate)
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          %h4.box-title= I18n.t('node_templates.header.import')
+        .box-body
+          = form_for :node_template, url: { action: 'import' }, html: { multipart: true } do |form|
+            .col-xs-4
+              = form.check_box :enabled
+              Enabled
+            .col-xs-4
+              = form.file_field :file
+            .col-xs-4
+              = form.submit I18n.t('actions.submit'), data: { confirm: I18n.t('actions.confirm') }
+= render partial: 'form'

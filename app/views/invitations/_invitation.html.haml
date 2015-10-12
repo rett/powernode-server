@@ -1,0 +1,3 @@
+%tr
+  %td= link_to(invitation.recipient.present? ? invitation.recipient : 'Anonymous', invitation)
+  %td= local_time(invitation.updated_at)

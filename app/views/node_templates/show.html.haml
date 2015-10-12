@@ -1,0 +1,50 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(node_templates_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @node_template)
+          = link_to(edit_node_template_path(@node_template), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:manage, NodeTemplate)
+          = link_to(export_node_template_path(@node_template), class: 'btn') do
+            = fa('download')
+            = I18n.t('actions.export')
+        - if can?(:destroy, @node_template)
+          .pull-right
+            = link_to(@node_template, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @node_template.details.present?
+          .details= find_and_preserve render_markdown(@node_template.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @node_template.name
+          %dt Description
+          %dd= @node_template.description
+          %dt Enabled
+          %dd= @node_template.enabled? ? 'Yes' : 'No'
+          - if @node_template.public?
+            %dt Public
+            %dd Yes
+          %dt Platform
+          %dd= @node_template.node_platform
+          %dt Admin User
+          %dd= @node_template.admin_user
+          %dt Node Modules
+          %dd
+            - if @node_template.node_modules
+              %ul
+                - @node_template.node_modules.each do |node_module|
+                  %li= node_module.name
+            - else
+              &nbsp;
+          %dt Created
+          %dd= local_time(@node_template.created_at)
+          %dt Updated
+          %dd= local_time(@node_template.updated_at)

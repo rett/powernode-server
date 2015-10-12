@@ -1,0 +1,14 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@user) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :email
+          = form.input :password, required: @user.new_record?
+          = form.input :password_confirmation
+          - if @user != @current_user && @available_roles
+            = form.input :roles, as: :select, collection: @available_roles.map { |r| [r.titleize, r] }, disabled: @disabled_roles, selected: @user.roles.to_a, multiple: true, required: true, input_html: { class: 'multiselect' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

@@ -1,0 +1,454 @@
+#
+# English Translations
+#
+en:
+
+  #
+  # Language Name
+  #
+  i18n:
+    language:
+      name:                                       'U.S. English'
+
+  #
+  # Actions
+  #
+  actions:
+    abort:                                        'Abort'
+    add:                                          'Add'
+    back:                                         'Back'
+    cancel:                                       'Cancel'
+    close:                                        'Close'
+    confirm:                                      'Are you sure?'
+    destroy:                                      'Destroy'
+    dismiss:                                      'Dismiss'
+    download:                                     'Download'
+    edit:                                         'Edit'
+    export:                                       'Export'
+    home:                                         'Home'
+    index:                                        'Index'
+    never:                                        'Never'
+    new:                                          'New'
+    please_wait:                                  'Please wait...'
+    refresh:                                      'Refresh'
+    reschedule:                                   'Reschedule'
+    show:                                         'Show'
+    select:                                       'Select'
+    submit:                                       'Submit'
+
+  #
+  # Global headers
+  #
+  header:
+    actions:
+      create:                                     'New %{resource_name}'
+      edit:                                       'Edit %{resource_name}'
+      index:                                      '%{resource_name}'
+      new:                                        'New %{resource_name}'
+      show:                                       '%{resource_name} details'
+
+  #
+  # Flash responder translations
+  #
+  flash:
+    actions:
+      alert_access_denied:                        'You are not authorized to access this page.'
+      create:
+        alert:                                    '%{resource_name} could not be created.'
+        notice:                                   '%{resource_name} was successfully created.'
+      destroy:
+        alert:                                    '%{resource_name} could not be destroyed.'
+        notice:                                   '%{resource_name} was successfully destroyed.'
+      update:
+        alert:                                    '%{resource_name} could not be updated.'
+        notice:                                   '%{resource_name} was successfully updated.'
+    accounts:
+      billing:
+        alert:                                    'Failed to update billing informtion.'
+        notice:                                   'Successfully updated billing information.'
+      cancel:
+        alert:                                    'Failed to cancel account.'
+        notice:                                   'Successfully cancelled account.'
+      delegation:
+        add:
+          alert:                                  'Failed to add account delegation.'
+          notice:                                 'Successfully added account delegation.'
+        remove:
+          alert:                                  'Failed to remove account delegation.'
+          notice:                                 'Successfully removed account delegation.'
+      plan:
+        alert:                                    'Failed to change plan.'
+        notice:                                   'Successfully changed plan.'
+      select:
+        alert:                                    'Failed to select account.'
+        notice:                                   'Successfully selected %{account}.'
+    node_templates:
+      import:
+        alert_node_architecture:                  'Failed to load node architecture.'
+        alert_node_module_categories:             'Failed to load node module categories.'
+        alert_node_module_dependencies:           'Failed to load node module dependencies.'
+        alert_node_modules:                       'Failed to load node modules.'
+        alert_node_platform:                      'Failed to load node platform.'
+        alert_node_template:                      'Failed to load node template.'
+        notice:                                   'Successfully imported %{node_template}.'
+    node_instances:
+      create:
+        alert_limit_reached:                      'Unable to create instance, limit reached.'
+    nodes:
+      control_node:
+        create_cloud_instance:
+          alert:                                  'Failed to schedule instance creation for node %{node}.'
+          notice:                                 'Instance creation scheduled for node %{node}.'
+        create_physical_instance:
+          alert:                                  'Failed to create instance for node %{node}.'
+          notice:                                 'Successfully created instance for %{node}.'
+        create_iso:
+          alert:                                  'Failed to schedule ISO creation.'
+          notice:                                 'ISO generation scheduled for instance %{node_instance}.'
+        instance_create_image:
+          alert:                                  'Failed to schedule image creation.'
+          notice:                                 'Image generation scheduled for instance %{node_instance}.'
+        instance_create_image:
+          alert:                                  'Failed to schedule Image creation.'
+          notice:                                 'Image generation scheduled for instance %{node_instance}.'
+        instance_destroy:
+          alert:                                  'Failed to destroy instance %{node_instance}.'
+          notice:                                 'Instance %{node_instance} destroyed.'
+        instance_exec:
+          alert:                                  'Failed to schedule command %{command} for instance %{node_instance}.'
+          notice:                                 'Exec %{command} command scheduled for instance %{node_instance}.'
+        instance_public_ip_associate:
+          alert:                                  'Failed to schedule IP association for instance %{node_instance}.'
+          notice:                                 'Successfully scheduled Public IP association for instance %{node_instance}.'
+        instance_public_ip_disassociate:
+          alert:                                  'Failed to schedule IP disassociation for instance %{node_instance}.'
+          notice:                                 'Successfully scheduled Public IP disassociation for instance %{node_instance}.'
+        instance_reboot:
+          alert:                                  'Failed to schedule reboot for instance %{node_instance}.'
+          notice:                                 'Successfully scheduled instance reboot for instance %{node_instance}.'
+        instance_reset_key:
+          alert:                                  'Failed to reset key for instance %{node_instance}.'
+          notice:                                 'Successfully reset key for instance %{node_instance}.'
+        instance_set_primary:
+          alert:                                  'Failed to set instance %{node_instance} as primary.'
+          notice:                                 'Successfully set instance %{node_instance} as primary.'
+        instance_start:
+          alert:                                  'Failed to schedule start for instance %{node_instance}.'
+          notice:                                 'Start scheduled for instance %{node_instance}.'
+        instance_stop:
+          alert:                                  'Failed to schedule stop for instance %{node_instance}.'
+          notice:                                 'Stop scheduled for instance %{node_instance}.'
+        instance_terminate:
+          alert:                                  'Failed to schedule termination for instance %{node_instance}.'
+          notice:                                 'Instance termination scheduled for instance %{node_instance}.'
+        module_build:
+          alert:                                  'Failed to schedule build of %{node_module}.'
+          alert_no_instance:                      'Failed to schedule build of %{node_module}, no primary instance available.'
+          notice:                                 'Scheduled build of %{node_module} on %{node_instance}.'
+        module_commit:
+          alert:                                  'Failed to schedule commit of %{node_module} on %{node_instance}.'
+          alert_no_instance:                      'Failed to schedule commit of %{node_module}, no primary instance available.'
+          notice:                                 'Scheduled commit of %{node_module} on %{node_instance}.'
+        module_create_dependency:
+          alert:                                  'Failed to create dependency module.'
+          notice:                                 'Successfully created dependency module for %{node_module}.'
+        module_delete:
+          alert:                                  'Failed to delete version %{version} of %{node_module}.'
+          notice:                                 'Successfully deleted version %{version} of %{node_module}.'
+        module_destroy:
+          alert:                                  'Failed to destroy module %{node_module}.'
+          notice:                                 'Successfully destroyed module %{node_module}.'
+        module_subscribe:
+          alert:                                  'Failed to subscribe to module %{node_module}.'
+          notice:                                 'Successfully subscribed to module %{node_module}.'
+        module_unsubscribe:
+          alert:                                  'Failed to unsubscribe module %{node_module}.'
+          notice:                                 'Successfully unsubscribed module %{node_module}.'
+        module_purge:
+          alert:                                  'Failed to purge versions of %{node_module} up to version %{version}.'
+          notice:                                 'Successfully purged versions of %{node_module} up to version %{version}.'
+        module_restore:
+          alert:                                  'Failed to restore version %{version} of %{node_module}.'
+          notice:                                 'Successfully restored version %{version} of %{node_module} to version %{new_version}.'
+        module_update:
+          alert:                                  'Failed to update status of %{node_module}.'
+          notice:                                 'Successfully updated status of %{node_module}.'
+        operation_unschedule_id:
+          alert:                                  'Failed to unschedule command.'
+          notice:                                 'Successfully unscheduled command.'
+        send_ssh_key:
+          alert:                                  'Failed to send SSH key to %{recipient}.'
+          alert_invalid_encryption_key:           'Invalid encryption key, must be a %{key_length} character long hex string.'
+          alert_no_ssh_key:                       'No SSH key available for node.'
+          notice:                                 'Sending encrypted SSH key to %{recipient}.'
+        sync_cloud_instances:
+          alert:                                  'Failed to schedule sync for cloud instances.'
+          notice:                                 'Successfully scheduled cloud instance sync.'
+      create:
+        alert_limit_reached:                      'Unable to create node, limit reached.'
+    subscriptions:
+      charge:
+        alert:                                    'Failed to charge subscription.'
+        notice:                                   'Subscription was successfully charged.'
+      refund:
+        alert:                                    'Failed to refund subscription.'
+        alert_complete:                           'Failed to refund subscription, already completely refunded.'
+        notice:                                   'Subscription was successfully refunded.'
+    users:
+      create:
+        alert_limit_reached:                      'Unable to create user, limit reached.'
+      destroy:
+        alert_current_user:                       'Failed to destroy current user.'
+
+  #
+  # Accounts
+  #
+  accounts:
+    billing:
+      expired:                                    'Expired'
+      expiring:                                   'Expiring'
+    cancel:
+      warning:                                    'I really do want to cancel my account and delete all my data.'
+    delegations:
+      header:                                     'Delegations'
+      no_expiration:                              'Never'
+    header:
+      billing:                                    'Payment details'
+      cancel:                                     'Cancel subscription'
+      plan:                                       'Plan'
+
+  #
+  # Registrations
+  #
+  registrations:
+    header:
+      new:                                        ''
+      plans:                                      ''
+
+  #
+  # Nodes
+  #
+  nodes:
+    control_node:
+      create_cloud_instance:
+        description:                              'Create cloud instance for node %{node}'
+        header:                                   'Create Cloud Instance'
+        label:                                    'Create'
+      create_physical_instance:
+        description:                              'Create cloud instance for node %{node}'
+        header:                                   'Create Physical Instance'
+        label:                                    'Create'
+      create_iso:
+        description:                              'Create ISO for %{node_instance}'
+        label:                                    'Create ISO'
+      header:                                     'Node Controls'
+      instance_create_image:
+        description:                              'Create %{image_format} image for %{node_instance}'
+        label:                                    'Create %{image_format}'
+      instance_destroy:
+        description:                              'Destroy instance %{node_instance}'
+        label:                                    'Destroy instance'
+      instance_exec:
+        description:                              'Send %{command} command to %{node_instance}'
+      instance_public_ip_associate:
+        description:                              'Associate public IP on instance %{node_instance}'
+        label:                                    'Associate'
+      instance_public_ip_disassociate:
+        description:                              'Disassociate public IP on instance %{node_instance}'
+        label:                                    'Disassociate'
+      instance_reboot:
+        description:                              'Reboot instance %{node_instance}'
+        label:                                    'Reboot'
+      instance_reset_key:
+        description:                              'Reset key'
+        label:                                    'Reset key'
+      instance_set_primary:
+        description:                              'Set %{node_instance} as primary'
+        label:                                    'Set as primary'
+      instance_start:
+        description:                              'Start instance %{node_instance}'
+        label:                                    'Start'
+      instance_stop:
+        description:                              'Stop instance %{node_instance}'
+        label:                                    'Stop'
+      instance_terminate:
+        description:                              'Terminate instance %{node_instance}'
+        label:                                    'Terminate'
+      module_build:
+        description:                              'Build module %{node_module} on %{node_instance}'
+      module_commit:
+        description:                              'Commit module %{node_module} on %{node_instance}'
+      module_control:
+        header:                                   'Module control'
+      module_subscribe:
+        label:                                    'Subscribe'
+      module_unsubscribe:
+        label:                                    'Unsubscribe'
+      refresh_all:
+        label:                                    'Refresh All'
+      refresh_node_instance:
+        label:                                    'Refresh'
+      refresh_node_instances:
+        label:                                    'Refresh Instances'
+      refresh_node_module:
+        label:                                    'Refresh'
+      refresh_node_modules:
+        label:                                    'Refresh Modules'
+      refresh_operations:
+        label:                                    'Refresh Operations'
+      send_ssh_key:
+        description:                              'Send SSH key for node %{node}'
+        label:                                    'Send SSH key'
+      sync_cloud_instances:
+        description:                              'Cloud instance sync for node %{node}'
+        label:                                    'Schedule'
+      instance_cloud:
+        header:                                   'Cloud instances'
+      instance_control:
+        header:                                   'Instance Controls'
+      instance_dynamic:
+        header:                                   'Dynamic Instances'
+      instance_physical:
+        header:                                   'Physical Instances'
+      instance_details:
+        header:                                   'Instance Details'
+      mount_points:
+        header:                                   'Mount Points'
+      volumes:
+        header:                                   'Volumes'
+    node_modules:
+      puppet_modules:
+        header:                                   'Puppet Modules'
+    show:
+      node_control:
+        header:                                   'Control'
+      node_modules:
+        header:                                   'Modules'
+      node_instances:
+        header:                                   'Instances'
+
+  #
+  # Node templates
+  #
+  node_templates:
+    header:
+      export:                                     'Export Template'
+      import:                                     'Import Template'
+
+  #
+  # Operations
+  #
+  operations:
+    button:                                       'Operations'
+    header:
+      complete:                                   'Complete'
+      scheduled:                                  'Scheduled'
+      title:                                      'Operations'
+    none_pending:                                 'No operations pending.'
+
+  #
+  # Puppet modules
+  #
+  puppet_modules:
+    puppet_resources:
+      header:                                     'Puppet Resources'
+
+  #
+  # Session translations
+  #
+  sessions:
+    header:
+      new:                                        ''
+
+  #
+  # Settings translations
+  #
+  settings:
+    disabled:                                     'Disabled'
+    enabled:                                      'Enabled'
+    admin:
+      admin_console:
+        description:                              'Provides access to ruby console.'
+        label:                                    'Admin Console'
+      admin_view:
+        description:                              'Provides access to all resources permitted to your account.'
+        label:                                    'Admin view'
+      header:                                     'Admin settings'
+    general:
+      fixed_view:
+        description:                              'Enables fixed view mode.'
+        label:                                    'Fixed view'
+      header:                                     'General settings'
+      skin:
+        label:                                    'Skin'
+
+  #
+  # Forms
+  #
+  formtastic:
+    titles:
+      account_details:                            'Account Information'
+      agent_details:                              'Agent Information'
+      invitation_details:                         'Invitation Information'
+      node_details:                               'Node Information'
+      node_module_category_details:               'Module Category Information'
+      node_module_details:                        'Module Information'
+      node_module_spec:                           'Module specifications'
+      node_platform_details:                      'Platform Information'
+      node_template_details:                      'Template Information'
+      provider_details:                           'Provider Information'
+      provider_region_details:                    'Provider Region Information'
+      provider_instance_type_details:             'Instance Type Information'
+      provider_volume_details:                    'Volume Information'
+      provider_volume_type_details:               'Volume Type Information'
+      page_details:                               'Page Information'
+      payment_details:                            'Payment Information'
+      plan_details:                               'Plan Information'
+      user_details:                               'User Information'
+    labels:
+      user:
+        locale:                                   'Language'
+    hints:
+    placeholders:
+      user:
+        email:                                    'Email Address'
+        name:                                     'Full Name'
+        password:                                 'Password'
+        password_confirmation:                    'Confirm Password'
+    actions:
+      create:                                     'Create'
+      update:                                     'Update'
+      cancel:                                     'Cancel'
+
+  #
+  # Notifier
+  #
+  notifier:
+    invitation:
+      subject:                                    'Invitation to Node Alchemy'
+    subscription:
+      charge_failure:
+        subject:                                  'Your %{app_name} renewal failed.'
+      charge_receipt:
+        subject:                                  'Your %{app_name} invoice.'
+      misc_receipt:
+        subject:                                  'Your %{app_name} invoice.'
+      plan_changed:
+        subject:                                  'Your %{app_name} plan has been changed.'
+      setup_receipt:
+        subject:                                  'Your %{app_name} invoice.'
+      trial_expiring:
+        subject:                                  'Your %{app_name} trial is expiring.'
+      welcome:
+        subject:                                  'Welcome to %{app_name}.'
+
+#  #
+#  # Active Record Validations
+#  #
+#  activerecord:
+#    errors:
+#      models:
+#        node:
+#          attributes:
+#            name:
+#              invalid: is invalid

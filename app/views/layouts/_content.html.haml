@@ -1,0 +1,8 @@
+.content-wrapper
+  %section.content-header
+    %h1= @title
+    = render_breadcrumbs builder: BreadcrumbBuilder
+  %section.content
+    = yield
+    - if Rails.env.development? && @current_user && @current_user.try(:global_admin?) && session[:admin_console] == true
+      = console

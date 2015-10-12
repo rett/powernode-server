@@ -1,0 +1,7 @@
+select.multiselect,
+select.multiselect + div.btn-group,
+select.multiselect + div.btn-group button.multiselect,
+select.multiselect + div.btn-group.open .multiselect-container{
+    text-align: left;
+    width:100% !important;
+}

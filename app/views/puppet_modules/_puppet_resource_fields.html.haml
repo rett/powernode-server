@@ -1,0 +1,19 @@
+.nested-fields
+  %br
+  .box.box-primary.box-solid
+    .box-header.with-border
+      %h3.box-title
+        - if f.object.persisted?
+          = f.object.name
+        - else
+          New puppet resource
+      .box-tools.pull-right
+        = link_to_remove_association(f, class: 'btn btn-default', role: 'button') do
+          = fa('times')
+    .box-body
+      = f.input :name
+      = f.input :description
+      = f.input :path
+      = f.input :enabled, as: :boolean
+      = label_tag :data
+      = f.text_area :data, class: 'codemirror'

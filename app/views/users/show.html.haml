@@ -1,0 +1,32 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(users_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @user)
+          = link_to(edit_user_path(@user), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+      .box-body
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @user.name
+          %dt Email
+          %dd= @user.email
+          %dt Roles
+          %dd
+            %ul
+              - @user.roles.each do |role|
+                %li= role.to_s.titleize
+          - if @user.accounts.size > 0
+            %dt Account Delegations
+            %dd
+              %ul
+                - @user.accounts.each do |account|
+                  %li= account.name
+          %dt Created
+          %dd= local_time(@user.created_at)
+          %dt Updated
+          %dd= local_time(@user.updated_at)

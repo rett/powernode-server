@@ -1,0 +1,17 @@
+- if user_signed_in?
+  %aside.control-sidebar.control-sidebar-dark
+    %ul.nav.nav-tabs.nav-justified.control-sidebar-tabs
+      %li.active
+        = link_to('#control-sidebar-general-tab', data: { toggle: 'tab' }) do
+          = fa('sliders')
+      - if @current_user.admin_roles.size > 0
+        %li
+          = link_to('#control-sidebar-admin-tab', data: { toggle: 'tab' }) do
+            = fa('cogs')
+    .tab-content
+      #control-sidebar-general-tab.tab-pane.active
+        = render partial: 'layouts/control_sidebar_general'
+      - if user_signed_in? && @current_user.admin_roles.size > 0
+        #control-sidebar-admin-tab.tab-pane
+          = render partial: 'layouts/control_sidebar_admin'
+  .control-sidebar-bg{ style: 'position: fixed; height: auto;' }

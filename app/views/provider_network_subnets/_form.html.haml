@@ -1,0 +1,16 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@provider_network_subnet) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :provider_network, collection: @available_provider_networks, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :provider_availability_zone, collection: @available_provider_availability_zones, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :enabled, as: :boolean
+          = form.input :entity
+          = form.input :network, as: :string, input_html: { disabled: @provider_network_subnet.persisted? }
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

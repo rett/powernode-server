@@ -1,0 +1,20 @@
+.login-box
+  .login-logo
+    Node
+    %b Alchemy
+  .login-box-body
+    %p.login-box-msg
+      = I18n.t('sessions.header.new')
+    = semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |form|
+      .form-group.has-feedback
+        = devise_error_messages!
+        = form.input :email, append: glyph('envelope'), label: false
+        = form.input :password, append: glyph('lock'), label: false
+        .row
+          .col-xs-8
+            = form.input :remember_me, as: :boolean
+          .col-xs-4
+            = form.submit 'Sign in', class: 'btn btn-primary btn-block btn-flat'
+    .row
+      .col-xs-12
+        = render partial: 'devise/shared/links'

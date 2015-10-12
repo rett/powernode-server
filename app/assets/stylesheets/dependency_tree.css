@@ -1,0 +1,16 @@
+svg#dependency_tree path.link {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1.5px;
+}
+
+svg#dependency_tree g.node circle {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+svg#dependency_tree g.node text {
+    font-size: 10px;
+    pointer-events: none;
+}

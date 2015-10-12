@@ -1,0 +1,24 @@
+%header.main-header
+  = link_to root_path, class: 'logo' do
+    %span.logo-lg
+      Node
+      %b> Alchemy
+    %span.logo-sm
+      N
+      %b> A
+  %nav.navbar.navbar-static-top{ role: 'navigation' }
+    - if user_signed_in?
+      %a.sidebar-toggle{ href: '#', role: 'button', data: { toggle: 'offcanvas' } }
+        %span.sr-only
+          Toggle navigation
+    .navbar-custom-menu
+      %ul.nav.navbar-nav
+        - if user_signed_in?
+          %li#operations_button= render partial: 'layouts/operations_button'
+          = render partial: 'layouts/user_menu'
+          %li
+            %a{ href: '#', class: 'fa fa-gears', data: { toggle: 'control-sidebar' } }
+        - else
+          %li= link_to('Sign in', new_user_session_path)
+          - if session[:invitation_id].present? || Invitation.available.size > 0
+            %li= link_to('Sign up', auth_plans_path)

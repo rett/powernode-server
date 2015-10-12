@@ -1,0 +1,18 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@node_mount_point) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :device
+          = form.input :path
+          = form.input :parameters
+          = form.input :node_module, collection: @available_node_modules, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :mount_script, collection: @available_mount_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :node_mount_point_dependency, as: :select, label: 'Dependency', collection: @available_dependencies, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :enabled, as: :boolean
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

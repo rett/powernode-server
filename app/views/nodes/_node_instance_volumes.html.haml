@@ -1,0 +1,33 @@
+- if node_instance.active_volumes.size > 0
+  %h4= I18n.t('nodes.control_node.volumes.header')
+  - node_instance.active_volumes.each do |volume|
+    %legend
+      = volume.name
+      - if volume.description.present?
+        %small= volume.description
+    - if can?(:update, node_instance)
+      %small= link_to('Edit volume', edit_volume_path(volume))
+      %br
+    - if volume.details.present?
+      .details= find_and_preserve render_markdown(volume.details)
+      %li
+        %small Status: #{volume.status.titleize}
+      - if volume.mount_point.present?
+        %li
+          %small Mount Point: #{volume.mount_point}
+      %li
+        %small Size: #{number_to_human_size(volume.actual_size.gigabytes)}
+      - if volume.raid
+        %li
+          %small RAID Level #{volume.raid_level}
+    - if volume.volume_members.size > 0
+      - volume.volume_members.each do |volume_member|
+        %legend
+          = volume_member.name
+          - if volume_member.description.present?
+            %small= volume_member.description
+        %ul
+          %li
+            %small Status: #{volume_member.status}
+          %li
+            %small Device: #{volume_member.device}

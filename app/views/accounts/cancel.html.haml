@@ -1,0 +1,13 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for @account, url: cancel_account_path(@account), html: { method: :post }  do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          - if @page.content.present?
+            = find_and_preserve render_markdown(@page.content)
+          = check_box_tag :confirm
+          &nbsp;
+          = I18n.t('accounts.cancel.warning')
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

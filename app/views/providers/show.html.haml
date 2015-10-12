@@ -1,0 +1,39 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(providers_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @provider)
+          = link_to(edit_provider_path(@provider), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:destroy, @provider)
+          .pull-right
+            = link_to(@provider, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @provider.details.present?
+          .details= find_and_preserve render_markdown(@provider.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @provider.name
+          %dt Description
+          %dd= @provider.description
+          %dt Enabled
+          %dd= @provider.enabled? ? 'Yes' : 'No'
+          - if @provider.public?
+            %dt Public
+            %dd Yes
+          %dt Provider Regions
+          %dd
+            %ul
+              - @provider.provider_regions.each do |provider_region|
+                %li= provider_region
+          %dt Created
+          %dd= local_time(@provider.created_at)
+          %dt Updated
+          %dd= local_time(@provider.updated_at)

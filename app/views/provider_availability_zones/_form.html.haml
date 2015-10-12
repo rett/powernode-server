@@ -1,0 +1,16 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@provider_availability_zone) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :entity, input_html: { disabled: @provider_availability_zone.persisted? }
+          = form.input :provider_region, collection: @available_provider_regions, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :enabled, as: :boolean
+          - if can?(:manage, ProviderRegion)
+            = form.input :public, as: :boolean
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

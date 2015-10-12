@@ -1,0 +1,104 @@
+common: &common
+  # General options
+  app_name: Node Alchemy
+  available_locales: [en]
+  base_domain: nodealchemy.com
+  data_expiration: +5m
+  global_instance_limit: 10
+  global_node_limit: 10
+  global_user_limit: 10
+  http_realm: Node Alchemy
+  instance_key_length: 32
+  image_formats: [img, iso]
+  log_file: /var/log/powernode/server.log
+  log_level: warn
+  paginate_default_items: 10
+  password_length: [8, 64]
+  server_hostname: localhost:3000
+  server_url: http://localhost:3000
+  session_key: _nodealchemy_session
+  encryption_key_length: 64
+  x_sendfile_header: X-Accel-Redirect
+
+  # Server directories
+  arch_dir: /var/lib/powernode/architectures
+  image_dir: /var/lib/powernode/images
+  module_dir: /var/lib/powernode/modules
+  puppet_dir: /var/lib/powernode/puppet
+
+  # Node options
+  checksum_bitlength: 256
+  system_dir: /opt/powernode/system
+  module_priority_category_multiplier: 1000
+  module_priority_places: 6
+  module_priority_range: [1, 99]
+  module_version_padding: 10
+  checksum_util: sha256sum
+  loop_devices: 256
+  module_extension: mo
+  module_info_extension: info
+  module_update_extension: update
+  puppet_cache_dir: /opt/powernode/puppet
+  script_dir: scripts
+  memory_dir: memory
+  branch_dir: branches
+  changes_dir: changes
+  store_dir: store
+  ram_dir: ram
+  volume_dir: volumes
+
+  # Billing options
+  currency: USD
+  stripe_api_key:
+  stripe_public_key:
+  stripe_webhook_secret:
+
+  # SCrypt options
+  scrypt_key_len: 128
+  scrypt_salt_size: 64
+
+  # Devise options
+  devise_allow_unconfirmed_access_for: <%= 0.hours %>
+  devise_confirm_within: <%= 24.hours %>
+  devise_remember_for: <%= 48.hours %>
+  devise_reset_password_within: <%= 6.hours %>
+  devise_stretches: 10
+  devise_timeout_in: <%= 6.hours %>
+  devise_unlock_in: <%= 30.minutes %>
+  devise_maximum_attempts: 10
+  devise_sender: do-not-reply@nodealchemy.com
+
+  # SMTP options
+  smtp_admin_email: admin@nodealchemy.com
+  smtp_from_email: support@nodealchemy.com
+  smtp_support_email: support@nodealchemy.com
+  smtp_method: sendmail
+  smtp_server:
+  smtp_port:
+  smtp_domain: nodealchemy.com
+  smtp_user_name:
+  smtp_password:
+  smtp_authentication:
+  smtp_enable_starttls_auto: true
+
+  # Sidekiq options
+  redis_server: redis://localhost:6379/0
+  redis_namespace: alchemy
+  sidekiq_queue: alchemy_server
+  sidekiq_job_retries: 2
+  sidekiq_job_expiration: <%= 1.hour %>
+
+  # Secrets
+  devise_pepper:
+  devise_secret_key:
+  secret_key_base:
+  key_pepper:
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+
+production:
+  <<: *common

@@ -1,0 +1,21 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      - if can?(:index, Page)
+        .box-header.with-border
+          = link_to(pages_path, class: 'btn') do
+            = fa('list')
+            = I18n.t('actions.index')
+          - if can?(:update, @page)
+            = link_to(edit_page_path(@page), class: 'btn') do
+              = fa('edit')
+              = I18n.t('actions.edit')
+          - if can?(:destroy, @page)
+            .pull-right
+              = link_to(@page, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+                .text-red
+                  = fa('remove')
+                  = I18n.t('actions.destroy')
+      .box-body
+        - if @page.content.present?
+          = find_and_preserve render_markdown(@page.content)

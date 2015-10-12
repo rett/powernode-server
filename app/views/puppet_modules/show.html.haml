@@ -1,0 +1,45 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(puppet_modules_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @puppet_module)
+          = link_to(edit_puppet_module_path(@puppet_module), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:destroy, @puppet_module)
+          .pull-right
+            = link_to(@puppet_module, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @puppet_module.details.present?
+          .details= find_and_preserve render_markdown(@puppet_module.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @puppet_module.name
+          %dt Description
+          %dd= @puppet_module.description
+          - if @puppet_module.data_file_size
+            %dt File Size
+            %dd= number_to_human_size(@puppet_module.data.size)
+            %dt Checksum
+            %dd= @puppet_module.data_checksum
+          %dt Enabled
+          %dd= @puppet_module.enabled? ? 'Yes' : 'No'
+          - if @puppet_module.public?
+            %dt Public
+            %dd Yes
+          - if @puppet_module.puppet_resources.count > 0
+            %dt Resources
+            %dd
+              %ul
+                - @puppet_module.puppet_resources.each do |puppet_resource|
+                  %li= File.join(puppet_resource.path, puppet_resource.name)
+          %dt Created
+          %dd= local_time(@puppet_module.created_at)
+          %dt Updated
+          %dd= local_time(@puppet_module.updated_at)

@@ -1,0 +1,23 @@
+%li.dropdown.user.user-menu
+  %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+    = gravatar_image_tag @current_user.email, filetype: 'png', rating: 'pg', class: 'user-image', alt: 'User Image'
+    %span.hidden-xs= @current_user.name
+  %ul.dropdown-menu
+    %li.user-header
+      = gravatar_image_tag @current_user.email, filetype: :png, rating: 'pg', class: 'user-image', alt: 'User Image'
+      %p
+        = @current_user.name
+        %small Member since #{local_time(@current_user.created_at)}
+    %li.user-body
+      .row
+        .col-xs-12.text-center
+          &nbsp;
+    %li.user-footer
+      .pull-left
+        = link_to(user_path(@current_user), class: 'btn btn-flat btn-default') do
+          = fa('user')
+          Profile
+      .pull-right
+        = button_to(destroy_user_session_path, method: :delete, class: 'btn btn-flat btn-danger') do
+          = fa('sign-out')
+          Sign out

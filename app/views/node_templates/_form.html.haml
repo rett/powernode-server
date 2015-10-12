@@ -1,0 +1,17 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@node_template) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :admin_user
+          = form.input :node_platform, collection: @available_node_platforms, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :node_modules, collection: @available_node_modules, input_html: { class: 'multiselect' }
+          = form.input :enabled, as: :boolean
+          - if can?(:manage, NodeTemplate)
+            = form.input :public, as: :boolean
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

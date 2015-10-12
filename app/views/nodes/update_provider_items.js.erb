@@ -1,0 +1,12 @@
+<%- unless @provider_region %>
+    $('#provider_region_id').html("<%= j render(partial: 'provider_region_items') %>").multiselect('rebuild');
+<%- end %>
+<%- unless @provider_instance_type %>
+    $('#provider_instance_type_id').html("<%= j render(partial: 'provider_instance_type_items') %>").multiselect('rebuild');
+<%- end %>
+<%- unless @provider_availability_zone %>
+    $('#provider_availability_zone_id').html("<%= j render(partial: 'provider_availability_zone_items') %>").multiselect('rebuild');
+<%- end %>
+<%- unless @provider_network_subnet %>
+    $('#provider_network_subnet_id').html("<%= j render(partial: 'provider_network_subnet_items') %>").multiselect('rebuild');
+<%- end %>

@@ -1,0 +1,12 @@
+%h3.control-sidebar-heading
+  = I18n.t('settings.admin.header')
+.form-group
+  %label.control-sidebar-subheading
+    = I18n.t('settings.admin.admin_view.label')
+    .pull-right= link_to !!session[:admin_view] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?admin_view=#{!session[:admin_view]}"
+  %p= I18n.t('settings.admin.admin_view.description')
+.form-group
+  %label.control-sidebar-subheading
+    = I18n.t('settings.admin.admin_console.label')
+    .pull-right= link_to !!session[:admin_console] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?admin_console=#{!session[:admin_console]}"
+  %p= I18n.t('settings.admin.admin_view.description')

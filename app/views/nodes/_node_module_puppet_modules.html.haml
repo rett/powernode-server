@@ -1,0 +1,5 @@
+- if can?(:update, node_module) || (node_module.parent_module && can?(:update, node))
+  %h3= I18n.t('nodes.node_modules.puppet_modules.header')
+  %ul
+    - node_module.puppet_modules.each do |puppet_module|
+      %li= puppet_module.name

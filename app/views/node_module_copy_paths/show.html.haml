@@ -1,0 +1,35 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(node_module_copy_paths_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @node_module_copy_path)
+          = link_to(edit_node_module_copy_path_path(@node_module_copy_path), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:destroy, @node_module_copy_path)
+          .pull-right
+            = link_to(@node_module_copy_path, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @node_module_copy_path.details.present?
+          .details= find_and_preserve render_markdown(@node_module_copy_path.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @node_module_copy_path.name
+          %dt Description
+          %dd= @node_module_copy_path.description
+          %dt Path
+          %dd= @node_module_copy_path.path
+          %dt Enabled
+          %dd= @node_module_copy_path.enabled? ? 'Yes' : 'No'
+          %dt Public
+          %dd= @node_module_copy_path.public? ? 'Yes' : 'No'
+          %dt Created
+          %dd= local_time(@node_module_copy_path.created_at)
+          %dt Updated
+          %dd= local_time(@node_module_copy_path.updated_at)

@@ -1,0 +1,14 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@provider_instance_type) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :enabled, as: :boolean
+          - if can?(:manage, ProviderInstanceType)
+            = form.input :public, as: :boolean
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

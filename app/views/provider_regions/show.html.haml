@@ -1,0 +1,64 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(provider_regions_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @provider_region)
+          = link_to(edit_provider_region_path(@provider_region), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:destroy, @provider_region)
+          .pull-right
+            = link_to(@provider_region, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @provider_region.details.present?
+          .details= find_and_preserve render_markdown(@provider_region.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @provider_region.name
+          %dt Description
+          %dd= @provider_region.description
+          %dt Enabled
+          %dd= @provider_region.enabled? ? 'Yes' : 'No'
+          - if @provider_region.public?
+            %dt Public
+            %dd Yes
+          %dt Provider
+          %dd= @provider_region.provider.description
+          %dt Endpoint URL
+          %dd= @provider_region.endpoint_url
+          %dt Region
+          %dd= @provider_region.region
+          %dt Machine Image
+          %dd= @provider_region.machine_image
+          %dt Kernel Image
+          %dd= @provider_region.kernel_image
+          %dt Ramdisk Image
+          %dd= @provider_region.ramdisk_image
+          - if @provider_region.provider_availability_zones.size > 0
+            %dt Availability Zones
+            %dd
+              %ul
+                - @provider_region.provider_availability_zones.each do |provider_availability_zone|
+                  %li= provider_availability_zone
+          - if @provider_region.provider_instance_types.size > 0
+            %dt Instance Types
+            %dd
+              %ul
+                - @provider_region.provider_instance_types.each do |provider_instance_type|
+                  %li= provider_instance_type
+          - if @provider_region.provider_volume_types.size > 0
+            %dt Volume Types
+            %dd
+              %ul
+                - @provider_region.provider_volume_types.each do |provider_volume_type|
+                  %li= provider_volume_type
+          %dt Created
+          %dd= local_time(@provider_region.created_at)
+          %dt Updated
+          %dd= local_time(@provider_region.updated_at)

@@ -1,0 +1,36 @@
+#!/bin/sh
+. /etc/identity.cfg
+. /etc/node.cfg
+rm -rf "${PUPPET_CACHE_DIR}"
+<% @node.puppet_modules.uniq.each do |puppet_module| %><% if puppet_module.data_checksum.present? %>
+if [ "${verbose}" ]; then echo "Adding Puppet Module: <%= puppet_module.name %>"; fi
+mkdir -p "<%= puppet_module.path_name %>"
+cat << "_EOF_<%= puppet_module.id %>_EOF_" > "<%= File.join(puppet_module.path_name, puppet_module.data_file_name) %>.encoded"
+begin-base64 644 <%= puppet_module.data_file_name %>
+<%= puppet_module.encoded_data -%>
+====
+_EOF_<%= puppet_module.id %>_EOF_
+uudecode -o /dev/stdout "<%= File.join(puppet_module.path_name, puppet_module.data_file_name) %>.encoded" > "<%= File.join(puppet_module.path_name, puppet_module.data_file_name) %>"
+rm -rf "<%= File.join(puppet_module.path_name, puppet_module.name) %>"
+mkdir -p "<%= File.join(puppet_module.path_name, puppet_module.name) %>"
+tar xzf "<%= File.join(puppet_module.path_name, puppet_module.data_file_name) %>" -C "<%= File.join(puppet_module.path_name, puppet_module.name) %>" --strip-components 1
+chown -R 0:0 "<%= File.join(puppet_module.path_name, puppet_module.name) %>"
+rm "<%= File.join(puppet_module.path_name, puppet_module.data_file_name) %>"
+rm "<%= File.join(puppet_module.path_name, puppet_module.data_file_name + '.encoded') %>"
+<% end %><% end %>
+<% @node.puppet_resources.each do |puppet_resource| %>
+if [ "${verbose}" ]; then echo "Adding Puppet Resource: <%= puppet_resource.path_name %>"; fi
+mkdir -p "$(dirname <%= puppet_resource.path_name %>)"
+cat << "_EOF_<%= puppet_resource.id %>_EOF_" > "<%= puppet_resource.path_name %>"
+<%= puppet_resource.data %>
+_EOF_<%= puppet_resource.id %>_EOF_
+<% end %>
+mkdir -p "${PUPPET_CACHE_DIR}/manifests"
+cat << "_EOF_" > "${PUPPET_CACHE_DIR}/manifests/site.pp"
+node default {
+<% @node.puppet_modules.uniq.each do |puppet_module| %>
+  include <%= puppet_module.name %>
+<% end %>
+}
+_EOF_
+puppet apply "${PUPPET_CACHE_DIR}/manifests/site.pp"

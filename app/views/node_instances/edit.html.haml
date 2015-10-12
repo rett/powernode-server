@@ -1,0 +1,27 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@node_instance) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :node_mount_points, label: 'Mount Points', collection: @availabie_node_mount_points, input_html: { class: 'multiselect' }
+          - if @node_instance.physical_variety?
+            = form.input :address
+            = form.input :private_ip_domain, label: 'Domain'
+            = form.input :private_ip_primary_dns, label: 'Primary DNS'
+            = form.input :private_ip_secondary_dns, label: 'Secondary DNS'
+            = form.input :public_ip_address, label: 'Public IP'
+            = form.input :private_netboot_enabled, as: :boolean
+            #private_netboot_settings
+              = form.input :private_mac_address
+            = form.input :private_ip_static, label: 'Static Private IP', as: :boolean
+            #private_ip_settings
+              = form.input :private_ip_address, label: 'Private IP'
+              = form.input :private_ip_netmask, label: 'Subnet Mask'
+              = form.input :private_ip_gateway, label: 'Default Gateway'
+              = form.input :private_ip_device, label: 'Private Network Device'
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

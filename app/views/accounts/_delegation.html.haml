@@ -1,0 +1,4 @@
+%tr{id: "account_delegation_#{@delegation.id}"}
+  %td #{@delegation.user.name} (#{@delegation.user.email})
+  %td= @delegation.expiration ? local_time(@delegation.expiration) : I18n.t('accounts.delegations.no_expiration')
+  %td= button_to(I18n.t('actions.destroy'), delegation_account_path(delegation_id: @delegation), method: :delete, remote: true, data: { confirm: I18n.t('actions.confirm') })

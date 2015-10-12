@@ -1,0 +1,19 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@node) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :agent, collection: @available_agents, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :node_template, collection: @available_node_templates, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :allocate_public_ip, as: :boolean
+          = form.input :custom_sync_script, as: :boolean
+          #custom_sync_script_settings
+            = form.input :sync_script, collection: @available_utility_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :enabled, as: :boolean
+          = form.input :tmpfs_store, as: :boolean
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

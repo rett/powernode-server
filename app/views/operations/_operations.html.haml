@@ -1,0 +1,19 @@
+- if @operations.size > 0
+  - if @operations.scheduled.size > 0
+    %h3= I18n.t('operations.header.scheduled')
+    %ul.timeline
+      - @operations.scheduled.group_by { |t| t.scheduled_at.beginning_of_day }.each do |interval, operations|
+        %li.time-label
+          %span.bg-blue= local_time(interval)
+        - operations.each do |operation|
+          = render partial: 'operation', locals: { operation: operation }
+  - if @operations.complete.size > 0
+    %h3= I18n.t('operations.header.complete')
+    %ul.timeline
+      - @operations.complete.group_by { |t| t.scheduled_at.beginning_of_day }.each do |interval, operations|
+        %li.time-label
+          %span.bg-blue= local_time(interval)
+        - operations.each do |operation|
+          = render partial: 'operation', locals: { operation: operation }
+- else
+  = I18n.t('operations.none_pending')

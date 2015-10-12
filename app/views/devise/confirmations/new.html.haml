@@ -1,0 +1,6 @@
+= semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |form|
+  = devise_error_messages!
+  = form.inputs do
+    = form.input :email, autofocus: true
+    = form.submit 'Resend confirmation instructions'
+= render partial: 'devise/shared/links'

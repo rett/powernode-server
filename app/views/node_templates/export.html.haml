@@ -1,0 +1,11 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for :export do |form|
+        .box-body
+          = form.input :node_modules, as: :select, collection: @node_template.node_modules.map { |m| [m.name, m.id] }, required: false, multiple: true, input_html: { class: 'multiselect' }
+        .box-footer
+          = form.action :submit, label: I18n.t('actions.export'), button_html: { class: 'btn btn-primary', data: { disable_with: I18n.t('actions.please_wait') } }
+          &nbsp;
+          = form.action :cancel, button_html: { class: 'btn btn-danger' }
+

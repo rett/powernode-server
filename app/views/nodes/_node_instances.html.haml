@@ -1,0 +1,35 @@
+- @available_provider_connections.each do |provider_connection|
+  - if @node.node_instances.cloud_variety.where(provider_connection: provider_connection).size > 0
+    - if provider_connection.description
+      %legend= provider_connection.description
+    - else
+      %legend= provider_connection
+    - NodeInstance::CLOUD_VARIETIES.each do |variety|
+      - if provider_connection.node_instances.send("#{variety}_variety").size > 0
+        .box-group{ id: "accordion_#{variety}_#{provider_connection.id}" }
+          .panel.box.box-solid.box-primary
+            - node_instances.where(provider_connection: provider_connection).send("#{variety}_variety").each do |node_instance|
+              .box-header.with-border
+                %h4.box-title
+                  %a{ data: { toggle: 'collapse', parent: "#accordion_#{variety}_#{provider_connection.id}" }, id: node_instance.id, href: "#collapse_#{node_instance.id}" }= node_instance.name
+              .panel-collapse.collapse{ id: "collapse_#{node_instance.id}" }
+                .box-body
+                  .pull-right
+                    = refresh_button(:node_instances, node_instance_id: node_instance.id) do
+                      = fa('refresh', 'refresh-button')
+                  = render partial: 'node_instance', locals: { node_instance: node_instance }
+- NodeInstance::PHYSICAL_VARIETIES.each do |variety|
+  - if node_instances.send("#{variety}_variety").size > 0
+    %legend= I18n.t("nodes.control_node.instance_#{variety}.header")
+    .box-group{ id: "accordion_#{variety}" }
+      .panel.box.box-solid.box-primary
+        - node_instances.send("#{variety}_variety").each do |node_instance|
+          .box-header.with-border
+            %h4.box-title
+              %a{ data: { toggle: 'collapse', parent: "#accordion_#{variety}" }, id: node_instance.id, href: "#collapse_#{node_instance.id}" }= node_instance.name
+          .panel-collapse.collapse{ id: "collapse_#{node_instance.id}" }
+            .box-body
+              .pull-right
+                = refresh_button(:node_instances, node_instance_id: node_instance.id) do
+                  = fa('refresh', 'refresh-button')
+              = render partial: 'node_instance', locals: { node_instance: node_instance }

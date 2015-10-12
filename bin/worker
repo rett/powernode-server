@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+NAME="$(basename $0)"
+BASEDIR="$(dirname $0)/.."
+CFGFILE="${BASEDIR}/config/${NAME}.yml"
+PIDFILE="${BASEDIR}/tmp/pids/${NAME}.pid"
+
+pool_getpid()
+{
+  if [ -f "${PIDFILE}" ]; then
+    PID="$(cat ${PIDFILE})"
+    if [ ! "$(ps aux | grep ${PID} | grep sidekiq 2>/dev/null)" ]; then
+      rm "${PIDFILE}"
+      unset PID
+    fi
+  else
+    unset PID
+  fi
+}
+
+pool_run()
+{
+  pool_getpid
+  if [ ! "${PID}" ]; then
+    echo "Running ${NAME} pool..."
+    sidekiq -C "${CFGFILE}" -P "${PIDFILE}" -r "${BASEDIR}"
+  fi
+}
+
+pool_start()
+{
+  pool_getpid
+  if [ ! "${PID}" ]; then
+    echo "Starting ${NAME} pool..."
+    sidekiq -C "${CFGFILE}" -P "${PIDFILE}" -r "${BASEDIR}" -d
+    while [ ! -f "${PIDFILE}" ]; do
+      pool_getpid
+      sleep 1
+    done
+  fi
+}
+
+pool_stop()
+{
+  pool_getpid
+  if [ "${PID}" ]; then
+    echo "Stopping ${NAME} pool..."
+    kill -TERM $PID
+    echo "Waiting for workers to finish..."
+    start="$(date +%s)"
+    while [ -f "${PIDFILE}" -a "$(( $(date +%s) - 30 ))" -lt "$start" ]; do
+      pool_getpid
+      sleep 1
+    done
+    if [ -f "${PIDFILE}" ]; then kill -9 "${PID}"; fi
+  fi
+}
+
+pool_status()
+{
+  pool_getpid
+  if [ "${PID}" ]; then
+    echo "${NAME}: running"
+  else
+    echo "${NAME}: stopped"
+  fi
+}
+
+usage()
+{
+  echo "Usage: $(basename $0) [start|stop|restart|status]"
+}
+
+case "$1" in
+  start)
+    pool_start
+    pool_status
+    ;;
+  run)
+    pool_run
+    ;;
+  stop)
+    pool_stop
+    pool_status
+    ;;
+  restart)
+    pool_stop
+    pool_start
+    pool_status
+    ;;
+  status)
+    pool_status
+    ;;
+  *)
+    usage
+    ;;
+esac

@@ -1,0 +1,20 @@
+$('li#operations_button').html('<%= j render(partial: 'layouts/operations_button') %>');
+$('#node_details').html('<%= j render(partial: 'node_details') %>');
+<%- if @node_instance.present? %>
+  $('a#<%= @node_instance.id %>').text('<%= @node_instance.name %>');
+  node_instance = $('#node_instance[data-id="<%= @node_instance.id %>"]');
+  node_instance.html('<%= j render(partial: 'node_instance', locals: { node_instance: @node_instance }) %>');
+<%- end %>
+<%- if @refresh_node_instances %>
+  $('#node_instances').html('<%= j render(partial: 'node_instances', locals: { node_instances: @node.node_instances }) %>');
+<%- end %>
+<%- if @node_module.present? %>
+  node_module = $('#node_module[data-id="<%= @node_module.id %>"]');
+  node_module.html('<%= j render(partial: 'node_module', locals: { node_module: @node_module }) %>');
+<%- end %>
+<%- if @refresh_node_modules %>
+  $('#node_modules').html('<%= j render(partial: 'node_modules', locals: { node_modules: @available_node_modules }) %>');
+<%- end %>
+$('.refresh-button').removeClass('fa-spin');
+$.event.trigger('multiselect.init');
+$.event.trigger('show_nodes.load');

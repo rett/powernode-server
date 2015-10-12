@@ -1,0 +1,38 @@
+.container
+  .row
+    - @plans.each do |plan|
+      .col-xs-12.col-md-4
+        .panel.panel-primary.panel-pricing
+          - if plan.most_popular?
+            .corner-ribbon
+              .corner-ribbon-inner
+                %span.corner-ribbon-label
+                  MOST
+                  %br
+                  POPULAR
+          .panel-heading
+            %h3.panel-title
+              = plan.name
+          .panel-body
+            .price
+              %h1
+                = number_to_currency(plan.amount)
+                %span.subscript
+                  \/
+                  = plan.interval
+              %small= plan.description
+            %table.table
+              %tr
+                %td
+                  = plan.user_limit || 'Unlimited'
+                  Users
+              %tr.active
+                %td
+                  = plan.node_limit || 'Unlimited'
+                  Nodes
+              %tr
+                %td
+                  = plan.instance_limit || 'Unlimited'
+                  Instances
+          .panel-footer
+            = link_to('Select', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-success')

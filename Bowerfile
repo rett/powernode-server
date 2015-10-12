@@ -1,0 +1,30 @@
+# Bower assets
+
+# AdminLTE Template
+asset 'admin-lte'
+
+# Codemirror
+asset 'CodeMirror'
+
+# Datetimepicker
+asset 'eonasdan-bootstrap-datetimepicker'
+
+# Fonts
+asset 'font-awesome'
+
+# Jquery
+asset 'jquery'
+asset 'jquery-ui'
+asset 'jquery-ujs'
+
+# JS-Cookie
+asset 'js-cookie'
+
+# Markdown
+asset 'bootstrap-markdown'
+asset 'marked'
+#asset 'markdown-js'
+#asset 'strapdown'
+
+# Multiselect
+asset 'bootstrap-multiselect'

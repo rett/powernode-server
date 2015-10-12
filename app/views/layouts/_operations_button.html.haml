@@ -1,0 +1,11 @@
+= link_to(operations_path, { data: { target: '#mainModal', toggle: 'modal' }, remote: true }) do
+  = fa('server')
+  = I18n.t('operations.button')
+  - if @current_account.operations.size > 0
+    - if @current_account.operations.failed.size > 0
+      - operations_label = 'label-danger'
+    - elsif @current_account.operations.scheduled.size > 0
+      - operations_label = 'label-info'
+    - else
+      - operations_label = 'label-success'
+    %span.label{ class: operations_label }= @current_account.operations.size

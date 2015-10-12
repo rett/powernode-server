@@ -1,0 +1,15 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@node_module_copy_path) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :path
+          = form.input :enabled, as: :boolean
+          - if can?(:manage, NodeModuleCopyPath)
+            = form.input :public, as: :boolean
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

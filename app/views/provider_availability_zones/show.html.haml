@@ -1,0 +1,38 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        = link_to(provider_availability_zones_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if can?(:update, @provider_availability_zone)
+          = link_to(edit_provider_availability_zone_path(@provider_availability_zone), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:destroy, @provider_availability_zone)
+          .pull-right
+            = link_to(@provider_availability_zone, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @provider_availability_zone.details.present?
+          .details= find_and_preserve render_markdown(@provider_availability_zone.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @provider_availability_zone.name
+          %dt Description
+          %dd= @provider_availability_zone.description
+          %dt Entity
+          %dd= @provider_availability_zone.entity
+          %dt Region
+          %dd= @provider_availability_zone.provider_region
+          %dt Enabled
+          %dd= @provider_availability_zone.enabled? ? 'Yes' : 'No'
+          - if @provider_availability_zone.public?
+            %dt Public
+            %dd Yes
+          %dt Created
+          %dd= local_time(@provider_availability_zone.created_at)
+          %dt Updated
+          %dd= local_time(@provider_availability_zone.updated_at)

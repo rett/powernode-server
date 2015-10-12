@@ -1,0 +1,9 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@invitation) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :recipient, label: 'Recipient email'
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

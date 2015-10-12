@@ -1,0 +1,4 @@
+$('li#operations_button').html('<%= j render(partial: 'layouts/operations_button') %>');
+$('.modal-title').text('<%= I18n.t('operations.header.title') %>');
+$('.modal-body-content').html('<%= j render(partial: 'operations') %>');
+$('.refresh-button').removeClass('fa-spin');

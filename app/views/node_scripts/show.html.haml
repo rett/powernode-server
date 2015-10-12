@@ -1,0 +1,37 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      .box-header.with-border
+        - if can?(:index, NodeScript)
+          = link_to(node_scripts_path, class: 'btn') do
+            = fa('list')
+            = I18n.t('actions.index')
+        - if can?(:update, @node_script)
+          = link_to(edit_node_script_path(@node_script), class: 'btn') do
+            = fa('edit')
+            = I18n.t('actions.edit')
+        - if can?(:destroy, @node_script)
+          .pull-right
+            = link_to(@node_script, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+              .text-red
+                = fa('remove')
+                = I18n.t('actions.destroy')
+      .box-body
+        - if @node_script.details.present?
+          .details= find_and_preserve render_markdown(@node_script.details)
+        %dl.dl-horizontal
+          %dt Name
+          %dd= @node_script.name
+          %dt Description
+          %dd= @node_script.description
+          %dt Type
+          %dd #{@node_script.variety.titleize} Script
+          %dt Enabled
+          %dd= @node_script.enabled? ? 'Yes' : 'No'
+          - if @node_script.public?
+            %dt Public
+            %dd Yes
+          %dt Created
+          %dd= local_time(@node_script.created_at)
+          %dt Updated
+          %dd= local_time(@node_script.updated_at)

@@ -1,0 +1,15 @@
+#node_module{ data: { id: node_module.id } }
+  - if can?(:use, node_module)
+    - if @node.node_modules.include?(node_module)
+      = control_node_button(:module_unsubscribe, options: { node_module_id: node_module.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+    - else
+      = control_node_button(:module_subscribe, options: { node_module_id: node_module.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+    - if node_module.details.present?
+      .details= find_and_preserve render_markdown(node_module.details)
+    = render partial: 'node_module_controls', locals: { node_module: node_module, node: @node }
+    - if (node_module_subscription = @node.node_module_subscription(node_module))
+      = render partial: 'node_module_operations', locals: { node_module: node_module, node: @node }
+      - node_module_subscription.node_modules.each do |node_module|
+        = render partial: 'node_module_operations', locals: { node_module: node_module, node: @node }
+      - if node_module.puppet_modules.size > 0
+        = render partial: 'node_module_puppet_modules', locals: { node_module: node_module, node: @node }

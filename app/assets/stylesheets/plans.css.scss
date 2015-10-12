@@ -1,0 +1,88 @@
+.panel-pricing {
+  text-align: center;
+  &:hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4), 0 1px 5px rgba(130, 130, 130, 0.35);
+  }
+  &.price {
+    background-color: rgba(220, 220, 220, .17);
+    box-shadow: 0 1px 0 #dcdcdc, inset 0 1px 0 #fff;
+    padding: 20px;
+    margin: 0;
+  }
+}
+.price {
+  h1 {
+    line-height: 1em;
+    padding: 0;
+    margin: 0;
+  }
+  span.subscript {
+    font-size: 25px;
+  }
+}
+.corner-ribbon {
+  position: absolute;
+  top: -10px;
+  right: 4px;
+  z-index: 1;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  border-radius: 3px 5px 3px 0;
+}
+.corner-ribbon-inner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 145px;
+  height: 145px;
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  -o-transform-origin: 100% 100%;
+  -moz-transform-origin: 100% 100%;
+  background-image: linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, .1) 50%), linear-gradient(0deg, transparent 0, rgba(1, 1, 1, .2) 50%);
+  background-size: 4px,auto, auto,auto;
+  background-color: #aa0101;
+  box-shadow: 0 3px 3px 0 rgba(1, 1, 1, .5), 0 1px 0 0 rgba(1, 1, 1, .5), inset 0 -1px 8px 0 rgba(255, 255, 255, .3), inset 0 -1px 0 0 rgba(255, 255, 255, .2);
+  &:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: -16px;
+    width: 0;
+    height: 0;
+    border: 8px solid #800000;
+    left: 1px;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+  }
+  &:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: -16px;
+    width: 0;
+    height: 0;
+    border: 8px solid #800000;
+    right: 0;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+.corner-ribbon-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(1, 1, 1, .8);
+  font-size: 0.95em;
+  font-weight: bold;
+  text-align: center;
+}

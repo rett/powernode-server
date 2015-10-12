@@ -1,0 +1,22 @@
+.row
+  .col-xs-12
+    .box.box-primary
+      = semantic_form_for(@provider_volume) do |form|
+        .box-body
+          .messages= form.semantic_errors class: 'error-msg'
+          = form.input :name
+          = form.input :description
+          = form.input :provider_region, collection: @available_provider_regions, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :provider_volume_type, collection: @provider_volume.new_record? ? [] : @available_provider_volume_types, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :node_instance, collection: @available_node_instances, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :node_module, collection: @available_node_modules, include_blank: 'None', input_html: { class: 'multiselect' }
+          = form.input :mount_point
+          = form.input :size, hint: 'Size in GB', input_html: { disabled: @provider_volume.persisted? }
+          = form.input :custom_mount_script, as: :boolean
+          #custom_mount_script_settings
+            = form.input :mount_script, collection: @available_mount_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+          -#= form.input :raid, as: :boolean, input_html: { disabled: @provider_volume.persisted? }
+          -##raid_level= form.input :raid_level, as: :select, collection: ProviderVolume::RAID_LEVELS, input_html: { disabled: @provider_volume.persisted?, class: 'multiselect' }
+          = form.input :details, input_html: { class: 'markdown' }
+        .box-footer
+          = render partial: 'layouts/form_actions', locals: { form: form }

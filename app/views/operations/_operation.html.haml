@@ -1,0 +1,44 @@
+%li
+  - case operation.status
+    - when 'abort'
+      = fa(operation.icon, 'bg-yellow')
+    - when 'failed'
+      = fa(operation.icon, 'bg-red')
+    - when 'pending'
+      = fa(operation.icon, 'bg-aqua')
+    - when 'running'
+      = fa(operation.icon, 'bg-green')
+    - when 'complete'
+      = fa(operation.icon, 'bg-blue')
+  .timeline-item
+    %span.time
+      = local_time(operation.scheduled_at)
+    %h3.timeline-header
+      %b #{operation.status.titleize}:
+      = operation.command.titleize
+    .timeline-body
+      .row
+        .col-md-7
+          = operation.description
+        - if operation.running?
+          .col-md-5
+            .progress.with-border
+              .progress-bar.progress-bar-primary.progress-bar-striped{ role: 'progressbar', 'aria-valuenow' => operation.progress, 'aria-valuemin' => '0', 'aria-valuemax' => '100', style: "width: #{operation.progress}%" }
+        - else
+          .col-md-3
+            &nbsp;
+          .col-md-2
+            .pull-right
+              - if operation.pending? && operation.scheduled_at >= Time.now
+                = button_to(I18n.t('actions.cancel'), operation_path(operation), remote: true, method: :delete, class: 'btn btn-danger btn-xs')
+              - elsif operation.pending? && operation.scheduled_at < Time.now
+                &nbsp;
+              - elsif operation.failed?
+                = button_to(I18n.t('actions.reschedule'), reschedule_operation_path(operation), remote: true, class: 'btn btn-info btn-xs')
+              - else
+                = button_to(I18n.t('actions.dismiss'), operation_path(operation), remote: true, method: :delete, class: 'btn btn-primary btn-xs')
+      .row
+        - if operation.events.present?
+          - operation.events.each do |event|
+            .callout{class: "callout-#{event['variety']}"}
+              %p= event['details']

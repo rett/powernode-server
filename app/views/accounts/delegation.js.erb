@@ -1,0 +1,6 @@
+<% if @delegation && @delegation.persisted? %>
+  $('#account_delegation_<%= @delegation.id %>').remove();
+  $('#account_delegation_list').append("<%= escape_javascript(render 'delegation') %>");
+<% elsif @delegation %>
+  $('#account_delegation_<%= @delegation.id %>').remove();
+<% end %>

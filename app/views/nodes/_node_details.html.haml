@@ -1,0 +1,36 @@
+#node_details
+  - if @node.details.present?
+    .details= find_and_preserve render_markdown(@node.details)
+  %dl.dl-horizontal
+    %dt Name
+    %dd= @node.name
+    %dt Description
+    %dd= @node.description
+    - if can?(:show, @node.agent)
+      %dt Agent
+      %dd= link_to @node.agent, @node.agent
+    - if can?(:show, @node.node_platform)
+      %dt Platform
+      %dd= link_to @node.node_platform, @node.node_platform
+    - if can?(:show, @node.node_template)
+      %dt Template
+      %dd= link_to @node.node_template, @node.node_template
+    %dt Allocate Public IP
+    %dd= @node.allocate_public_ip? ? 'Yes' : 'No'
+    %dt Enabled:
+    %dd= @node.enabled? ? 'Yes' : 'No'
+    %dt Cloud Instances:
+    %dd= @node.node_instances.cloud_variety.count
+    %dt Dynamic Instances:
+    %dd= @node.node_instances.dynamic_variety.count
+    %dt Physical Instances:
+    %dd= @node.node_instances.physical_variety.count
+    %dt Total Instances:
+    %dd= @node.node_instances.count
+    - if @node.runtime_amount > 0
+      %dt Runtime Amount:
+      %dd= number_to_currency(@node.runtime_amount)
+    %dt Created
+    %dd= local_time(@node.created_at)
+    %dt Updated
+    %dd= local_time(@node.updated_at)

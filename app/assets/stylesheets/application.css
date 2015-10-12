@@ -1,0 +1,16 @@
+/*
+ *= require main
+ *= require CodeMirror
+ *= require codemirror
+ *= require admin-lte
+ *= require admin-lte/dist/css/skins/skin-blue
+ *= require eonasdan-bootstrap-datetimepicker
+ *= require dependency_tree
+ *= require formtastic-bootstrap
+ *= require bootstrap-markdown
+ *= require bootstrap-multiselect
+ *= require multiselect
+ *= require plans
+ *= require progress_bar
+ *= require_self
+*/
