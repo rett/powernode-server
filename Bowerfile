@@ -9,9 +9,6 @@ asset 'CodeMirror'
 # Datetimepicker
 asset 'eonasdan-bootstrap-datetimepicker'
 
-# Fonts
-asset 'font-awesome'
-
 # Jquery
 asset 'jquery'
 asset 'jquery-ui'

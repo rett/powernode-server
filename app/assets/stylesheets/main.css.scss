@@ -2,6 +2,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// Font Awesome
-$fa-font-path: "font-awesome/fonts";
-@import "font-awesome/scss/font-awesome";
+// Font awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
