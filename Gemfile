@@ -52,7 +52,6 @@ gem 'will_paginate-bootstrap'
 
 platform :ruby do
   gem 'pg'
-  gem 'web-console'
   gem 'therubyracer'
 end
 
@@ -65,6 +64,7 @@ group :development do
   gem 'guard-rspec'
   gem 'quiet_assets'
   gem 'rails-erd'
+  gem 'web-console', platform: :ruby
 end
 
 group :test, :development do

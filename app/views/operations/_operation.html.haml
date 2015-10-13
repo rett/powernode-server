@@ -34,6 +34,7 @@
               - elsif operation.pending? && operation.scheduled_at < Time.now
                 &nbsp;
               - elsif operation.failed?
+                = button_to(I18n.t('actions.dismiss'), operation_path(operation), remote: true, method: :delete, class: 'btn btn-primary btn-xs')
                 = button_to(I18n.t('actions.reschedule'), reschedule_operation_path(operation), remote: true, class: 'btn btn-info btn-xs')
               - else
                 = button_to(I18n.t('actions.dismiss'), operation_path(operation), remote: true, method: :delete, class: 'btn btn-primary btn-xs')
