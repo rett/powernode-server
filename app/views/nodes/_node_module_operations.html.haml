@@ -7,6 +7,10 @@
     - elsif node_module.node_module_category.instance_variety?
       Instance Module: #{node_module.node_instance.name}
     = @node.node_module_subscription(node_module).try(:enabled?) ? '(Enabled)' : '(Disabled)'
+  .pull-right
+    = link_to(edit_node_module_path(node_module)) do
+      = fa('edit')
+      = I18n.t('actions.edit')
   %dl.dl-horizontal
     %dt Size
     %dd= number_to_human_size(node_module.data_file_size || 0)
