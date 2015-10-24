@@ -19,7 +19,6 @@ class NodeTemplatesController < ApplicationController
                                            :details,
                                            :admin_user,
                                            :public)
-
         if can?(:manage, @node_template.node_architecture)
           json.node_architecture(@node_template.node_architecture, :id,
                                                                    :name,
@@ -28,7 +27,6 @@ class NodeTemplatesController < ApplicationController
                                                                    :enabled,
                                                                    :public)
         end
-
         if can?(:manage, @node_template.node_platform)
           json.node_platform(@node_template.node_platform, :id,
                                                            :node_architecture_id,
@@ -38,7 +36,6 @@ class NodeTemplatesController < ApplicationController
                                                            :enabled,
                                                            :public)
         end
-
         node_module_category_ids = []
         node_module_dependency_ids = []
         node_module_ids = params[:export][:node_modules]
@@ -98,7 +95,6 @@ class NodeTemplatesController < ApplicationController
           end
         end
       end
-
       send_data(json_data, :disposition => 'attachment',
                            :encoding => 'utf8',
                            :filename => "#{@node_template.name}.json",

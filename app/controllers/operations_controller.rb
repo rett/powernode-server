@@ -12,7 +12,7 @@ class OperationsController < ApplicationController
     @operations = Operation.accessible_by(@current_ability, :destroy)
     if @operation.running?
       @operation.abort!
-    elsif @operation.complete? || (@operation.pending? && @operation.scheduled_at > Time.now)
+    elsif @operation.complete? || @operation.failed? || (@operation.pending? && @operation.scheduled_at > Time.now)
       @operation.destroy
     end
     respond_to do |format|
@@ -22,7 +22,10 @@ class OperationsController < ApplicationController
 
   def reschedule
     @operations = Operation.accessible_by(@current_ability, :update)
-    @operation.pending! if @operation.failed?
+    if @operation.failed?
+      @operation.scheduled_at = Time.now
+      @operation.pending!
+    end
     respond_to do |format|
       format.js { render :index }
     end

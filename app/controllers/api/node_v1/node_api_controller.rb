@@ -52,6 +52,8 @@ module Api
               end
             end
           end
+        else
+          render nothing: true, status: :not_found
         end
       end
 

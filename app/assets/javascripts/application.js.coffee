@@ -1,21 +1,19 @@
-# Require JavaScript files
-
-#= require jquery
-#= require jquery-ui
+# Bower resources
+#= require jquery/dist/jquery
+#= require jquery-ui/jquery-ui
 #= require jquery-ujs/src/rails
 #= require bootstrap
-#= require bootstrap-multiselect
-#= require bootstrap-markdown
-#= require admin-lte
+#= require bootstrap-multiselect/dist/js/bootstrap-multiselect
+#= require bootstrap-markdown/js/bootstrap-markdown
+#= require admin-lte/dist/js/app
 #= require admin-lte/plugins/slimScroll/jquery.slimscroll
-#= require cocoon
-#= require CodeMirror
+#= require CodeMirror/lib/codemirror
 #= require CodeMirror/mode/shell/shell
-#= require d3
-#= require moment
-#= require eonasdan-bootstrap-datetimepicker
-#= require local_time
-#= require marked
+#= require moment/moment
+#= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
+#= require marked/lib/marked
+
+# Project resources
 #= require accounts
 #= require node_instances
 #= require node_module_categories
@@ -26,6 +24,8 @@
 #= require provider_volumes
 #= require registrations
 #= require users
+#= require d3
+#= require local_time
 #= require_self
 
 @AdminLTEOptions =
