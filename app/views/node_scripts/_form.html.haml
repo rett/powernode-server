@@ -6,7 +6,7 @@
           .messages= form.semantic_errors class: 'error-msg'
           = form.input :name
           = form.input :description
-          = form.input :variety, as: :select, collection: NodeScript::VARIETIES.map { |v| ["#{v.titleize} Script", v] }, input_html: { class: 'multiselect', disabled: @node_script.persisted? }
+          = form.input :variety, as: :select, collection: NodeScript::VARIETIES.map { |v| ["#{v.titleize} Script", v] }, include_blank: 'None', input_html: { class: 'multiselect', disabled: @node_script.persisted? }
           = form.input :enabled, as: :boolean
           - if can?(:manage, NodeScript)
             = form.input :public, as: :boolean
