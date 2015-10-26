@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   def set_credentials
     @current_user = current_user
     @current_account = user_signed_in? ? (Account.accessible_by(Ability.new(user: @current_user)).find_by(id: session[:account_id]) || @current_user.account) : Account.new
-    @current_ability = Ability.new(user: @current_user, account: @current_account, admin_view: @current_user.preferences['admin_view'])
+    @current_ability = Ability.new(user: @current_user, account: @current_account, admin_view: user_signed_in? ? @current_user.preferences['admin_view'] : false)
   end
 
   def set_header
