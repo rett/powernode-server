@@ -7,7 +7,7 @@
     = csrf_meta_tags
   - body_classes = []
   - body_classes << 'sidebar-collapse' unless user_signed_in?
-  - body_classes << 'fixed' if @preferences['fixed_view']
+  - body_classes << 'fixed' if user_signed_in? && @preferences['fixed_view']
   %body.skin-blue{ class: body_classes, data: { action: params[:action], controller: params[:controller] } }
     .wrapper
       = render partial: 'layouts/main_header'

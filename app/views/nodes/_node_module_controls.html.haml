@@ -1,9 +1,12 @@
 - if (node_module_subscription = @node.node_module_subscription(node_module)) && node_module.configurable?
-  %legend= I18n.t('nodes.control_node.module_control.header')
-  = form_tag(control_node_path, remote: true) do
-    = hidden_field_tag :operation, :module_create_dependency
-    = hidden_field_tag :node_module_subscription_id, node_module_subscription.id
-    %dl.dl-horizontal
-      %dt Create
-      %dd= select_tag :node_instance_id, options_for_select(@node.node_instances.map { |i| ["Instance module: #{i.name}", i.id] }), { prompt: 'Config module', class: 'multiselect', id: "dependency_#{node_module.id}" }
-    .pull-right= submit_tag I18n.t('actions.submit'), data: { confirm: I18n.t('actions.confirm') }
+  .box.box-primary
+    .box-header.with-border
+      = I18n.t('nodes.control_node.module_control.header')
+    .box-body
+      = form_tag(control_node_path, remote: true) do
+        = hidden_field_tag :operation, :module_create_dependency
+        = hidden_field_tag :node_module_subscription_id, node_module_subscription.id
+        %dl.dl-horizontal
+          %dt Create
+          %dd= select_tag :node_instance_id, options_for_select(@node.node_instances.map { |i| ["Instance module: #{i.name}", i.id] }), { prompt: 'Config module', class: 'multiselect', id: "dependency_#{node_module.id}" }
+        .pull-right= submit_tag I18n.t('actions.submit'), data: { confirm: I18n.t('actions.confirm') }

@@ -1,0 +1,54 @@
+- if node_instance.details.present?
+  .details= find_and_preserve render_markdown(node_instance.details)
+.box.box-primary
+  .box-header.with-border
+    = I18n.t('nodes.control_node.instance_details.header')
+    .pull-right
+      - if node_instance.primary?
+        (Primary)
+      - else
+        = control_node_button(:instance_set_primary, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+  .box-body
+    .col-md-6
+      %dl.dl-horizontal
+        %dt Name
+        %dd
+          = link_to(edit_node_instance_path(node_instance)) do
+            = fa('edit')
+            = node_instance.name
+        - unless node_instance.physical_variety?
+          %dt Entity ID
+          %dd= node_instance.entity
+          %dt Created
+          %dd= local_time(node_instance.created_at)
+          %dt Type
+          %dd= node_instance.provider_instance_type
+        %dt Status
+        %dd= node_instance.status
+        %dt Private IP:
+        %dd= node_instance.private_ip_address.present? ? node_instance.private_ip_address : 'None'
+        %dt Public IP
+        %dd
+          = node_instance.public_ip_address.present? ? node_instance.public_ip_address : 'None'
+          - unless node_instance.physical_variety?
+            - if node_instance.public_ip_address.blank?
+              = control_node_button(:instance_public_ip_associate, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+            - else
+              = control_node_button(:instance_public_ip_disassociate, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+        - if node_instance.address.present?
+          %li
+            Address: #{node_instance.address}
+    .col-md-6
+      - if node_instance.image_file_size
+        %dl.dl-horizontal
+          %dt Boot Image
+          %dd
+            = link_to(download_image_node_path(@node, node_instance)) do
+              = fa('download')
+              = I18n.t('actions.download')
+          %dt Format
+          %dd= node_instance.image_format
+          %dt Updated
+          %dd= local_time(node_instance.image_updated_at)
+          %dt Size
+          %dd= number_to_human_size(node_instance.image_file_size)

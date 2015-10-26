@@ -252,7 +252,6 @@ class NodesController < ApplicationController
   end
 
   def do_module_create_dependency
-    logger.info "\n\n\nNODE MODULE: #{@node_module}\n\n\n"
     if (node_module_subscription = @node.node_module_subscriptions.find_by(id: params[:node_module_subscription_id]))
       @node_module = node_module_subscription.node_module
     end

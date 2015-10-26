@@ -12,11 +12,11 @@
               .box-header.with-border
                 %h4.box-title
                   %a{ data: { toggle: 'collapse', parent: "#accordion_#{variety}_#{provider_connection.id}" }, id: node_instance.id, href: "#collapse_#{node_instance.id}" }= node_instance.name
+                .pull-right
+                  = refresh_button(:node_instances, node_instance_id: node_instance.id) do
+                    = fa('refresh', 'refresh-button')
               .panel-collapse.collapse{ id: "collapse_#{node_instance.id}" }
                 .box-body
-                  .pull-right
-                    = refresh_button(:node_instances, node_instance_id: node_instance.id) do
-                      = fa('refresh', 'refresh-button')
                   = render partial: 'node_instance', locals: { node_instance: node_instance }
 - NodeInstance::PHYSICAL_VARIETIES.each do |variety|
   - if node_instances.send("#{variety}_variety").size > 0
@@ -27,9 +27,9 @@
           .box-header.with-border
             %h4.box-title
               %a{ data: { toggle: 'collapse', parent: "#accordion_#{variety}" }, id: node_instance.id, href: "#collapse_#{node_instance.id}" }= node_instance.name
+            .pull-right
+              = refresh_button(:node_instances, node_instance_id: node_instance.id) do
+                = fa('refresh', 'refresh-button')
           .panel-collapse.collapse{ id: "collapse_#{node_instance.id}" }
             .box-body
-              .pull-right
-                = refresh_button(:node_instances, node_instance_id: node_instance.id) do
-                  = fa('refresh', 'refresh-button')
               = render partial: 'node_instance', locals: { node_instance: node_instance }
