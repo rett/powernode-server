@@ -3,5 +3,5 @@
 .form-group
   %label.control-sidebar-subheading
     = I18n.t('settings.general.fixed_view.label')
-    .pull-right= link_to !!session[:fixed_view] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?fixed_view=#{!session[:fixed_view]}"
+    .pull-right= link_to @preferences['fixed_view'] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?fixed_view=#{!@preferences['fixed_view']}"
   %p= I18n.t('settings.admin.admin_view.description')

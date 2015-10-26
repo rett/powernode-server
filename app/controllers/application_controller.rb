@@ -5,22 +5,21 @@ class ApplicationController < ActionController::Base
               ActiveRecord::RecordNotFound,
               CanCan::AccessDenied, with: :deny_access
 
-  before_action :set_session
   before_action :set_credentials
+  before_action :set_preferences, if: :user_signed_in?
+  before_action :set_signup, unless: :user_signed_in?
   before_action :set_header
   before_action :add_breadcrumbs
   before_action :set_locale
-  before_action :collect_billing_info
+  before_action :collect_billing_info, if: :user_signed_in?
 
   protect_from_forgery with: :exception
 
-  protected
+  private
 
   def collect_billing_info
-    redirect_to billing_account_path(@current_account) if user_signed_in? && @current_account.requires_billing_info?
+    redirect_to billing_account_path(@current_account) if @current_account.requires_billing_info?
   end
-
-  private
 
   def deny_access(exception)
     flash[:alert] ||= I18n.t('flash.actions.alert_access_denied')
@@ -55,9 +54,7 @@ class ApplicationController < ActionController::Base
       action = params[:action]
     end
     resource_name = controller_name.titleize
-    unless action == 'index'
-      resource_name = resource_name.singularize
-    end
+    resource_name = resource_name.singularize unless action == 'index'
     if I18n.exists?("#{controller_name}.header.#{action}")
       @title = I18n.t("#{controller_name}.header.#{action}", resource_name: resource_name)
     else
@@ -66,21 +63,19 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale ||= current_user.locale if current_user.try(:locale)
+    I18n.locale = @current_user.locale if @current_user.try(:locale)
   end
 
-  def set_session
-    if user_signed_in?
-      session[:admin_console] = @current_user.preferences['admin_console']
-      session[:admin_console] = @current_user.preferences['admin_console'] = params[:admin_console].to_bool if params[:admin_console]
-      session[:admin_view]    = @current_user.preferences['admin_view']
-      session[:admin_view]    = @current_user.preferences['admin_view'] = params[:admin_view].to_bool if params[:admin_view]
-      session[:fixed_view]    = @current_user.preferences['fixed_view']
-      session[:fixed_view]    = @current_user.preferences['fixed_view'] = params[:fixed_view].to_bool if params[:fixed_view]
-      @current_user.save if @current_user.preferences_changed?
-    else
-      session[:invitation_id] = params[:invitation_id] if params[:invitation_id]
-      session[:plan_id] = params[:plan_id] if params[:plan_id]
-    end
+  def set_preferences
+    @preferences = @current_user.preferences
+    @preferences['admin_console'] = params[:admin_console].to_bool if params[:admin_console]
+    @preferences['admin_view'] = params[:admin_view].to_bool if params[:admin_view]
+    @preferences['fixed_view'] = params[:fixed_view].to_bool if params[:fixed_view]
+    @current_user.save if @current_user.preferences_changed?
+  end
+
+  def set_signup
+    session[:invitation_id] = params[:invitation_id] if params[:invitation_id]
+    session[:plan_id] = params[:plan_id] if params[:plan_id]
   end
 end
