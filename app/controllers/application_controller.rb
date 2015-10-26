@@ -71,7 +71,9 @@ class ApplicationController < ActionController::Base
     @preferences['admin_console'] = params[:admin_console].to_bool if params[:admin_console]
     @preferences['admin_view'] = params[:admin_view].to_bool if params[:admin_view]
     @preferences['fixed_view'] = params[:fixed_view].to_bool if params[:fixed_view]
-    @current_user.save if @current_user.preferences_changed?
+    if @current_user.preferences_changed? && @current_user.save
+      @current_ability = Ability.new(user: @current_user, account: @current_account, admin_view: @current_user.preferences['admin_view'])
+    end
   end
 
   def set_signup
