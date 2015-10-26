@@ -3,10 +3,10 @@
 .form-group
   %label.control-sidebar-subheading
     = I18n.t('settings.admin.admin_view.label')
-    .pull-right= link_to @preferences[:admin_view] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?admin_view=#{!@preferences[:admin_view]}"
+    .pull-right= link_to @preferences['admin_view'] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?admin_view=#{!@preferences['admin_view']}"
   %p= I18n.t('settings.admin.admin_view.description')
 .form-group
   %label.control-sidebar-subheading
     = I18n.t('settings.admin.admin_console.label')
-    .pull-right= link_to @preferences[:admin_console] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?admin_console=#{!@preferences[:admin_console]}"
+    .pull-right= link_to @preferences['admin_console'] ? I18n.t('settings.enabled') : I18n.t('settings.disabled'), "?admin_console=#{!@preferences['admin_console']}"
   %p= I18n.t('settings.admin.admin_view.description')
