@@ -71,9 +71,13 @@ class ApplicationController < ActionController::Base
 
   def set_session
     if user_signed_in?
-      session[:admin_console] = params[:admin_console].to_bool if params[:admin_console]
-      session[:admin_view] = params[:admin_view].to_bool if params[:admin_view]
-      session[:fixed_view] = params[:fixed_view].to_bool if params[:fixed_view]
+      session[:admin_console] = @current_user.preferences['admin_console']
+      session[:admin_console] = @current_user.preferences['admin_console'] = params[:admin_console].to_bool if params[:admin_console]
+      session[:admin_view]    = @current_user.preferences['admin_view']
+      session[:admin_view]    = @current_user.preferences['admin_view'] = params[:admin_view].to_bool if params[:admin_view]
+      session[:fixed_view]    = @current_user.preferences['fixed_view']
+      session[:fixed_view]    = @current_user.preferences['fixed_view'] = params[:fixed_view].to_bool if params[:fixed_view]
+      @current_user.save if @current_user.preferences_changed?
     else
       session[:invitation_id] = params[:invitation_id] if params[:invitation_id]
       session[:plan_id] = params[:plan_id] if params[:plan_id]
