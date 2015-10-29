@@ -1,7 +1,14 @@
 .row
   .col-xs-12
-    = semantic_form_for(@puppet_module) do |form|
-      .box.box-primary
+    .box.box-primary
+      .box-header.with-border
+        = link_to(puppet_modules_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        = link_to(puppet_module_path(@puppet_module), class: 'btn') do
+          = fa('list-alt')
+          = I18n.t('actions.show')
+      = semantic_form_for(@puppet_module) do |form|
         .box-body
           .messages= form.semantic_errors class: 'error-msg'
           = form.input :name
@@ -11,11 +18,11 @@
           - if can?(:manage, PuppetModule)
             = form.input :public, as: :boolean
           = form.input :details, input_html: { class: 'markdown' }
+          %h3= I18n.t('puppet_modules.puppet_resources.header')
+          #puppet_resources
+            = form.fields_for :puppet_resources, @puppet_module.puppet_resources do |f|
+              = render partial: 'puppet_resource_fields', locals: { f: f }
+          .links
+            = link_to_add_association I18n.t('actions.add'), form, :puppet_resources, class: 'btn btn-primary', data: { 'association-insertion-method' => 'before' }
         .box-footer
           = render partial: 'layouts/form_actions', locals: { form: form }
-      %h3= I18n.t('puppet_modules.puppet_resources.header')
-      .links
-        = link_to_add_association I18n.t('actions.add'), form, :puppet_resources, class: 'btn btn-primary', data: { 'association-insertion-method' => 'after' }
-      #puppet_resources
-        = form.fields_for :puppet_resources, @puppet_module.puppet_resources do |f|
-          = render partial: 'puppet_resource_fields', locals: { f: f }

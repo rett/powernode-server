@@ -1,6 +1,13 @@
 .row
   .col-xs-12
     .box.box-primary
+      .box-header.with-border
+        = link_to(invitations_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        = link_to(invitation_path(@invitation), class: 'btn') do
+          = fa('list-alt')
+          = I18n.t('actions.show')
       = semantic_form_for(@invitation) do |form|
         .box-body
           .messages= form.semantic_errors class: 'error-msg'
