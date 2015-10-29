@@ -1,7 +1,10 @@
 - if node_instance.node_mount_points.size > 0
-  %legend= I18n.t('nodes.control_node.mount_points.header')
-  - node_instance.node_mount_points.sort.each do |node_mount_point|
-    %ul
-      %li
-        = link_to(node_mount_point) do
-          %small #{node_mount_point}
+  .box.box-primary
+    .box-header.with-border
+      = I18n.t('nodes.control_node.mount_points.header')
+    .box-body
+      - node_instance.node_mount_points.sort.each do |node_mount_point|
+        %ul
+          %li
+            = link_to(node_mount_point) do
+              %small #{node_mount_point}
