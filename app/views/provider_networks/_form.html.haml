@@ -5,9 +5,10 @@
         = link_to(provider_networks_path, class: 'btn') do
           = fa('list')
           = I18n.t('actions.index')
-        = link_to(provider_network_path(@provider_network), class: 'btn') do
-          = fa('list-alt')
-          = I18n.t('actions.show')
+        - if @provider_network.persisted?
+          = link_to(provider_network_path(@provider_network), class: 'btn') do
+            = fa('list-alt')
+            = I18n.t('actions.show')
       = semantic_form_for(@provider_network) do |form|
         .box-body
           .messages= form.semantic_errors class: 'error-msg'
