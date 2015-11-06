@@ -7,7 +7,7 @@
       - if node_instance.primary?
         (Primary)
       - else
-        = control_node_button(:instance_set_primary, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+        = control_node_button(:instance_set_primary, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
   .box-body
     .col-md-6
       %dl.dl-horizontal
@@ -32,9 +32,9 @@
           = node_instance.public_ip_address.present? ? node_instance.public_ip_address : 'None'
           - unless node_instance.physical_variety?
             - if node_instance.public_ip_address.blank?
-              = control_node_button(:instance_public_ip_associate, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+              = control_node_button(:instance_public_ip_associate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default',  data: { confirm: I18n.t('actions.confirm') } })
             - else
-              = control_node_button(:instance_public_ip_disassociate, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
+              = control_node_button(:instance_public_ip_disassociate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default',  data: { confirm: I18n.t('actions.confirm') } })
         - if node_instance.address.present?
           %li
             Address: #{node_instance.address}
