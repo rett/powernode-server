@@ -67,6 +67,24 @@ class NodesController < ApplicationController
   def update_provider_items
   end
 
+  def do_instance_cleanse
+    if @node_instance
+      operation = @node_instance.operations.build(account: @current_account,
+                                                  command: 'cleanse',
+                                                  description: I18n.t('nodes.control_node.instance_cleanse.description',
+                                                                      node_instance: @node_instance.name),
+                                                  exclusive: true,
+                                                  options: { async: true })
+      if @node.enabled? && operation.save
+        flash[:notice] = I18n.t('flash.nodes.control_node.instance_cleanse.notice',
+                                node_instance: @node_instance)
+      else
+        flash[:alert] = I18n.t('flash.nodes.control_node.instance_cleanse.alert',
+                               node_instance: @node_instance)
+      end
+    end
+  end
+
   def do_instance_create_image
     if @node_instance && params[:image_format]
       image_format = params[:image_format]
@@ -220,6 +238,24 @@ class NodesController < ApplicationController
                                 node_instance: @node_instance)
       else
         flash[:alert] = I18n.t('flash.nodes.control_node.instance_stop.alert',
+                               node_instance: @node_instance)
+      end
+    end
+  end
+
+  def do_instance_sync
+    if @node_instance
+      operation = @node_instance.operations.build(account: @current_account,
+                                                  command: 'sync',
+                                                  description: I18n.t('nodes.control_node.instance_sync.description',
+                                                                      node_instance: @node_instance.name),
+                                                  exclusive: true,
+                                                  options: { async: true })
+      if @node.enabled? && operation.save
+        flash[:notice] = I18n.t('flash.nodes.control_node.instance_sync.notice',
+                                node_instance: @node_instance)
+      else
+        flash[:alert] = I18n.t('flash.nodes.control_node.instance_sync.alert',
                                node_instance: @node_instance)
       end
     end
