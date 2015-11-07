@@ -1,0 +1,39 @@
+.box.box-primary
+  .box-header.with-border
+    = I18n.t('nodes.control_node.instance_control.header')
+  - if node_instance.physical_variety?
+    .box-body
+      - Powernode.config.image_formats.each do |f|
+        .col-md-2
+          = control_node_button(:instance_create_image, options: { image_format: f, node_instance_id: node_instance.id }, html_options: { class: 'btn btn-primary', data: { confirm: I18n.t('actions.confirm') } }, label: I18n.t('nodes.control_node.instance_create_image.label', image_format: f.upcase))
+      .col-md-2
+        &nbsp;
+      .col-md-2
+        = control_node_button(:instance_reset_key, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+      .col-md-2
+        = control_node_button(:instance_destroy, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+  - else
+    .box-body
+      - case node_instance.status
+        - when 'error', 'pending', 'reboot'
+          .col-md-2
+            = control_node_button(:instance_terminate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+        - when 'active', 'running'
+          .col-md-2
+            = control_node_button(:instance_cleanse, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-primary', data: { confirm: I18n.t('actions.confirm') } })
+          .col-md-2
+            = control_node_button(:instance_sync, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-primary', data: { confirm: I18n.t('actions.confirm') } })
+          .col-md-2
+            &nbsp;
+          .col-md-2
+            = control_node_button(:instance_reboot, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+          .col-md-2
+            = control_node_button(:instance_stop, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+          .col-md-2
+            = control_node_button(:instance_terminate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+        - when 'shutoff', 'stopped'
+          .col-md-2
+            = control_node_button(:instance_start, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+          .col-md-2
+            = control_node_button(:instance_terminate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+

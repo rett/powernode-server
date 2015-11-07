@@ -14,7 +14,6 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    @details = @invitation.details
     respond_with @invitation
   end
 

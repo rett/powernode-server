@@ -1,43 +1,5 @@
 #node_instance{ data: { id: node_instance.id } }
-  - if can?(:update, node_instance)
-    - if node_instance.cloud_variety? && node_instance.primary?
-      Primary Instance
-    - elsif node_instance.cloud_variety?
-      = control_node_button(:instance_set_primary, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
-  - if node_instance.details.present?
-    .details= find_and_preserve render_markdown(node_instance.details)
-  %legend= I18n.t('nodes.control_node.instance_details.header')
-  - if can?(:update, node_instance)
-    .pull-right
-      = link_to(edit_node_instance_path(node_instance)) do
-        = fa('edit')
-        = I18n.t('actions.edit')
-  %dl.dl-horizontal
-    - unless node_instance.physical_variety?
-      %dt Name
-      %dd= node_instance.name
-      %dt Entity ID
-      %dd= node_instance.entity
-      %dt Created
-      %dd= local_time(node_instance.created_at)
-      %dt Type
-      %dd= node_instance.provider_instance_type
-    %dt Status
-    %dd= node_instance.status
-    %dt Private IP:
-    %dd= node_instance.private_ip_address.present? ? node_instance.private_ip_address : 'None'
-    %dt Public IP
-    %dd
-      = node_instance.public_ip_address.present? ? node_instance.public_ip_address : 'None'
-      - unless node_instance.physical_variety?
-        &nbsp;
-        - if node_instance.public_ip_address.blank?
-          = control_node_button(:instance_public_ip_associate, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
-        - else
-          = control_node_button(:instance_public_ip_disassociate, options: { node_instance_id: node_instance.id }, html_options: { data: { confirm: I18n.t('actions.confirm') } })
-    - if node_instance.address.present?
-      %li
-        Address: #{node_instance.address}
-  = render partial: 'node_instance_controls', locals: { node_instance: node_instance }
+  = render partial: 'node_instance_details', locals: { node_instance: node_instance }
+  = render partial: 'node_instance_control', locals: { node_instance: node_instance }
   = render partial: 'node_instance_volumes', locals: { node_instance: node_instance }
   = render partial: 'node_instance_mount_points', locals: { node_instance: node_instance }

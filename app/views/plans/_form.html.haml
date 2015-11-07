@@ -1,6 +1,14 @@
 .row
   .col-xs-12
     .box.box-primary
+      .box-header.with-border
+        = link_to(plans_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if @plan.persisted?
+          = link_to(plan_path(@plan), class: 'btn') do
+            = fa('list-alt')
+            = I18n.t('actions.show')
       = semantic_form_for(@plan) do |form|
         .box-body
           .messages= form.semantic_errors class: 'error-msg'

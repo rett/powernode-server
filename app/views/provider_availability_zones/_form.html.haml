@@ -1,6 +1,14 @@
 .row
   .col-xs-12
     .box.box-primary
+      .box-header.with-border
+        = link_to(provider_availability_zones_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if @provider_availability_zone.persisted?
+          = link_to(provider_availability_zone_path(@provider_availability_zone), class: 'btn') do
+            = fa('list-alt')
+            = I18n.t('actions.show')
       = semantic_form_for(@provider_availability_zone) do |form|
         .box-body
           .messages= form.semantic_errors class: 'error-msg'

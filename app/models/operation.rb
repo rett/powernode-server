@@ -10,7 +10,7 @@ class Operation < ActiveRecord::Base
   serialize :events, JSON
   serialize :options, JSON
 
-  default_scope { order('scheduled_at ASC') }
+  default_scope { order('scheduled_at DESC') }
 
   scope :complete, -> { where(status: 'complete' )}
   scope :failed, -> { where(status: 'failed' )}

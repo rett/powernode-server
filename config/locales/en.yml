@@ -105,6 +105,9 @@ en:
         create_iso:
           alert:                                  'Failed to schedule ISO creation.'
           notice:                                 'ISO generation scheduled for instance %{node_instance}.'
+        instance_cleanse:
+          alert:                                  'Failed to schedule instance cleansing.'
+          notice:                                 'Instance cleansing scheduled for instance %{node_instance}.'
         instance_create_image:
           alert:                                  'Failed to schedule image creation.'
           notice:                                 'Image generation scheduled for instance %{node_instance}.'
@@ -138,6 +141,9 @@ en:
         instance_stop:
           alert:                                  'Failed to schedule stop for instance %{node_instance}.'
           notice:                                 'Stop scheduled for instance %{node_instance}.'
+        instance_sync:
+          alert:                                  'Failed to schedule sync for instance %{node_instance}.'
+          notice:                                 'Sync scheduled for instance %{node_instance}.'
         instance_terminate:
           alert:                                  'Failed to schedule termination for instance %{node_instance}.'
           notice:                                 'Instance termination scheduled for instance %{node_instance}.'
@@ -241,13 +247,16 @@ en:
       create_iso:
         description:                              'Create ISO for %{node_instance}'
         label:                                    'Create ISO'
-      header:                                     'Node Controls'
+      header:                                     'Node Control'
+      instance_cleanse:
+        description:                              'Cleanse instance %{node_instance}'
+        label:                                    'Cleanse'
       instance_create_image:
         description:                              'Create %{image_format} image for %{node_instance}'
         label:                                    'Create %{image_format}'
       instance_destroy:
         description:                              'Destroy instance %{node_instance}'
-        label:                                    'Destroy instance'
+        label:                                    'Destroy'
       instance_exec:
         description:                              'Send %{command} command to %{node_instance}'
       instance_public_ip_associate:
@@ -271,6 +280,9 @@ en:
       instance_stop:
         description:                              'Stop instance %{node_instance}'
         label:                                    'Stop'
+      instance_sync:
+        description:                              'Sync instance %{node_instance}'
+        label:                                    'Sync'
       instance_terminate:
         description:                              'Terminate instance %{node_instance}'
         label:                                    'Terminate'
@@ -279,7 +291,7 @@ en:
       module_commit:
         description:                              'Commit module %{node_module} on %{node_instance}'
       module_control:
-        header:                                   'Module control'
+        header:                                   'Module Control'
       module_subscribe:
         label:                                    'Subscribe'
       module_unsubscribe:
@@ -305,7 +317,7 @@ en:
       instance_cloud:
         header:                                   'Cloud instances'
       instance_control:
-        header:                                   'Instance Controls'
+        header:                                   'Instance Control'
       instance_dynamic:
         header:                                   'Dynamic Instances'
       instance_physical:

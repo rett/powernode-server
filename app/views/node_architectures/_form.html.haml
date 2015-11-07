@@ -1,6 +1,14 @@
 .row
   .col-xs-12
     .box.box-primary
+      .box-header.with-border
+        = link_to(node_architectures_path, class: 'btn') do
+          = fa('list')
+          = I18n.t('actions.index')
+        - if @node_architecture.persisted?
+          = link_to(node_architecture_path(@node_architecture), class: 'btn') do
+            = fa('list-alt')
+            = I18n.t('actions.show')
       = semantic_form_for(@node_architecture) do |form|
         .box-body
           .messages= form.semantic_errors class: 'error-msg'

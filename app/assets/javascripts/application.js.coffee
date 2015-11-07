@@ -24,6 +24,7 @@
 #= require provider_volumes
 #= require registrations
 #= require users
+#= require cocoon
 #= require d3
 #= require local_time
 #= require_self

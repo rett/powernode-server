@@ -3,11 +3,12 @@
     %title= [Powernode.config.app_name, yield(:page_title)].compact.join(' ')
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
     = yield(:head)
     = csrf_meta_tags
   - body_classes = []
   - body_classes << 'sidebar-collapse' unless user_signed_in?
-  - body_classes << 'fixed' if session[:fixed_view]
+  - body_classes << 'fixed' if user_signed_in? && @preferences['fixed_view']
   %body.skin-blue{ class: body_classes, data: { action: params[:action], controller: params[:controller] } }
     .wrapper
       = render partial: 'layouts/main_header'
@@ -16,4 +17,3 @@
       = render partial: 'layouts/footer'
       = render partial: 'layouts/modal'
       = render partial: 'layouts/control_sidebar'
-= javascript_include_tag 'application'
