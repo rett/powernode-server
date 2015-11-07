@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   after_create do
-    invitation.destroy
+    invitation.destroy if invitation.present?
     account.stripe_customer.update!
   end
 

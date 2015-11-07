@@ -21,7 +21,6 @@ class Plan < ActiveRecord::Base
   scope :featured,  -> { available.where(featured: true) }
   scope :popular,   -> { featured.where(id: Account.group('plan_id').order('count(*) desc').limit(5).count.keys) }
 
-  validates :account, presence: true
   validates :id, uniqueness: true
   validates :name, presence: true, uniqueness: true
   validates :default_roles, :node_limit, :instance_limit, :user_limit, presence: true
