@@ -467,7 +467,7 @@ DEPENDENCIES
   role_model
   rspec-rails
   sass-rails
-  sidekiq
+  sidekiq (< 5)
   sinatra
   sqlite3-ruby
   stripe
