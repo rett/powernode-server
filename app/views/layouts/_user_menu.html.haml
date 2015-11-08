@@ -1,10 +1,10 @@
 %li.dropdown.user.user-menu
   %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
-    = gravatar_image_tag @current_user.email, filetype: 'png', rating: 'pg', class: 'user-image', alt: 'User Image'
+    = gravatar_image_tag @current_user.email, filetype: 'png', rating: 'pg', class: 'user-image', alt: 'User Image', gravatar: { secure: true }
     %span.hidden-xs= @current_user.name
   %ul.dropdown-menu
     %li.user-header
-      = gravatar_image_tag @current_user.email, filetype: :png, rating: 'pg', class: 'user-image', alt: 'User Image'
+      = gravatar_image_tag @current_user.email, filetype: :png, rating: 'pg', class: 'user-image', alt: 'User Image', gravatar: { secure: true }
       %p
         = @current_user.name
         %small Member since #{local_time(@current_user.created_at)}
