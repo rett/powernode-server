@@ -106,45 +106,49 @@ end
 if Page.count == 0
   puts 'Creating welcome page...'
   page_params = [
-    { name: 'welcome',
+    { account: account,
+      name: 'welcome',
       title: 'Welcome to Node Alchemy',
       content: 'Welcome',
       enabled: true,
       public: true
     },
-    { name: 'management',
+    { account: account,
+      name: 'management',
       title: 'Node Alchemy Management',
       content: 'Welcome to the management section of Node Alchemy',
       enabled: true,
       public: true
     },
-    { name: 'subscription',
+    { account: account,
+      name: 'subscription',
       title: 'Subscription Management',
       content: 'Subscription management section of Node Alchemy',
       enabled: true,
       public: true
     },
-    { name: 'account',
+    { account: account,
+      name: 'account',
       title: 'Account Management',
       content: 'Account management section of Node Alchemy',
       enabled: true,
       public: true
     },
-    {
+    { account: account,
       name: 'thanks',
       title: 'Thanks for subscribing',
       content: 'Thank you for subscribing!  You can log in after confirming your email address.',
       enabled: true,
       public: true
     },
-    {
+    { account: account,
       name: 'cancel',
       title: 'Cancel account',
       content: 'You are about to cancel your account.',
       enabled: true,
       public: true
     },
-    {
+    { account: account,
       name: 'canceled',
       title: 'Account canceled',
       content: 'We are sorry to see you go, your account has been cancelled.',
