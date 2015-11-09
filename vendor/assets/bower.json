@@ -4,7 +4,6 @@
     "admin-lte": "latest",
     "CodeMirror": "latest",
     "eonasdan-bootstrap-datetimepicker": "latest",
-    "font-awesome": "latest",
     "jquery": "latest",
     "jquery-ui": "latest",
     "jquery-ujs": "latest",
@@ -12,5 +11,7 @@
     "bootstrap-markdown": "latest",
     "marked": "latest",
     "bootstrap-multiselect": "latest"
+  },
+  "resolutions": {
   }
 }
