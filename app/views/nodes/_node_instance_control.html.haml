@@ -33,7 +33,9 @@
             = control_node_button(:instance_terminate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
         - when 'shutoff', 'stopped'
           .col-md-2
-            = control_node_button(:instance_start, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+            = control_node_button(:instance_start, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-primary', data: { confirm: I18n.t('actions.confirm') } })
+          .col-md-8
+            &nbsp;
           .col-md-2
             = control_node_button(:instance_terminate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
 
