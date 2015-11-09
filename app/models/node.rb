@@ -17,7 +17,7 @@ class Node < ActiveRecord::Base
   has_many :puppet_resources, through: :puppet_modules
 
   attr_accessor :node_instance
-  attr_encryptor :ssh_key, key: :encryption_key
+  attr_encrypted :ssh_key, key: :encryption_key, mode: :per_attribute_iv_and_salt
 
   default_scope { order('name ASC') }
 

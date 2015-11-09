@@ -19,7 +19,7 @@ class NodeInstance < ActiveRecord::Base
   has_many :provider_volumes
   has_many :active_volumes, class_name: 'ProviderVolume', foreign_key: 'active_instance_id'
 
-  attr_encryptor :key, key: :encryption_key
+  attr_encrypted :key, key: :encryption_key, mode: :per_attribute_iv_and_salt
   attr_readonly :entity, :variety
 
   delegate :account, to: :node
@@ -38,7 +38,7 @@ class NodeInstance < ActiveRecord::Base
   validate  :enforce_limits, on: :create
 
   after_initialize do
-    self.reset_key if key.blank?
+    # self.reset_key if key.blank?
     if variety == 'physical'
       self.status ||= 'ready'
     else
