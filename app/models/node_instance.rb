@@ -38,7 +38,7 @@ class NodeInstance < ActiveRecord::Base
   validate  :enforce_limits, on: :create
 
   after_initialize do
-    # self.reset_key if key.blank?
+    self.reset_key if key.blank?
     if variety == 'physical'
       self.status ||= 'ready'
     else
