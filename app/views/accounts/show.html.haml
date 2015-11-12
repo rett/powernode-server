@@ -23,7 +23,8 @@
             = link_to 'Change', plan_account_path
             or
             = link_to 'Cancel', cancel_account_path
-          -#- if @account.plan.public? && @account.plan.amount > 0
+          %dt Plan amount
+          %dd #{number_to_currency(@account.plan.amount)} / #{@account.plan.interval}
           %dt Payment Information
           %dd
             - if @account.stripe_card.present?

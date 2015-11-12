@@ -92,7 +92,7 @@ class AccountsController < ApplicationController
   end
 
   def plan
-    @plans = Plan.order('amount asc')
+    @plans = Plan.accessible_by(@current_ability, :use).order('amount asc')
     if request.post?
       @plan = Plan.find_by(id: params[:plan_id])
       @account.plan = @plan if @account.qualifies_for?(@plan)
