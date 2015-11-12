@@ -17,22 +17,24 @@
             .price
               %h1
                 = number_to_currency(plan.amount)
-                %span.subscript
-                  \/
-                  = plan.interval
-              %small= plan.description
+              Per #{plan.interval.titleize}
             %table.table
               %tr
-                %td
-                  = plan.user_limit || 'Unlimited'
-                  Users
-              %tr.active
-                %td
-                  = plan.node_limit || 'Unlimited'
-                  Nodes
+                %td{colspan: 2}= plan.description
               %tr
                 %td
-                  = plan.instance_limit || 'Unlimited'
-                  Instances
+                  = fa('users text-blue')
+                  &nbsp;
+                  = pluralize(plan.user_limit, 'User') || 'Unlimited'
+              %tr.active
+                %td
+                  = fa('laptop text-blue')
+                  &nbsp;
+                  = pluralize(plan.node_limit, 'Node') || 'Unlimited'
+              %tr
+                %td
+                  = fa('server text-blue')
+                  &nbsp;
+                  = pluralize(plan.instance_limit, 'instance') || 'Unlimited'
           .panel-footer
-            = link_to('Select', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-success')
+            = link_to('Select', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-primary')
