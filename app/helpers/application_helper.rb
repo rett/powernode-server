@@ -1,4 +1,11 @@
 module ApplicationHelper
+  def bootstrap_class_for flash_type
+    { success: 'alert-success',
+      error: 'alert-danger',
+      alert: 'alert-warning',
+      notice: 'alert-info' }[flash_type.to_sym] || flash_type.to_s
+  end
+
   def discount_label(discount)
     (discount.percent? ? number_to_percentage(discount.amount * 100, precision: 0) : number_to_currency(discount.amount)) + ' off'
   end
@@ -9,6 +16,17 @@ module ApplicationHelper
 
   def fa(name, classes = '')
     content_tag :i, nil, class: "fa fa-#{name} #{classes}"
+  end
+
+  def flash_messages(opts = {})
+    flash.each do |msg_type, message|
+      concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} dismissable") do
+        concat content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
+        concat content_tag(:h4, msg_type.titleize)
+        concat message
+      end)
+    end
+    nil
   end
 
   def link_to_add_fields(name, f, association)
