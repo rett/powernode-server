@@ -3,6 +3,8 @@
     Node
     %b Alchemy
   .register-box-body
+    %h3.login-box-msg
+      = I18n.t('sessions.header.sign_up', plan: @plan)
     - if @plan && @plan.details.present?
       %p.login-box-msg
         .details= find_and_preserve render_markdown(@plan.details)

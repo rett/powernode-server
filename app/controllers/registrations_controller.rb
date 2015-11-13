@@ -21,9 +21,13 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def new
-    @credit_card = CreditCard.new(params)
-    @plan = Plan.available.find_by(id: params[:user].present? ? params[:user][:plan_id] : params[:plan_id])
-    super
+    if params[:plan_id]
+      @credit_card = CreditCard.new(params)
+      @plan = Plan.available.find_by(id: params[:user].present? ? params[:user][:plan_id] : params[:plan_id])
+      super
+    else
+      redirect_to(auth_plans_path)
+    end
   end
 
   def plans

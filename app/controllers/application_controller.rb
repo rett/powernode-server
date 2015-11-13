@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_credentials
   before_action :set_preferences, if: :user_signed_in?
   before_action :set_signup, unless: :user_signed_in?
-  before_action :set_header
+  before_action :set_header, if: :user_signed_in?
   before_action :add_breadcrumbs
   before_action :set_locale
   before_action :collect_billing_info, if: :user_signed_in?

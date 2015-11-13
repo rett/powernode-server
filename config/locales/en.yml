@@ -275,7 +275,12 @@ en:
   #
   sessions:
     header:
-      new:                                        ''
+      confirmation:                               'Send confirmation'
+      edit:                                       'Change password'
+      new:                                        'Sign in'
+      sign_up:                                    '%{plan} plan'
+      reset:                                      'Reset password'
+      unlock:                                     'Unlock account'
 
   #
   # Settings translations
