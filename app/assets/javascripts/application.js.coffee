@@ -114,4 +114,3 @@ $(document)
           $(this).val('')
         else
           $(this).val(utctime)
-        return

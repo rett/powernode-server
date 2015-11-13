@@ -19,7 +19,6 @@ $(document).bind 'edit_registrations.load', (e, obj) =>
       $("#user_stripe_card_number").val('')
       $("#user_stripe_card_cvc").val('')
       $form.get(0).submit()
-    return
   $form.submit ->
     $commit.attr "disabled", "disabled"
     Stripe.card.createToken this, stripeResponseHandler
