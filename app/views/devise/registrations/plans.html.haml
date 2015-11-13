@@ -1,6 +1,6 @@
 .row
   - @plans.each do |plan|
-    .col-xs-12.col-md-4
+    .col-md-4
       .panel.panel-primary.panel-pricing
         - if plan.most_popular?
           .corner-ribbon
@@ -9,31 +9,41 @@
                 MOST
                 %br
                 POPULAR
-        .panel-heading
-          %h3.panel-title
-            = plan.name
         .panel-body
+          %h1
+            = plan.name
           .price
-            %h1
+            %h4
               = number_to_currency(plan.amount)
-            Per #{plan.interval.titleize}
+              Per #{plan.interval.titleize}
           %table.table
-            %tr
-              %td{colspan: 2}= plan.description
-            %tr
-              %td
-                = fa('users text-blue')
-                &nbsp;
-                = pluralize(plan.user_limit, 'User') || 'Unlimited'
-            %tr.active
-              %td
-                = fa('laptop text-blue')
-                &nbsp;
-                = pluralize(plan.node_limit, 'Node') || 'Unlimited'
-            %tr
-              %td
-                = fa('server text-blue')
-                &nbsp;
-                = pluralize(plan.instance_limit, 'instance') || 'Unlimited'
+            %thead
+              %th{colspan: 2}= plan.description
+            %tbody
+              %tr
+                %td
+                  = fa('users text-blue')
+                  &nbsp;
+                  = pluralize(plan.user_limit, 'User') || 'Unlimited'
+              %tr
+                %td
+                  = fa('laptop text-blue')
+                  &nbsp;
+                  = pluralize(plan.node_limit, 'Node') || 'Unlimited'
+              %tr
+                %td
+                  = fa('server text-blue')
+                  &nbsp;
+                  = pluralize(plan.instance_limit, 'instance') || 'Unlimited'
+          %table.table
+            %thead
+              %th Roles
+            %tbody
+              - plan.default_roles.each do |role|
+                %tr
+                  %td
+                    = fa('check text-blue')
+                    &nbsp;
+                    %small= role.titleize
         .panel-footer
           = link_to('Select', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-primary')

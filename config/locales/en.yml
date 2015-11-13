@@ -423,6 +423,8 @@ en:
     hints:
     placeholders:
       user:
+        stripe_card_number:                       'Credit Card Number'
+        stripe_card_cvc:                          'CVC'
         email:                                    'Email Address'
         name:                                     'Full Name'
         password:                                 'Password'

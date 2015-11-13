@@ -10,7 +10,14 @@ class User < ActiveRecord::Base
   default_scope { order('name ASC') }
 
   attr_accessor :invitation_id,
-                :plan_id
+                :plan_id,
+                :stripe_card,
+                :stripe_card_cvc,
+                :stripe_card_exp_month,
+                :stripe_card_exp_year,
+                :stripe_card_last4,
+                :stripe_card_number,
+                :stripe_token
 
   scope :enabled, -> { where(enabled: true) }
   scope :with_role, ->(role) { where("roles_mask & #{2**ROLES.index(role.to_s)} > 0 ") }
@@ -73,7 +80,16 @@ class User < ActiveRecord::Base
 
   before_validation on: :create do
     unless account.present?
-      create_account(name: name, owner_id: id, plan: Plan.available.find_by(id: plan_id))
+      create_account(name: name,
+                     owner_id: id,
+                     plan: Plan.available.find_by(id: plan_id),
+                     stripe_card: stripe_card,
+                     stripe_card_last4: stripe_card_last4,
+                     stripe_card_exp_month: stripe_card_exp_month,
+                     stripe_card_exp_year: stripe_card_exp_year,
+                     stripe_token: stripe_token)
+
+
       self.invitation = Invitation.find_by(id: invitation_id)
       self.invitation ||= Invitation.find_by(recipient: email)
       self.invitation ||= Invitation.available.first

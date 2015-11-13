@@ -11,7 +11,4 @@
           = form.input :cvc, input_html: { data: { stripe: 'cvc' }, size: 3, maxlength: 4 }
         .box-footer
           = render partial: 'layouts/form_actions', locals: { form: form }
-- content_for :head do
-  %script{type: 'text/javascript', src: 'https://js.stripe.com/v2/'}
-:javascript
-  Stripe.setPublishableKey("#{Powernode.config.stripe_public_key}");
+= render :partial => 'stripe/js'

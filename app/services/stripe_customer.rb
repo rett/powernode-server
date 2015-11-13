@@ -57,6 +57,7 @@ class StripeCustomer
     Stripe::Customer.create(id: account.id,
                             description: account.name,
                             email: account.email,
-                            plan: account.plan.id)
+                            plan: account.plan.id,
+                            source: account.stripe_token)
   end
 end

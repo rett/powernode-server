@@ -14,7 +14,7 @@ class Plan < ActiveRecord::Base
 
   serialize :default_roles, JSON
 
-  default_scope { order('name ASC') }
+  default_scope { order('amount ASC') }
 
   scope :enabled,   -> { where(enabled: true) }
   scope :available, -> { enabled.where(public: true) }
