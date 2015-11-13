@@ -10,40 +10,67 @@
                 %br
                 POPULAR
         .panel-body
-          %h1
-            = plan.name
+          %h1.text-blue= plan.name
           .price
-            %h4
-              = number_to_currency(plan.amount)
-              Per #{plan.interval.titleize}
-          %table.table
+            %h4 #{number_to_currency(plan.amount)} / #{plan.interval}
+          %table.table.table-striped
             %thead
               %th{colspan: 2}= plan.description
             %tbody
               %tr
-                %td
+                %td{width: '10px'}
                   = fa('users text-blue')
-                  &nbsp;
+                %td
                   = pluralize(plan.user_limit, 'User') || 'Unlimited'
               %tr
                 %td
                   = fa('laptop text-blue')
-                  &nbsp;
+                %td
                   = pluralize(plan.node_limit, 'Node') || 'Unlimited'
               %tr
                 %td
                   = fa('server text-blue')
-                  &nbsp;
+                %td
                   = pluralize(plan.instance_limit, 'instance') || 'Unlimited'
-          %table.table
+          %table.table.table-striped
             %thead
-              %th Roles
+              %th{colspan: 2} Features
             %tbody
-              - plan.default_roles.each do |role|
-                %tr
-                  %td
+              %tr
+                %td{width: '10px'}
+                  = fa('check text-blue')
+                %td
+                  %small Node Management
+              %tr
+                %td
+                  - if plan.default_roles.include?('node_module_manager')
                     = fa('check text-blue')
-                    &nbsp;
-                    %small= role.titleize
+                %td
+                  %small Module Management
+              %tr
+                %td
+                  - if plan.default_roles.include?('node_template_manager')
+                    = fa('check text-blue')
+                %td
+                  %small Template Management
+              %tr
+                %td
+                  - if plan.default_roles.include?('node_script_manager')
+                    = fa('check text-blue')
+                %td
+                  %small Script Management
+              %tr
+                %td
+                  - if plan.default_roles.include?('provider_manager')
+                    = fa('check text-blue')
+                %td
+                  %small Cloud Provider Management
+              %tr
+                %td
+                  - if plan.default_roles.include?('puppet_manager')
+                    = fa('check text-blue')
+                %td
+                  %small Puppet Management
+
         .panel-footer
           = link_to('Select', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-primary')
