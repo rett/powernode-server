@@ -29,7 +29,7 @@ class Plan < ActiveRecord::Base
   validates_inclusion_of :interval, in: %w[day month]
   validates_presence_of :name
 
-  before_destroy :destroy_stripe_plan
+  before_destroy :prevent_destroy_if_accounts, :destroy_stripe_plan
   before_save :update_stripe_plan
   before_save :validate_default_roles
 
@@ -57,6 +57,13 @@ class Plan < ActiveRecord::Base
 
   def destroy_stripe_plan
     stripe_plan.destroy!
+  end
+
+  def prevent_destroy_if_accounts
+    if accounts.size > 0
+      self.errors[:base] << 'Cannot delete plan while accounts exist.'
+      false
+    end
   end
 
   def update_stripe_plan

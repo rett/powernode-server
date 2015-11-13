@@ -61,12 +61,6 @@
                   %small Script Management
               %tr
                 %td
-                  - if plan.default_roles.include?('provider_manager')
-                    = fa('check text-blue')
-                %td
-                  %small Cloud Provider Management
-              %tr
-                %td
                   - if plan.default_roles.include?('puppet_manager')
                     = fa('check text-blue')
                 %td

@@ -14,7 +14,7 @@
             %tbody
               - @plans.each do |plan|
                 %tr
-                  %td= radio_button_tag 'account[plan_id]', plan.id, plan == @current_account.plan, disabled: !@account.qualifies_for?(plan)
+                  %td= radio_button_tag 'account[plan_id]', plan.id, plan == @current_account.plan, checked: @account.plan == plan, disabled: !@account.qualifies_for?(plan)
                   %td= plan.name
                   %td= plan.user_limit
                   %td= plan.node_limit
