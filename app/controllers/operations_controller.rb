@@ -23,6 +23,7 @@ class OperationsController < ApplicationController
   def reschedule
     @operations = Operation.accessible_by(@current_ability, :update)
     if @operation.failed?
+      @operation.progress = 0
       @operation.scheduled_at = Time.now
       @operation.pending!
     end

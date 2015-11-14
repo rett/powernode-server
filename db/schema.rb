@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109042959) do
+ActiveRecord::Schema.define(version: 20151114040741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 20151109042959) do
     t.string   "stripe_card_exp_year"
     t.string   "stripe_card_last4"
     t.string   "stripe_subscription"
-    t.string   "stripe_token"
     t.string   "stripe_trial_end"
     t.string   "stripe_trial_start"
     t.string   "stripe_access_token",                              default: "", null: false
