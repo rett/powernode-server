@@ -3,8 +3,4 @@
     %h1= @title
     = render_breadcrumbs builder: BreadcrumbBuilder
   %section.content
-    - if flash.count > 0
-      = flash_messages
     = yield
-    - if Rails.env.development? && @current_user && @current_user.try(:global_admin?) && @preferences['admin_console']
-      = console

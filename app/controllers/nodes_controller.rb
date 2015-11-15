@@ -334,7 +334,7 @@ class NodesController < ApplicationController
 
   def check_node_limit
     if @current_account.reached_node_limit?
-      flash[:alert] = I18n.t('flash.nodes.create.alert_limit_reached')
+      flash[:danger] = I18n.t('flash.nodes.create.alert_limit_reached')
       redirect_to nodes_path
     end
   end

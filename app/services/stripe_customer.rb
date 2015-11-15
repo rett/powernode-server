@@ -31,10 +31,7 @@ class StripeCustomer
   end
 
   def update!
-    if account.stripe_token.present?
-      stripe_customer.source = account.stripe_token
-      account.stripe_token = nil
-    end
+    stripe_customer.source = account.stripe_token if account.stripe_token.present?
     stripe_customer.description = account.name
     stripe_customer.email = account.email
     stripe_customer.save

@@ -12,6 +12,9 @@ Bundler.require(*Rails.groups)
 
 module Powernode
   class Application < Rails::Application
+    # Use the responders controller from the responders gem
+    config.app_generators.scaffold_controller :responders_controller
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -29,6 +32,9 @@ module Powernode
 
     # Add Bower components to assets path.
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+
+    # Configure Responders
+    config.responders.flash_keys = [:success, :info, :warning, :danger]
   end
 
   def self.config

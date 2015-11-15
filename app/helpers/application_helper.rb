@@ -1,11 +1,4 @@
 module ApplicationHelper
-  def bootstrap_class_for flash_type
-    { success: 'alert-success',
-      error: 'alert-danger',
-      alert: 'alert-warning',
-      notice: 'alert-info' }[flash_type.to_sym] || flash_type.to_s
-  end
-
   def discount_label(discount)
     (discount.percent? ? number_to_percentage(discount.amount * 100, precision: 0) : number_to_currency(discount.amount)) + ' off'
   end
@@ -18,15 +11,18 @@ module ApplicationHelper
     content_tag :i, nil, class: "fa fa-#{name} #{classes}"
   end
 
-  def flash_messages(opts = {})
-    flash.each do |msg_type, message|
-      concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} dismissable") do
-        concat content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
-        concat content_tag(:h4, msg_type.titleize)
-        concat message
-      end)
+  def flash_icon(type)
+    { danger:   'fa fa-ban',
+      info:     'fa fa-info',
+      success:  'fa fa-check',
+      warning:  'fa fa-warning'}[type.to_sym] || type.to_s
+  end
+
+  def flash_notification
+    if (message = flash[:danger] || flash[:danger] || flash[:info] || flash[:success])
+      alert_type = flash.keys[0].to_s
+      javascript_tag %Q{$.notify({icon:"#{flash_icon(alert_type)}", title:"<strong>#{I18n.t("flash.headers.#{alert_type}")}</strong>", message:"<p>#{message}</p>"}, {mouse_over:"pause", newest_on_top:true, type:"#{alert_type}"});}
     end
-    nil
   end
 
   def link_to_add_fields(name, f, association)

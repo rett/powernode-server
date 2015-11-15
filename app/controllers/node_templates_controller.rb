@@ -110,7 +110,7 @@ class NodeTemplatesController < ApplicationController
           if node_architecture.new_record? && can?(:update, node_architecture)
             import_params[:node_architecture].merge!(account_id: @current_account.id)
             unless (node_architecture.update_attributes(node_architecture_params(import_params)))
-              flash[:alert] ||= I18n.t('flash.node_templates.import.alert_node_architecture')
+              flash[:danger] ||= I18n.t('flash.node_templates.import.alert_node_architecture')
             end
           end
         end
@@ -119,7 +119,7 @@ class NodeTemplatesController < ApplicationController
           if can?(:update, node_platform)
             import_params[:node_platform].merge!(account_id: @current_account.id)
             unless (node_platform.update_attributes(node_platform_params(import_params)))
-              flash[:alert] ||= I18n.t('flash.node_templates.import.alert_node_platform')
+              flash[:danger] ||= I18n.t('flash.node_templates.import.alert_node_platform')
             end
           end
         end
@@ -128,7 +128,7 @@ class NodeTemplatesController < ApplicationController
           if can?(:update, @node_template)
             import_params[:node_template].merge!(account_id: @current_account.id, enabled: params[:node_template][:enabled])
             unless (@node_template.update_attributes(node_template_params(import_params)))
-              flash[:alert] ||= I18n.t('flash.node_templates.import.alert_node_template')
+              flash[:danger] ||= I18n.t('flash.node_templates.import.alert_node_template')
             end
           end
         end
@@ -139,7 +139,7 @@ class NodeTemplatesController < ApplicationController
             if can?(:update, node_module_category)
               node_module_category_attributes[:node_module_category].merge!(account_id: @current_account.id)
               unless (node_module_category.update_attributes(node_module_category_params(node_module_category_attributes)))
-                flash[:alert] ||= I18n.t('flash.node_templates.import.alert_node_module_categories')
+                flash[:danger] ||= I18n.t('flash.node_templates.import.alert_node_module_categories')
               end
             end
           end
@@ -154,7 +154,7 @@ class NodeTemplatesController < ApplicationController
               if (node_module.update_attributes(node_module_params(node_module_attributes)))
                 @node_template.node_modules << node_module if !@node_template.node_modules.include?(node_module)
               else
-                flash[:alert] ||= I18n.t('flash.node_templates.import.alert_node_modules')
+                flash[:danger] ||= I18n.t('flash.node_templates.import.alert_node_modules')
               end
             end
           end
@@ -166,14 +166,14 @@ class NodeTemplatesController < ApplicationController
             dependant_module = NodeModule.accessible_by(@current_ability, :read).find_by(id: node_module_dependency_attributes['node_module_dependency']['node_module_dependency_id'])
             if node_module && dependant_module && can?(:manage, node_module) && can?(:read, dependant_module)
               unless node_module.dependant_modules.include?(dependant_module) || node_module.dependant_modules << dependant_module
-                flash[:alert] ||= I18n.t('flash.node_templates.import.alert_node_module_dependencies') #'Error loading Node Module Dependency'
+                flash[:danger] ||= I18n.t('flash.node_templates.import.alert_node_module_dependencies') #'Error loading Node Module Dependency'
               end
             end
           end
         end
       end
     end
-    flash[:notice] = I18n.t('flash.node_templates.import.notice', node_template: @node_template) if flash[:alert].nil?
+    flash[:success] = I18n.t('flash.node_templates.import.success', node_template: @node_template) if flash[:danger].nil?
     respond_with @node_template ||= NodeTemplate.new
   end
 

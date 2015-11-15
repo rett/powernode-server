@@ -51,37 +51,42 @@ en:
   # Flash responder translations
   #
   flash:
+    headers:
+      danger:                                     'Alert!'
+      info:                                       'Info!'
+      success:                                    'Success!'
+      warning:                                    'Warning!'
     actions:
       alert_access_denied:                        'You are not authorized to access this page.'
       create:
-        alert:                                    '%{resource_name} could not be created.'
-        notice:                                   '%{resource_name} was successfully created.'
+        danger:                                   '%{resource_name} could not be created.'
+        success:                                  '%{resource_name} was successfully created.'
       destroy:
-        alert:                                    '%{resource_name} could not be destroyed.'
-        notice:                                   '%{resource_name} was successfully destroyed.'
+        danger:                                   '%{resource_name} could not be destroyed.'
+        success:                                  '%{resource_name} was successfully destroyed.'
       update:
-        alert:                                    '%{resource_name} could not be updated.'
-        notice:                                   '%{resource_name} was successfully updated.'
+        danger:                                   '%{resource_name} could not be updated.'
+        success:                                  '%{resource_name} was successfully updated.'
     accounts:
       billing:
-        alert:                                    'Failed to update billing informtion.'
-        notice:                                   'Successfully updated billing information.'
+        danger:                                   'Failed to update billing informtion.'
+        success:                                  'Successfully updated billing information.'
       cancel:
-        alert:                                    'Failed to cancel account.'
-        notice:                                   'Successfully cancelled account.'
+        danger:                                   'Failed to cancel account.'
+        success:                                  'Successfully cancelled account.'
       delegation:
         add:
-          alert:                                  'Failed to add account delegation.'
-          notice:                                 'Successfully added account delegation.'
+          danger:                                 'Failed to add account delegation.'
+          success:                                'Successfully added account delegation.'
         remove:
-          alert:                                  'Failed to remove account delegation.'
-          notice:                                 'Successfully removed account delegation.'
+          danger:                                 'Failed to remove account delegation.'
+          success:                                'Successfully removed account delegation.'
       plan:
-        alert:                                    'Failed to change plan.'
-        notice:                                   'Successfully changed plan.'
+        danger:                                   'Failed to change plan.'
+        success:                                  'Successfully changed plan.'
       select:
-        alert:                                    'Failed to select account.'
-        notice:                                   'Successfully selected %{account}.'
+        danger:                                   'Failed to select account.'
+        success:                                  'Successfully selected %{account}.'
     node_templates:
       import:
         alert_node_architecture:                  'Failed to load node architecture.'
@@ -90,7 +95,7 @@ en:
         alert_node_modules:                       'Failed to load node modules.'
         alert_node_platform:                      'Failed to load node platform.'
         alert_node_template:                      'Failed to load node template.'
-        notice:                                   'Successfully imported %{node_template}.'
+        success:                                  'Successfully imported %{node_template}.'
     node_instances:
       create:
         alert_limit_reached:                      'Unable to create instance, limit reached.'
@@ -99,12 +104,12 @@ en:
         alert_limit_reached:                      'Unable to create node, limit reached.'
     subscriptions:
       charge:
-        alert:                                    'Failed to charge subscription.'
-        notice:                                   'Subscription was successfully charged.'
+        danger:                                   'Failed to charge subscription.'
+        success:                                  'Subscription was successfully charged.'
       refund:
-        alert:                                    'Failed to refund subscription.'
+        danger:                                   'Failed to refund subscription.'
         alert_complete:                           'Failed to refund subscription, already completely refunded.'
-        notice:                                   'Subscription was successfully refunded.'
+        success:                                  'Subscription was successfully refunded.'
     users:
       create:
         alert_limit_reached:                      'Unable to create user, limit reached.'

@@ -10,8 +10,8 @@
     "js-cookie": "latest",
     "bootstrap-markdown": "latest",
     "marked": "latest",
-    "bootstrap-multiselect": "latest"
-  },
-  "resolutions": {
+    "bootstrap-multiselect": "latest",
+    "animate.css": "latest",
+    "remarkable-bootstrap-notify": "latest"
   }
 }
