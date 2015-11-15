@@ -13,6 +13,7 @@ class Plan < ActiveRecord::Base
                 :trial_period_days
 
   serialize :default_roles, JSON
+  serialize :options, JSON
 
   default_scope { order('amount ASC') }
 

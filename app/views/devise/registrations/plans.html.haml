@@ -8,10 +8,11 @@
               MOST
               %br
               POPULAR
-      .panel-body
-        %h1.text-blue= plan.name
+      .panel-heading{class: plan.options['header_classes']}
+        %h1= plan.name
         .price
           %h4 #{number_to_currency(plan.amount)} / #{plan.interval}
+      .panel-body
         %table.table.table-striped
           %thead
             %th{colspan: 2}= plan.description
