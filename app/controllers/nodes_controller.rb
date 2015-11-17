@@ -293,7 +293,7 @@ class NodesController < ApplicationController
     end
     if node_module_subscription && node_module_subscription.create_dependant_module!(@node.node_instances.find_by(id: params[:node_instance_id]))
       flash['success'] = I18n.t('flash.nodes.control_node.module_create_dependency.success',
-                               node_module: @node_module.name)
+                                node_module: @node_module.name)
     else
       flash['danger'] = I18n.t('flash.nodes.control_node.module_create_dependency.danger')
     end
@@ -431,7 +431,7 @@ class NodesController < ApplicationController
       flash['success'] = I18n.t('flash.nodes.control_node.module_update.success',
                                 node_module: @node_module)
     else
-      flash['success'] = I18n.t('flash.nodes.control_node.module_update.success',
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_update.danger',
                                 node_module: @node_module)
     end
   end
