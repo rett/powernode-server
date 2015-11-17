@@ -35,12 +35,13 @@ class Account < ActiveRecord::Base
   has_many :puppet_modules, dependent: :destroy
   has_many :users, dependent: :destroy
 
-  delegate :email,          to: :owner
+  attr_accessor :stripe_token
+
+  delegate :email,          to: :owner, allow_nil: true
   delegate :node_limit,     to: :plan,  allow_nil: true
   delegate :instance_limit, to: :plan,  allow_nil: true
   delegate :user_limit,     to: :plan,  allow_nil: true
 
-  validates :agent, presence: true
   validates :id, uniqueness: true
   validates :name, presence: true
   validates :plan, presence: true

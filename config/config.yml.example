@@ -49,8 +49,8 @@ common: &common
 
   # Billing options
   currency: USD
-  stripe_api_key:
-  stripe_public_key:
+  stripe_secret_key:
+  stripe_publishable_key:
   stripe_webhook_secret:
 
   # SCrypt options
@@ -83,7 +83,6 @@ common: &common
 
   # Sidekiq options
   redis_server: redis://localhost:6379/0
-  redis_namespace: alchemy
   sidekiq_queue: alchemy_server
   sidekiq_job_retries: 2
   sidekiq_job_expiration: <%= 1.hour %>

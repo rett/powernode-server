@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user == @current_user
-      redirect_to users_path, alert: I18n.t('flash.users.destroy.alert_current_user', resource_name: @user.name)
+      redirect_to users_path, danger: I18n.t('flash.users.destroy.danger_current_user', resource_name: @user.name)
     else
       @user.destroy
       respond_with @user
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   def check_user_limit
     if @current_account.reached_user_limit?
-      redirect_to users_path, alert: I18n.t('flash.users.create.alert_limit_reached')
+      redirect_to users_path, danger: I18n.t('flash.users.create.danger_limit_reached')
     end
   end
 

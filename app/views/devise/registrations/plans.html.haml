@@ -1,38 +1,72 @@
-.container
-  .row
-    - @plans.each do |plan|
-      .col-xs-12.col-md-4
-        .panel.panel-primary.panel-pricing
-          - if plan.most_popular?
-            .corner-ribbon
-              .corner-ribbon-inner
-                %span.corner-ribbon-label
-                  MOST
-                  %br
-                  POPULAR
-          .panel-heading
-            %h3.panel-title
-              = plan.name
-          .panel-body
-            .price
-              %h1
-                = number_to_currency(plan.amount)
-                %span.subscript
-                  \/
-                  = plan.interval
-              %small= plan.description
-            %table.table
-              %tr
-                %td
-                  = plan.user_limit || 'Unlimited'
-                  Users
-              %tr.active
-                %td
-                  = plan.node_limit || 'Unlimited'
-                  Nodes
-              %tr
-                %td
-                  = plan.instance_limit || 'Unlimited'
-                  Instances
-          .panel-footer
-            = link_to('Select', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-success')
+- @plans.each do |plan|
+  .col-md-4
+    .panel.panel-primary.panel-pricing
+      - if plan.most_popular?
+        .corner-ribbon
+          .corner-ribbon-inner
+            %span.corner-ribbon-label
+              MOST
+              %br
+              POPULAR
+      .panel-heading{class: plan.options['header_classes']}
+        %h1= plan.name
+        .price
+          %h4 #{number_to_currency(plan.amount)} / #{plan.interval}
+      .panel-body
+        %table.table.table-striped
+          %thead
+            %th{colspan: 2}= plan.description
+          %tbody
+            %tr
+              %td{width: '10px'}
+                = fa('users text-blue')
+              %td
+                = pluralize(plan.user_limit, 'User') || 'Unlimited'
+            %tr
+              %td
+                = fa('laptop text-blue')
+              %td
+                = pluralize(plan.node_limit, 'Node') || 'Unlimited'
+            %tr
+              %td
+                = fa('server text-blue')
+              %td
+                = pluralize(plan.instance_limit, 'instance') || 'Unlimited'
+        %table.table.table-striped
+          %thead
+            %th{colspan: 2} Features
+          %tbody
+            %tr
+              %td{width: '10px'}
+                = fa('check text-blue')
+              %td
+                %small Node Management
+            %tr
+              %td
+                - if plan.default_roles.include?('node_module_manager')
+                  = fa('check text-blue')
+              %td
+                %small Module Management
+            %tr
+              %td
+                - if plan.default_roles.include?('node_template_manager')
+                  = fa('check text-blue')
+              %td
+                %small Template Management
+            %tr
+              %td
+                - if plan.default_roles.include?('node_script_manager')
+                  = fa('check text-blue')
+              %td
+                %small Script Management
+            %tr
+              %td
+                - if plan.default_roles.include?('puppet_manager')
+                  = fa('check text-blue')
+              %td
+                %small Puppet Management
+      .panel-footer
+        - if plan.trial_period_days.present? && plan.trial_period_days > 0
+          = link_to("Free #{plan.trial_period_days} day trial", new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-primary')
+        - else
+          = link_to('Sign up', new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-primary')

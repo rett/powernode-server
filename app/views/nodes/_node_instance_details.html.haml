@@ -24,7 +24,7 @@
           %dt Type
           %dd= node_instance.provider_instance_type
         %dt Status
-        %dd= node_instance.status
+        %dd= node_instance.status.capitalize
         %dt Private IP:
         %dd= node_instance.private_ip_address.present? ? node_instance.private_ip_address : 'None'
         %dt Public IP

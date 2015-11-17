@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_credentials
   before_action :set_preferences, if: :user_signed_in?
   before_action :set_signup, unless: :user_signed_in?
-  before_action :set_header
+  before_action :set_header, if: :user_signed_in?
   before_action :add_breadcrumbs
   before_action :set_locale
   before_action :collect_billing_info, if: :user_signed_in?
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def deny_access(exception)
-    flash[:alert] ||= I18n.t('flash.actions.alert_access_denied')
+    flash['danger'] ||= I18n.t('flash.actions.danger_access_denied')
     logger.error %Q[ACCESS VIOLATION! IP: "#{request.ip}", User: "#{current_user.try(:email)}", Path: "#{request.fullpath}", Message: "#{exception.message}"]
     if request.xhr?
       render :js => %Q[window.location.replace("#{root_url}")]

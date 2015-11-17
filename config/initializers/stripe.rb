@@ -1,5 +1,5 @@
-STRIPE_PUBLIC_KEY = Powernode.config.stripe_public_key
-Stripe.api_key = Powernode.config.stripe_api_key
+Powernode.config.stripe.publishable_key = Powernode.config.stripe_publishable_key
+Stripe.api_key = Powernode.config.stripe_secret_key
 
 #
 # Configure Stripe Event

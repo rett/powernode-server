@@ -25,3 +25,9 @@ asset 'marked'
 
 # Multiselect
 asset 'bootstrap-multiselect'
+
+# Animate.css
+asset 'animate.css'
+
+# Bootstrap Notify
+asset 'remarkable-bootstrap-notify'

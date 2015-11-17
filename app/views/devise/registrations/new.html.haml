@@ -3,22 +3,38 @@
     Node
     %b Alchemy
   .register-box-body
+    %h3.login-box-msg
+      = I18n.t('sessions.header.sign_up', plan: @plan)
     - if @plan && @plan.details.present?
       %p.login-box-msg
         .details= find_and_preserve render_markdown(@plan.details)
     = semantic_form_for(@user, url: registration_path(@user)) do |form|
-      .messages= form.semantic_errors class: 'error-msg'
-      = form.input :plan_id, as: :hidden, input_html: { value: session[:plan_id] }
-      = form.input :invitation_id, as: :hidden, input_html: { value: session[:invitation_id] }
-      = form.input :name, append: glyph('user'), label: false
-      = form.input :email, append: glyph('envelope'), label: false
-      = form.input :password, append: glyph('lock'), label: false
-      = form.input :password_confirmation, append: glyph('lock'), label: false
+      .messages
+      .row
+        .col-xs-12
+          %h4 Account Information
+          = form.input :plan_id, as: :hidden, input_html: { value: session[:plan_id] }
+          = form.input :invitation_id, as: :hidden, input_html: { value: session[:invitation_id] }
+          = form.input :name, append: glyph('user'), label: false, input_html: { data: { stripe: 'name' } }
+          = form.input :email, append: glyph('envelope'), label: false
+          = form.input :password, append: glyph('lock'), label: false
+          = form.input :password_confirmation, append: glyph('lock'), label: false
+      - if @plan && @plan.amount > 0
+        .row
+          .col-xs-12
+            %h4 Payment Information
+        .row
+          .col-xs-8
+            = form.input :stripe_card_number, input_html: { data: { stripe: 'number' } }, label: false
+            = form.input :stripe_card_cvc, input_html: { data: { stripe: 'cvc' }, size: 3, maxlength: 4 }, label: false
+          .col-xs-4
+            = form.input :stripe_card_exp_month, as: :select, collection: (1..12), include_blank: 'Month', input_html: { data: { stripe: 'exp_month' } }, label: false
+            = form.input :stripe_card_exp_year, as: :select, collection: (Time.now.year..10.years.from_now.year), include_blank: 'Year', input_html: { data: { stripe: 'exp_year' } }, label: false
       .row
         .col-xs-8
           = check_box_tag :accept_terms
           &nbsp;
-          I agree to the #{link_to 'terms', page_path('terms')}
+          I agree to the #{link_to 'terms', page_path('terms_and_conditions')}
         .col-xs-4
           = form.submit 'Register', class: 'btn btn-primary btn-block btn-flat'
     .row
@@ -27,3 +43,4 @@
     .row
       .col-xs-12
         = render 'devise/shared/links'
+= render :partial => 'stripe/js'

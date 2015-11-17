@@ -4,6 +4,7 @@
  *= require codemirror
  *= require admin-lte
  *= require admin-lte/dist/css/skins/skin-blue
+ *= require animate.css/animate
  *= require eonasdan-bootstrap-datetimepicker
  *= require dependency_tree
  *= require formtastic-bootstrap

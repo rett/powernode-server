@@ -3,8 +3,9 @@
     %section.sidebar
       .user-panel
         .pull-left.image
-          = gravatar_image_tag @current_user.email, filetype: 'png', rating: 'pg', size: 15, secure: false, class: 'user-image img-circle', alt: 'User Image'
+          = gravatar_image_tag @current_user.email, filetype: 'png', rating: 'pg', size: 15, class: 'user-image img-circle', alt: 'User Image', gravatar: { secure: true }
         .pull-left.info
           %p= @current_user.name
-          %p= @current_account
+          - if @current_account != @current_user.account
+            %p= @current_account
       = semantic_navigation :navigation, builder: NavBuilder

@@ -15,7 +15,7 @@ class ProviderConnection < ActiveRecord::Base
 
   default_scope { order('name ASC') }
 
-  attr_encryptor :secret_key, key: :encryption_key
+  attr_encrypted :secret_key, key: :encryption_key, mode: :per_attribute_iv_and_salt
 
   scope :enabled, -> { where(enabled: true) }
 

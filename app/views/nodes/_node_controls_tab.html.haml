@@ -9,20 +9,24 @@
   %legend= I18n.t('nodes.control_node.create_cloud_instance.header')
   = form_tag(control_node_path, as: 'javascript', remote: true) do
     = hidden_field_tag :operation, :create_cloud_instance
-    %dl.dl-horizontal
-      #provider_connection_select
+    #provider_connection_select
+      %dl.dl-horizontal
         %dt Provider Connection
         %dd= collection_select nil, :provider_connection_id, @available_provider_connections, :id, :name, { include_blank: 'Select option', selected: @provider_connection.try(:id) }, { class: 'multiselect', id: 'provider_connection_id' }
-      #provider_region_select
+    #provider_region_select
+      %dl.dl-horizontal
         %dt Provider Region
         %dd= collection_select nil, :provider_region_id, @available_provider_regions, :id, :name, { include_blank: 'Select option', selected: @provider_region.try(:id) }, { class: 'multiselect', id: 'provider_region_id' }
-      #provider_instance_type_select
+    #provider_instance_type_select
+      %dl.dl-horizontal
         %dt Instance Type
         %dd= collection_select nil, :provider_instance_type_id, @available_provider_instance_types, :id, :name, { include_blank: 'Select option', selected: @provider_instance_type.try(:id) }, { class: 'multiselect', id: 'provider_instance_type_id' }
-      #provider_availability_zone_select
+    #provider_availability_zone_select
+      %dl.dl-horizontal
         %dt Availability Zone
         %dd= collection_select nil, :provider_availability_zone_id, @available_provider_availability_zones, :id, :name, { include_blank: 'Select option', selected: @provider_availability_zone.try(:id) }, { class: 'multiselect', id: 'provider_availability_zone_id' }
-      #provider_network_subnet_select
+    #provider_network_subnet_select
+      %dl.dl-horizontal
         %dt Network Subnet
         %dd= collection_select nil, :provider_network_subnet_id, @available_provider_network_subnets, :id, :name, { include_blank: 'Select option', selected: @provider_network_subnet.try(:id) }, { class: 'multiselect', id: 'provider_network_subnet_id' }
     .pull-right= submit_tag I18n.t('nodes.control_node.create_cloud_instance.label'), data: { confirm: I18n.t('actions.confirm'), disable_with: I18n.t('actions.submit') }, id: 'create_cloud_instance_button'

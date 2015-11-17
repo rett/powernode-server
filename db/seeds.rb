@@ -18,23 +18,25 @@ else
   plan = Plan.first
 end
 
-if Account.count == 0
-  puts 'Creating admin account...'
-  account_params = [
-    { name: 'Admin User',
-      email: Powernode.config.smtp_admin_email,
-      locale: 'en',
-      password: 'admin123',
-      password_confirmation: 'admin123',
-      plan: plan,
-      roles: User::ROLES
-    }
-  ]
-  account = Account.create(account_params).first
-  account.owner.confirm!
+if User.count == 0
+  puts 'Creating admin user...'
+  user_params = {
+    name: 'Admin User',
+    email: Powernode.config.smtp_admin_email,
+    locale: 'en',
+    password: 'admin123',
+    password_confirmation: 'admin123',
+    plan_id: plan.id
+  }
+  user = User.new(user_params)
+  user.roles = User::ROLES
+  user.save
+  user.confirm!
 else
-  account = Account.first
+  user = user.first
 end
+
+account = user.account
 
 if Agent.count == 0
   puts 'Creating agent...'
@@ -50,7 +52,8 @@ if Agent.count == 0
     }
   ]
   agent = Agent.create(agent_params).first
-  account.update_attribute(:agent, agent)
+  account.agent = agent
+  account.save
 end
 
 if ProviderInstanceType.count == 0
@@ -66,6 +69,8 @@ if ProviderInstanceType.count == 0
     }
   ]
   provider_instance_types = ProviderInstanceType.create(provider_instance_type_params)
+else
+  provider_instance_types = ProviderInstanceType.all
 end
 
 if Provider.count == 0
@@ -78,6 +83,8 @@ if Provider.count == 0
     }
   ]
   provider = Provider.create(provider_params).first
+else
+  provider = Provider.first
 end
 
 if ProviderRegion.count == 0
@@ -86,7 +93,7 @@ if ProviderRegion.count == 0
     { account: account,
       name: 'us-east-1',
       description: 'Amazon Web Services East',
-      provider: provider,
+      provider_id: provider.id,
       endpoint_url: 'https://ec2.us-east-1.amazonaws.com/',
       enabled: true,
       public: true
@@ -99,45 +106,49 @@ end
 if Page.count == 0
   puts 'Creating welcome page...'
   page_params = [
-    { name: 'welcome',
+    { account: account,
+      name: 'welcome',
       title: 'Welcome to Node Alchemy',
       content: 'Welcome',
       enabled: true,
       public: true
     },
-    { name: 'management',
+    { account: account,
+      name: 'management',
       title: 'Node Alchemy Management',
       content: 'Welcome to the management section of Node Alchemy',
       enabled: true,
       public: true
     },
-    { name: 'subscription',
+    { account: account,
+      name: 'subscription',
       title: 'Subscription Management',
       content: 'Subscription management section of Node Alchemy',
       enabled: true,
       public: true
     },
-    { name: 'account',
+    { account: account,
+      name: 'account',
       title: 'Account Management',
       content: 'Account management section of Node Alchemy',
       enabled: true,
       public: true
     },
-    {
+    { account: account,
       name: 'thanks',
       title: 'Thanks for subscribing',
       content: 'Thank you for subscribing!  You can log in after confirming your email address.',
       enabled: true,
       public: true
     },
-    {
+    { account: account,
       name: 'cancel',
       title: 'Cancel account',
       content: 'You are about to cancel your account.',
       enabled: true,
       public: true
     },
-    {
+    { account: account,
       name: 'canceled',
       title: 'Account canceled',
       content: 'We are sorry to see you go, your account has been cancelled.',

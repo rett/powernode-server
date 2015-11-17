@@ -3,7 +3,22 @@
     .box.box-primary
       = semantic_form_for @account do |form|
         .box-body
-          = form.input :plan_id, as: :select, collection: @plans, disabled: lambda { |p| !@account.qualifies_for?(p) }, include_blank: 'None', input_html: { class: 'multiselect' }
-          -#= form.select(:plan_id, options_from_collection_for_select(@plans, :id, :name, disabled: lambda { |p| !@account.qualifies_for?(p) }, selected: @account.plan_id), class: 'multiselect', id: 'plan')
+          %table.table.table-bordered.table-striped
+            %thead
+              %th &nbsp;
+              %th Name
+              %th Users
+              %th Nodes
+              %th Instances
+              %th Amount
+            %tbody
+              - @plans.each do |plan|
+                %tr
+                  %td= radio_button_tag 'account[plan_id]', plan.id, plan == @current_account.plan, checked: @account.plan == plan, disabled: !@account.qualifies_for?(plan)
+                  %td= plan.name
+                  %td= plan.user_limit
+                  %td= plan.node_limit
+                  %td= plan.instance_limit
+                  %td #{number_to_currency(plan.amount)} / #{plan.interval}
         .box-footer
           = render partial: 'layouts/form_actions', locals: { form: form }

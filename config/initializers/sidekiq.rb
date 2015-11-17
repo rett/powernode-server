@@ -1,11 +1,9 @@
 Sidekiq.configure_server do |config|
-  config.redis = { url: Powernode.config.redis_server,
-                   namespace: Powernode.config.redis_namespace }
+  config.redis = { url: Powernode.config.redis_server }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: Powernode.config.redis_server,
-                   namespace: Powernode.config.redis_namespace }
+  config.redis = { url: Powernode.config.redis_server }
 end
 
 class Sidekiq::Extensions::DelayedMailer

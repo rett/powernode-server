@@ -11,7 +11,6 @@ $(document).bind 'billing_accounts.load', (e, obj) =>
       $("#credit_card_number").val('')
       $("#credit_card_cvc").val('')
       $cardForm.get(0).submit()
-    return
   $cardForm.submit ->
     $("input[name=commit]").attr "disabled", "disabled"
     Stripe.card.createToken this, stripeResponseHandler

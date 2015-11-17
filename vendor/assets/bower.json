@@ -4,13 +4,14 @@
     "admin-lte": "latest",
     "CodeMirror": "latest",
     "eonasdan-bootstrap-datetimepicker": "latest",
-    "font-awesome": "latest",
     "jquery": "latest",
     "jquery-ui": "latest",
     "jquery-ujs": "latest",
     "js-cookie": "latest",
     "bootstrap-markdown": "latest",
     "marked": "latest",
-    "bootstrap-multiselect": "latest"
+    "bootstrap-multiselect": "latest",
+    "animate.css": "latest",
+    "remarkable-bootstrap-notify": "latest"
   }
 }

@@ -5,6 +5,7 @@
 #= require bootstrap
 #= require bootstrap-multiselect/dist/js/bootstrap-multiselect
 #= require bootstrap-markdown/js/bootstrap-markdown
+#= require remarkable-bootstrap-notify/dist/bootstrap-notify
 #= require admin-lte/dist/js/app
 #= require admin-lte/plugins/slimScroll/jquery.slimscroll
 #= require CodeMirror/lib/codemirror
@@ -114,4 +115,3 @@ $(document)
           $(this).val('')
         else
           $(this).val(utctime)
-        return

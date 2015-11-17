@@ -3,7 +3,7 @@
     Node
     %b Alchemy
   .login-box-body
-    %p.login-box-msg
+    %h3.login-box-msg
       = I18n.t('sessions.header.new')
     = semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |form|
       .form-group.has-feedback

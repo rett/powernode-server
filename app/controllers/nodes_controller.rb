@@ -76,11 +76,11 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_cleanse.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_cleanse.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_cleanse.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_cleanse.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -97,11 +97,11 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true, image_format: image_format })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_create_image.notice',
-                                node_instance: @node_instance.name,
-                                image_format: image_format)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_create_image.success',
+                                  node_instance: @node_instance.name,
+                                  image_format: image_format)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_create_image.alert')
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_create_image.danger')
       end
     end
   end
@@ -115,10 +115,10 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_public_ip_associate.notice',
-                                node_instance: @node_instance.name)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_public_ip_associate.success',
+                                  node_instance: @node_instance.name)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_public_ip_associate.alert')
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_public_ip_associate.danger')
       end
     end
   end
@@ -132,10 +132,10 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_public_ip_disassociate.notice',
-                                node_instance: @node_instance.name)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_public_ip_disassociate.success',
+                                  node_instance: @node_instance.name)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_public_ip_disassociate.alert')
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_public_ip_disassociate.danger')
       end
     end
   end
@@ -151,13 +151,13 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true, exec: exec })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_exec.notice',
-                                command: exec,
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_exec.success',
+                                  command: exec,
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_exec.alert',
-                               command: exec,
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_exec.danger',
+                                 command: exec,
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -166,11 +166,11 @@ class NodesController < ApplicationController
     if @node_instance
       @node_instance.reset_key
       if @node_instance.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_reset_key.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_reset_key.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_reset_key.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_reset_key.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -184,11 +184,11 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_reboot.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_reboot.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_reboot.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_reboot.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -198,11 +198,11 @@ class NodesController < ApplicationController
       @node.primary_instance = @node_instance
       @refresh_node_instances = true
       if @node.enabled? && @node.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_set_primary.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_set_primary.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_set_primary.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_set_primary.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -216,11 +216,11 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_start.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_start.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_start.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_start.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -234,11 +234,11 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_stop.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_stop.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_stop.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_stop.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -252,11 +252,11 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_sync.notice',
-                                node_instance: @node_instance)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_sync.success',
+                                  node_instance: @node_instance)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_sync.alert',
-                               node_instance: @node_instance)
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_sync.danger',
+                                 node_instance: @node_instance)
       end
     end
   end
@@ -270,10 +270,10 @@ class NodesController < ApplicationController
                                                   exclusive: true,
                                                   options: { async: true })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.instance_terminate.notice',
-                                node_instance: @node_instance.name)
+        flash['success'] = I18n.t('flash.nodes.control_node.instance_terminate.success',
+                                 node_instance: @node_instance.name)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.instance_terminate.alert')
+        flash['danger'] = I18n.t('flash.nodes.control_node.instance_terminate.danger')
       end
     end
   end
@@ -281,9 +281,9 @@ class NodesController < ApplicationController
   def do_operation_unschedule_id
     operation = @current_account.operations.find_by(id: params[:operation_id])
     if operation && operation.destroy
-      flash[:notice] = I18n.t('flash.nodes.control_node.operation_unschedule_id.notice')
+      flash['success'] = I18n.t('flash.nodes.control_node.operation_unschedule_id.success')
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.operation_unschedule_id.alert')
+      flash['danger'] = I18n.t('flash.nodes.control_node.operation_unschedule_id.danger')
     end
   end
 
@@ -292,21 +292,21 @@ class NodesController < ApplicationController
       @node_module = node_module_subscription.node_module
     end
     if node_module_subscription && node_module_subscription.create_dependant_module!(@node.node_instances.find_by(id: params[:node_instance_id]))
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_create_dependency.notice',
-                              node_module: @node_module.name)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_create_dependency.success',
+                               node_module: @node_module.name)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_create_dependency.alert')
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_create_dependency.danger')
     end
   end
 
   def do_module_subscribe
     if @node_module && !@node.node_modules.include?(@node_module)
       if @node.node_modules << @node_module
-        flash[:notice] = I18n.t('flash.nodes.control_node.module_subscribe.notice',
-                                node_module: @node_module)
+        flash['success'] = I18n.t('flash.nodes.control_node.module_subscribe.success',
+                                  node_module: @node_module)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.module_subscribe.alert',
-                               node_module: @node_module)
+        flash['danger'] = I18n.t('flash.nodes.control_node.module_subscribe.danger',
+                                 node_module: @node_module)
       end
     end
   end
@@ -314,11 +314,11 @@ class NodesController < ApplicationController
   def do_module_unsubscribe
     if @node_module && @node.node_modules.include?(@node_module)
       if @node.node_modules.destroy(@node_module)
-        flash[:notice] = I18n.t('flash.nodes.control_node.module_unsubscribe.notice',
-                                node_module: @node_module)
+        flash['success'] = I18n.t('flash.nodes.control_node.module_unsubscribe.success',
+                                  node_module: @node_module)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.module_unsubscribe.alert',
-                               node_module: @node_module)
+        flash['danger'] = I18n.t('flash.nodes.control_node.module_unsubscribe.danger',
+                                 node_module: @node_module)
       end
     end
   end
@@ -333,17 +333,17 @@ class NodesController < ApplicationController
                                                 exclusive: true,
                                                 options: { node_instance_id: @node_instance.id })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.module_build.notice',
-                                node_module: @node_module,
-                                node_instance: @node_instance.name)
+        flash['success'] = I18n.t('flash.nodes.control_node.module_build.success',
+                                  node_module: @node_module,
+                                  node_instance: @node_instance.name)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.module_build.alert',
-                               node_module: @node_module,
-                               node_instance: @node_instance.name)
+        flash['danger'] = I18n.t('flash.nodes.control_node.module_build.danger',
+                                 node_module: @node_module,
+                                 node_instance: @node_instance.name)
       end
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_build.alert_no_instance',
-                             node_module: @node_module)
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_build.danger_no_instance',
+                               node_module: @node_module)
     end
   end
 
@@ -357,64 +357,64 @@ class NodesController < ApplicationController
                                                 exclusive: true,
                                                 options: { async: true, node_instance_id: @node_instance.id })
       if @node.enabled? && operation.save
-        flash[:notice] = I18n.t('flash.nodes.control_node.module_commit.notice',
-                                node_module: @node_module,
-                                node_instance: @node_instance.name)
+        flash['success'] = I18n.t('flash.nodes.control_node.module_commit.success',
+                                  node_module: @node_module,
+                                  node_instance: @node_instance.name)
       else
-        flash[:alert] = I18n.t('flash.nodes.control_node.module_commit.alert',
-                               node_module: @node_module,
-                               node_instance: @node_instance.name)
+        flash['danger'] = I18n.t('flash.nodes.control_node.module_commit.danger',
+                                 node_module: @node_module,
+                                 node_instance: @node_instance.name)
       end
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_commit.alert_no_instance',
-                             node_module: @node_module)
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_commit.danger_no_instance',
+                               node_module: @node_module)
     end
   end
 
   def do_module_delete
     if can?(:update, @node_module) && @node_module.version_delete!(params[:version].to_i)
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_delete.notice',
-                              node_module: @node_module,
-                              version: params[:version].to_i)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_delete.success',
+                                node_module: @node_module,
+                                version: params[:version].to_i)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_delete.alert',
-                             node_module: @node_module,
-                             version: params[:version].to_i)
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_delete.danger',
+                               node_module: @node_module,
+                               version: params[:version].to_i)
     end
   end
 
   def do_module_destroy
     if can?(:update, @node_module) && @node_module.destroy
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_destroy.notice',
-                              node_module: @node_module)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_destroy.success',
+                                node_module: @node_module)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_destroy.alert',
-                             node_module: @node_module)
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_destroy.danger',
+                               node_module: @node_module)
     end
   end
 
   def do_module_purge
     if can?(:update, @node_module) && @node_module.version_purge!(params[:version].to_i)
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_purge.notice',
-                              node_module: @node_module,
-                              version: params[:version].to_i)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_purge.success',
+                                node_module: @node_module,
+                                version: params[:version].to_i)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_purge.alert',
-                             node_module: @node_module,
-                             version: params[:version].to_i)
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_purge.danger',
+                               node_module: @node_module,
+                               version: params[:version].to_i)
     end
   end
 
   def do_module_restore
     if can?(:update, @node_module) && @node_module.version_restore!(params[:version].to_i)
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_restore.notice',
-                              node_module: @node_module,
-                              version: params[:version].to_i,
-                              new_version: @node_module.version)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_restore.success',
+                                node_module: @node_module,
+                                version: params[:version].to_i,
+                                new_version: @node_module.version)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.module_restore.alert',
-                             node_module: @node_module,
-                             version: params[:version].to_i)
+      flash['danger'] = I18n.t('flash.nodes.control_node.module_restore.danger',
+                               node_module: @node_module,
+                               version: params[:version].to_i)
     end
   end
 
@@ -428,11 +428,11 @@ class NodesController < ApplicationController
       end
     end
     if @node_module.save
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_update.notice',
-                              node_module: @node_module)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_update.success',
+                                node_module: @node_module)
     else
-      flash[:notice] = I18n.t('flash.nodes.control_node.module_update.notice',
-                              node_module: @node_module)
+      flash['success'] = I18n.t('flash.nodes.control_node.module_update.success',
+                                node_module: @node_module)
     end
   end
 
@@ -452,10 +452,10 @@ class NodesController < ApplicationController
                                        exclusive: true,
                                        options: options)
     if @node.enabled? && operation.save
-      flash[:notice] = I18n.t('flash.nodes.control_node.create_cloud_instance.notice',
-                              node: @node)
+      flash['success'] = I18n.t('flash.nodes.control_node.create_cloud_instance.success',
+                                node: @node)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.create_cloud_instance.alert')
+      flash['danger'] = I18n.t('flash.nodes.control_node.create_cloud_instance.danger')
     end
   end
 
@@ -463,20 +463,22 @@ class NodesController < ApplicationController
     node_instance = @node.node_instances.build(node_instance_params)
     if @node.enabled? && node_instance.save
       @refresh_node_instances = true
-      flash[:notice] = I18n.t('flash.nodes.control_node.create_physical_instance.notice',
-                              node: @node)
+      flash['success'] = I18n.t('flash.nodes.control_node.create_physical_instance.success',
+                                node: @node)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.create_physical_instance.alert',
-                             node: @node)
+      flash['danger'] = I18n.t('flash.nodes.control_node.create_physical_instance.danger',
+                               node: @node)
     end
   end
 
   def do_instance_destroy
     if @node.enabled? && @node_instance.physical_variety? && @node_instance.destroy
       @refresh_node_instances = true
-      flash[:notice] = I18n.t('flash.nodes.control_node.instance_destroy.notice', node_instance: @node_instance)
+      flash['success'] = I18n.t('flash.nodes.control_node.instance_destroy.success',
+                                node_instance: @node_instance)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.instance_destroy.alert', node_instance: @node_instance)
+      flash['danger'] = I18n.t('flash.nodes.control_node.instance_destroy.danger',
+                               node_instance: @node_instance)
     end
   end
 
@@ -489,13 +491,15 @@ class NodesController < ApplicationController
                                                   ssh_encryption_key: ssh_encryption_key,
                                                   recipient: @current_user.email }) if ssh_encryption_key && @node.ssh_key.present?
     if ssh_encryption_key.present? && @node.enabled? && @node.ssh_key.present? && operation.save
-      flash[:notice] = I18n.t('flash.nodes.control_node.send_ssh_key.notice', recipient: @current_user.email)
+      flash['success'] = I18n.t('flash.nodes.control_node.send_ssh_key.success',
+                                recipient: @current_user.email)
     elsif @node.ssh_key.empty? && @node.enabled?
-      flash[:alert] = I18n.t('flash.nodes.control_node.send_ssh_key.alert_no_ssh_key')
+      flash['danger'] = I18n.t('flash.nodes.control_node.send_ssh_key.danger_no_ssh_key')
     elsif !ssh_encryption_key && @node.enabled?
-      flash[:alert] = I18n.t('flash.nodes.control_node.send_ssh_key.alert_invalid_encryption_key', key_length: Powernode.config.encryption_key_length)
+      flash['danger'] = I18n.t('flash.nodes.control_node.send_ssh_key.danger_invalid_encryption_key',
+                               key_length: Powernode.config.encryption_key_length)
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.send_ssh_key.alert')
+      flash['danger'] = I18n.t('flash.nodes.control_node.send_ssh_key.danger')
     end
   end
 
@@ -507,9 +511,9 @@ class NodesController < ApplicationController
                                        scheduled_at: params[:sync_cloud_instances_scheduled_at].present? ? Time.parse(params[:sync_cloud_instances_scheduled_at]) : Time.now,
                                        options: { async: true })
     if @node.enabled? && operation.save
-      flash[:notice] = I18n.t('flash.nodes.control_node.sync_cloud_instances.notice')
+      flash['success'] = I18n.t('flash.nodes.control_node.sync_cloud_instances.success')
     else
-      flash[:alert] = I18n.t('flash.nodes.control_node.sync_cloud_instances.alert')
+      flash['danger'] = I18n.t('flash.nodes.control_node.sync_cloud_instances.danger')
     end
   end
 
@@ -517,7 +521,7 @@ class NodesController < ApplicationController
 
   def check_node_limit
     if @current_account.reached_node_limit?
-      flash[:alert] = I18n.t('flash.nodes.create.alert_limit_reached')
+      flash['danger'] = I18n.t('flash.nodes.create.danger_limit_reached')
       redirect_to nodes_path
     end
   end

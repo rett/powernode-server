@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012004006) do
+ActiveRecord::Schema.define(version: 20151114113308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 20151012004006) do
     t.string   "stripe_card_exp_year"
     t.string   "stripe_card_last4"
     t.string   "stripe_subscription"
-    t.string   "stripe_token"
     t.string   "stripe_trial_end"
     t.string   "stripe_trial_start"
     t.string   "stripe_access_token",                              default: "", null: false
@@ -144,12 +143,14 @@ ActiveRecord::Schema.define(version: 20151012004006) do
     t.string   "private_ip_netmask",            limit: 255
     t.string   "private_ip_primary_dns",        limit: 255
     t.string   "private_ip_secondary_dns",      limit: 255
-    t.text     "encrypted_key"
     t.datetime "private_netboot_updated_at",                precision: 6
     t.datetime "started_at",                                precision: 6
     t.uuid     "provider_region_id"
     t.uuid     "provider_network_subnet_id"
     t.uuid     "provider_availability_zone_id"
+    t.string   "encrypted_key"
+    t.string   "encrypted_key_iv"
+    t.string   "encrypted_key_salt"
   end
 
   add_index "node_instances", ["name"], name: "index_node_instances_on_name", using: :btree
@@ -371,24 +372,26 @@ ActiveRecord::Schema.define(version: 20151012004006) do
   add_index "node_templates", ["node_platform_id"], name: "index_node_templates_on_node_platform_id", using: :btree
 
   create_table "nodes", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
-    t.datetime "created_at",                      precision: 6
-    t.datetime "updated_at",                      precision: 6
-    t.uuid     "account_id",                                                    null: false
-    t.uuid     "node_template_id",                                              null: false
+    t.datetime "created_at",                         precision: 6
+    t.datetime "updated_at",                         precision: 6
+    t.uuid     "account_id",                                                       null: false
+    t.uuid     "node_template_id",                                                 null: false
     t.uuid     "primary_instance_id"
     t.uuid     "sync_script_id"
-    t.string   "name",                limit: 255,                               null: false
-    t.string   "description",         limit: 255,               default: "",    null: false
-    t.text     "details",                                       default: "",    null: false
-    t.boolean  "custom_sync_script",                            default: false, null: false
-    t.boolean  "enabled",                                       default: true,  null: false
-    t.boolean  "tmpfs_store",                                   default: false, null: false
-    t.decimal  "runtime_amount",                                default: 0.0
-    t.string   "public_address",      limit: 255,               default: "",    null: false
-    t.string   "ssh_key_fingerprint", limit: 255,               default: "",    null: false
-    t.text     "encrypted_ssh_key",                             default: "",    null: false
-    t.boolean  "allocate_public_ip",                            default: true,  null: false
+    t.string   "name",                   limit: 255,                               null: false
+    t.string   "description",            limit: 255,               default: "",    null: false
+    t.text     "details",                                          default: "",    null: false
+    t.boolean  "custom_sync_script",                               default: false, null: false
+    t.boolean  "enabled",                                          default: true,  null: false
+    t.boolean  "tmpfs_store",                                      default: false, null: false
+    t.decimal  "runtime_amount",                                   default: 0.0
+    t.string   "public_address",         limit: 255,               default: "",    null: false
+    t.string   "ssh_key_fingerprint",    limit: 255,               default: "",    null: false
+    t.boolean  "allocate_public_ip",                               default: true,  null: false
     t.uuid     "agent_id"
+    t.string   "encrypted_ssh_key"
+    t.string   "encrypted_ssh_key_iv"
+    t.string   "encrypted_ssh_key_salt"
   end
 
   add_index "nodes", ["account_id"], name: "index_nodes_on_account_id", using: :btree
@@ -448,6 +451,7 @@ ActiveRecord::Schema.define(version: 20151012004006) do
     t.uuid     "account_id"
     t.boolean  "enabled",                                                   default: true,     null: false
     t.boolean  "public",                                                    default: true,     null: false
+    t.text     "options",                                                   default: "{}",     null: false
   end
 
   add_index "plans", ["account_id"], name: "index_plans_on_account_id", using: :btree
@@ -466,17 +470,19 @@ ActiveRecord::Schema.define(version: 20151012004006) do
   end
 
   create_table "provider_connections", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
-    t.datetime "created_at",                       precision: 6
-    t.datetime "updated_at",                       precision: 6
-    t.uuid     "account_id",                                                    null: false
-    t.uuid     "provider_id",                                                   null: false
-    t.string   "name",                 limit: 255,                              null: false
-    t.string   "description",          limit: 255,               default: "",   null: false
-    t.text     "details",                                        default: "",   null: false
-    t.boolean  "enabled",                                        default: true, null: false
-    t.string   "access_key",           limit: 255
-    t.string   "encrypted_secret_key", limit: 255
-    t.string   "tenant",               limit: 255,               default: "",   null: false
+    t.datetime "created_at",                            precision: 6
+    t.datetime "updated_at",                            precision: 6
+    t.uuid     "account_id",                                                         null: false
+    t.uuid     "provider_id",                                                        null: false
+    t.string   "name",                      limit: 255,                              null: false
+    t.string   "description",               limit: 255,               default: "",   null: false
+    t.text     "details",                                             default: "",   null: false
+    t.boolean  "enabled",                                             default: true, null: false
+    t.string   "access_key",                limit: 255
+    t.string   "tenant",                    limit: 255,               default: "",   null: false
+    t.string   "encrypted_secret_key"
+    t.string   "encrypted_secret_key_iv"
+    t.string   "encrypted_secret_key_salt"
   end
 
   add_index "provider_connections", ["account_id"], name: "index_provider_connections_on_account_id", using: :btree

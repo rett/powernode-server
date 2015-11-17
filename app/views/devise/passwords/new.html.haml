@@ -1,6 +1,19 @@
-= semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |form|
-  = devise_error_messages!
-  = form.inputs do
-    = form.input :email, autofocus: true
-    = form.submit 'Send password reset instructions'
-= render partial: 'devise/shared/links'
+.login-box
+  .login-logo
+    Node
+    %b Alchemy
+  .login-box-body
+    %h3.login-box-msg
+      = I18n.t('sessions.header.reset')
+    = semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |form|
+      .form-group.has-feedback
+        = devise_error_messages!
+        = form.input :email, autofocus: true, label: false
+        .row
+          .col-xs-8
+            &nbsp;
+          .col-xs-4
+            = form.submit 'Send', class: 'btn btn-primary btn-block btn-flat'
+    .row
+      .col-xs-12
+        = render partial: 'devise/shared/links'

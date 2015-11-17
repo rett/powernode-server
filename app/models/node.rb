@@ -17,7 +17,7 @@ class Node < ActiveRecord::Base
   has_many :puppet_resources, through: :puppet_modules
 
   attr_accessor :node_instance
-  attr_encryptor :ssh_key, key: :encryption_key
+  attr_encrypted :ssh_key, key: :encryption_key, mode: :per_attribute_iv_and_salt
 
   default_scope { order('name ASC') }
 
@@ -35,7 +35,7 @@ class Node < ActiveRecord::Base
   validates :agent, presence: true
   validates :id, uniqueness: true
   validates :name, format: { with: /\A[a-zA-Z0-9_-]*\z/ }, presence: true
-  validates :primary_instance, inclusion: { in: Proc.new { |n| n.node_instances.cloud_variety } }, allow_nil: true
+  validates :primary_instance, inclusion: { in: Proc.new { |n| n.node_instances } }, allow_nil: true
   validates :node_template, presence: true
   validates_uniqueness_of :name, scope: :account_id
   validate  :enforce_limits, on: :create
@@ -110,6 +110,6 @@ class Node < ActiveRecord::Base
   end
 
   def enforce_limits
-    errors.add(:base, I18n.t('flash.nodes.create.alert_limit_reached')) unless account.present? && account.nodes.size < account.node_limit
+    errors.add(:base, I18n.t('flash.nodes.create.danger_limit_reached')) unless account.present? && account.nodes.size < account.node_limit
   end
 end

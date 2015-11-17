@@ -13,15 +13,15 @@ class Plan < ActiveRecord::Base
                 :trial_period_days
 
   serialize :default_roles, JSON
+  serialize :options, JSON
 
-  default_scope { order('name ASC') }
+  default_scope { order('amount ASC') }
 
   scope :enabled,   -> { where(enabled: true) }
   scope :available, -> { enabled.where(public: true) }
   scope :featured,  -> { available.where(featured: true) }
   scope :popular,   -> { featured.where(id: Account.group('plan_id').order('count(*) desc').limit(5).count.keys) }
 
-  validates :account, presence: true
   validates :id, uniqueness: true
   validates :name, presence: true, uniqueness: true
   validates :default_roles, :node_limit, :instance_limit, :user_limit, presence: true
@@ -30,7 +30,7 @@ class Plan < ActiveRecord::Base
   validates_inclusion_of :interval, in: %w[day month]
   validates_presence_of :name
 
-  before_destroy :destroy_stripe_plan
+  before_destroy :prevent_destroy_if_accounts, :destroy_stripe_plan
   before_save :update_stripe_plan
   before_save :validate_default_roles
 
@@ -58,6 +58,13 @@ class Plan < ActiveRecord::Base
 
   def destroy_stripe_plan
     stripe_plan.destroy!
+  end
+
+  def prevent_destroy_if_accounts
+    if accounts.size > 0
+      self.errors[:base] << 'Cannot delete plan while accounts exist.'
+      false
+    end
   end
 
   def update_stripe_plan

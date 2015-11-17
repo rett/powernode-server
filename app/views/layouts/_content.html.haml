@@ -4,5 +4,3 @@
     = render_breadcrumbs builder: BreadcrumbBuilder
   %section.content
     = yield
-    - if Rails.env.development? && @current_user && @current_user.try(:global_admin?) && @preferences['admin_console']
-      = console

@@ -41,9 +41,9 @@ class AccountsController < ApplicationController
       @account.stripe_card_last4 = params[:credit_card][:stripe_card_last4]
       @account.stripe_token = params[:credit_card][:stripe_token]
       if @account.save
-        redirect_to account_path(@account), notice: I18n.t('flash.accounts.billing.notice')
+        redirect_to account_path(@account), notice: I18n.t('flash.accounts.billing.success')
       else
-        flash[:alert] = I18n.t('flash.accounts.billing.alert')
+        flash['danger'] = I18n.t('flash.accounts.billing.danger')
       end
     else
       @credit_card = CreditCard.new
@@ -56,7 +56,7 @@ class AccountsController < ApplicationController
       sign_out(:user) if @account.destroy && @account == @current_account
       redirect_to page_path('canceled') and return
     elsif request.post?
-      flash[:warning] = 'You must confirm you wish to cancel.'
+      flash['danger'] = 'You must confirm you wish to cancel.'
     end
   end
 
@@ -69,15 +69,15 @@ class AccountsController < ApplicationController
         else
           @delegation = AccountDelegation.new(account_id: @account.id, user_id: user.id, expiration: params[:expiration])
         end
-        flash[:notice] = I18n.t('flash.accounts.delegation.add.notice') if @delegation.save
+        flash['success'] = I18n.t('flash.accounts.delegation.add.success') if @delegation.save
       else
-        flash[:alert] = I18n.t('flash.accounts.delegation.add.alert')
+        flash['danger'] = I18n.t('flash.accounts.delegation.add.danger')
       end
     elsif request.delete?
       if (@delegation = @account.account_delegations.find_by(id: params[:delegation_id])) && can?(:update, @delegation.account) && @delegation.destroy
-        flash[:notice] = I18n.t('flash.accounts.delegation.remove.notice')
+        flash['success'] = I18n.t('flash.accounts.delegation.remove.success')
       else
-        flash[:alert] = I18n.t('flash.accounts.delegation.remove.alert')
+        flash['danger'] = I18n.t('flash.accounts.delegation.remove.danger')
       end
     end
     respond_with @account, locals: { delegation: @delegation }
@@ -92,14 +92,14 @@ class AccountsController < ApplicationController
   end
 
   def plan
-    @plans = Plan.order('amount asc')
+    @plans = Plan.accessible_by(@current_ability, :use).order('amount asc')
     if request.post?
       @plan = Plan.find_by(id: params[:plan_id])
       @account.plan = @plan if @account.qualifies_for?(@plan)
       if @account.save
-        redirect_to account_path(@account), notice: I18n.t('flash.accounts.plan.notice')
+        redirect_to account_path(@account), notice: I18n.t('flash.accounts.plan.success')
       else
-        flash[:alert] = I18n.t('flash.accounts.plan.alert')
+        flash['danger'] = I18n.t('flash.accounts.plan.danger')
       end
     end
   end
@@ -109,9 +109,9 @@ class AccountsController < ApplicationController
     if (@account = @accounts.find_by(id: params[:id]))
       session[:account_id] = @account.id
       @current_account = @account
-      flash[:notice] = I18n.t('flash.accounts.select.notice', account: @account.name)
+      flash['success'] = I18n.t('flash.accounts.select.success', account: @account.name)
     else
-      flash[:alert] = I18n.t('flash.accounts.select.alert')
+      flash['danger'] = I18n.t('flash.accounts.select.danger')
       raise CanCan::AccessDenied
     end
     respond_with @account do |format|

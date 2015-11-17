@@ -19,7 +19,7 @@ class NodeInstance < ActiveRecord::Base
   has_many :provider_volumes
   has_many :active_volumes, class_name: 'ProviderVolume', foreign_key: 'active_instance_id'
 
-  attr_encryptor :key, key: :encryption_key
+  attr_encrypted :key, key: :encryption_key, mode: :per_attribute_iv_and_salt
   attr_readonly :entity, :variety
 
   delegate :account, to: :node
@@ -105,7 +105,7 @@ class NodeInstance < ActiveRecord::Base
   end
 
   def enforce_limits
-    errors.add(:base, I18n.t('flash.node_instances.create.alert_limit_reached')) unless account.present? && account.node_instances.size < account.instance_limit
+    errors.add(:base, I18n.t('flash.node_instances.create.danger_limit_reached')) unless account.present? && account.node_instances.size < account.instance_limit
   end
 
   def image_file_name=(name)
