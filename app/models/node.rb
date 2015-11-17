@@ -35,7 +35,7 @@ class Node < ActiveRecord::Base
   validates :agent, presence: true
   validates :id, uniqueness: true
   validates :name, format: { with: /\A[a-zA-Z0-9_-]*\z/ }, presence: true
-  validates :primary_instance, inclusion: { in: Proc.new { |n| n.node_instances.cloud_variety } }, allow_nil: true
+  validates :primary_instance, inclusion: { in: Proc.new { |n| n.node_instances } }, allow_nil: true
   validates :node_template, presence: true
   validates_uniqueness_of :name, scope: :account_id
   validate  :enforce_limits, on: :create
