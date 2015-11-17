@@ -43,7 +43,7 @@ class AccountsController < ApplicationController
       if @account.save
         redirect_to account_path(@account), notice: I18n.t('flash.accounts.billing.success')
       else
-        flash[:danger] = I18n.t('flash.accounts.billing.danger')
+        flash['danger'] = I18n.t('flash.accounts.billing.danger')
       end
     else
       @credit_card = CreditCard.new
@@ -56,7 +56,7 @@ class AccountsController < ApplicationController
       sign_out(:user) if @account.destroy && @account == @current_account
       redirect_to page_path('canceled') and return
     elsif request.post?
-      flash[:danger] = 'You must confirm you wish to cancel.'
+      flash['danger'] = 'You must confirm you wish to cancel.'
     end
   end
 
@@ -69,15 +69,15 @@ class AccountsController < ApplicationController
         else
           @delegation = AccountDelegation.new(account_id: @account.id, user_id: user.id, expiration: params[:expiration])
         end
-        flash[:success] = I18n.t('flash.accounts.delegation.add.success') if @delegation.save
+        flash['success'] = I18n.t('flash.accounts.delegation.add.success') if @delegation.save
       else
-        flash[:danger] = I18n.t('flash.accounts.delegation.add.danger')
+        flash['danger'] = I18n.t('flash.accounts.delegation.add.danger')
       end
     elsif request.delete?
       if (@delegation = @account.account_delegations.find_by(id: params[:delegation_id])) && can?(:update, @delegation.account) && @delegation.destroy
-        flash[:success] = I18n.t('flash.accounts.delegation.remove.success')
+        flash['success'] = I18n.t('flash.accounts.delegation.remove.success')
       else
-        flash[:danger] = I18n.t('flash.accounts.delegation.remove.danger')
+        flash['danger'] = I18n.t('flash.accounts.delegation.remove.danger')
       end
     end
     respond_with @account, locals: { delegation: @delegation }
@@ -99,7 +99,7 @@ class AccountsController < ApplicationController
       if @account.save
         redirect_to account_path(@account), notice: I18n.t('flash.accounts.plan.success')
       else
-        flash[:danger] = I18n.t('flash.accounts.plan.danger')
+        flash['danger'] = I18n.t('flash.accounts.plan.danger')
       end
     end
   end
@@ -109,9 +109,9 @@ class AccountsController < ApplicationController
     if (@account = @accounts.find_by(id: params[:id]))
       session[:account_id] = @account.id
       @current_account = @account
-      flash[:success] = I18n.t('flash.accounts.select.success', account: @account.name)
+      flash['success'] = I18n.t('flash.accounts.select.success', account: @account.name)
     else
-      flash[:danger] = I18n.t('flash.accounts.select.danger')
+      flash['danger'] = I18n.t('flash.accounts.select.danger')
       raise CanCan::AccessDenied
     end
     respond_with @account do |format|

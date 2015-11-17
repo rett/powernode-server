@@ -57,7 +57,7 @@ en:
       success:                                    'Success!'
       warning:                                    'Warning!'
     actions:
-      alert_access_denied:                        'You are not authorized to access this page.'
+      danger_access_denied:                       'You are not authorized to access this page.'
       create:
         danger:                                   '%{resource_name} could not be created.'
         success:                                  '%{resource_name} was successfully created.'
@@ -89,32 +89,127 @@ en:
         success:                                  'Successfully selected %{account}.'
     node_templates:
       import:
-        alert_node_architecture:                  'Failed to load node architecture.'
-        alert_node_module_categories:             'Failed to load node module categories.'
-        alert_node_module_dependencies:           'Failed to load node module dependencies.'
-        alert_node_modules:                       'Failed to load node modules.'
-        alert_node_platform:                      'Failed to load node platform.'
-        alert_node_template:                      'Failed to load node template.'
+        danger_node_architecture:                 'Failed to load node architecture.'
+        danger_node_module_categories:            'Failed to load node module categories.'
+        danger_node_module_dependencies:          'Failed to load node module dependencies.'
+        danger_node_modules:                      'Failed to load node modules.'
+        danger_node_platform:                     'Failed to load node platform.'
+        danger_node_template:                     'Failed to load node template.'
         success:                                  'Successfully imported %{node_template}.'
     node_instances:
       create:
-        alert_limit_reached:                      'Unable to create instance, limit reached.'
+        danger_limit_reached:                     'Unable to create instance, limit reached.'
     nodes:
+      control_node:
+        create_cloud_instance:
+          danger:                                 'Failed to schedule instance creation for node %{node}.'
+          success:                                'Instance creation scheduled for node %{node}.'
+        create_physical_instance:
+          danger:                                 'Failed to create instance for node %{node}.'
+          success:                                'Successfully created instance for %{node}.'
+        create_iso:
+          danger:                                 'Failed to schedule ISO creation.'
+          success:                                'ISO generation scheduled for instance %{node_instance}.'
+        instance_cleanse:
+          danger:                                 'Failed to schedule instance cleansing.'
+          success:                                'Instance cleansing scheduled for instance %{node_instance}.'
+        instance_create_image:
+          danger:                                 'Failed to schedule image creation.'
+          success:                                'Image generation scheduled for instance %{node_instance}.'
+        instance_create_image:
+          danger:                                 'Failed to schedule Image creation.'
+          success:                                'Image generation scheduled for instance %{node_instance}.'
+        instance_destroy:
+          danger:                                 'Failed to destroy instance %{node_instance}.'
+          success:                                'Instance %{node_instance} destroyed.'
+        instance_exec:
+          danger:                                 'Failed to schedule command %{command} for instance %{node_instance}.'
+          success:                                'Exec %{command} command scheduled for instance %{node_instance}.'
+        instance_public_ip_associate:
+          danger:                                 'Failed to schedule IP association for instance %{node_instance}.'
+          success:                                'Successfully scheduled Public IP association for instance %{node_instance}.'
+        instance_public_ip_disassociate:
+          danger:                                 'Failed to schedule IP disassociation for instance %{node_instance}.'
+          success:                                'Successfully scheduled Public IP disassociation for instance %{node_instance}.'
+        instance_reboot:
+          danger:                                 'Failed to schedule reboot for instance %{node_instance}.'
+          success:                                'Successfully scheduled instance reboot for instance %{node_instance}.'
+        instance_reset_key:
+          danger:                                 'Failed to reset key for instance %{node_instance}.'
+          success:                                'Successfully reset key for instance %{node_instance}.'
+        instance_set_primary:
+          danger:                                 'Failed to set instance %{node_instance} as primary.'
+          success:                                'Successfully set instance %{node_instance} as primary.'
+        instance_start:
+          danger:                                 'Failed to schedule start for instance %{node_instance}.'
+          success:                                'Start scheduled for instance %{node_instance}.'
+        instance_stop:
+          danger:                                 'Failed to schedule stop for instance %{node_instance}.'
+          success:                                'Stop scheduled for instance %{node_instance}.'
+        instance_sync:
+          danger:                                 'Failed to schedule sync for instance %{node_instance}.'
+          success:                                'Sync scheduled for instance %{node_instance}.'
+        instance_terminate:
+          danger:                                 'Failed to schedule termination for instance %{node_instance}.'
+          success:                                'Instance termination scheduled for instance %{node_instance}.'
+        module_build:
+          danger:                                 'Failed to schedule build of %{node_module}.'
+          danger_no_instance:                     'Failed to schedule build of %{node_module}, no primary instance available.'
+          success:                                'Scheduled build of %{node_module} on %{node_instance}.'
+        module_commit:
+          danger:                                 'Failed to schedule commit of %{node_module} on %{node_instance}.'
+          danger_no_instance:                     'Failed to schedule commit of %{node_module}, no primary instance available.'
+          success:                                'Scheduled commit of %{node_module} on %{node_instance}.'
+        module_create_dependency:
+          danger:                                 'Failed to create dependency module.'
+          success:                                'Successfully created dependency module for %{node_module}.'
+        module_delete:
+          danger:                                 'Failed to delete version %{version} of %{node_module}.'
+          success:                                'Successfully deleted version %{version} of %{node_module}.'
+        module_destroy:
+          danger:                                 'Failed to destroy module %{node_module}.'
+          success:                                'Successfully destroyed module %{node_module}.'
+        module_subscribe:
+          danger:                                 'Failed to subscribe to module %{node_module}.'
+          success:                                'Successfully subscribed to module %{node_module}.'
+        module_unsubscribe:
+          danger:                                 'Failed to unsubscribe module %{node_module}.'
+          success:                                'Successfully unsubscribed module %{node_module}.'
+        module_purge:
+          danger:                                 'Failed to purge versions of %{node_module} up to version %{version}.'
+          success:                                'Successfully purged versions of %{node_module} up to version %{version}.'
+        module_restore:
+          danger:                                 'Failed to restore version %{version} of %{node_module}.'
+          success:                                'Successfully restored version %{version} of %{node_module} to version %{new_version}.'
+        module_update:
+          danger:                                 'Failed to update status of %{node_module}.'
+          success:                                'Successfully updated status of %{node_module}.'
+        operation_unschedule_id:
+          danger:                                 'Failed to unschedule command.'
+          success:                                'Successfully unscheduled command.'
+        send_ssh_key:
+          danger:                                 'Failed to send SSH key to %{recipient}.'
+          danger_invalid_encryption_key:          'Invalid encryption key, must be a %{key_length} character long hex string.'
+          danger_no_ssh_key:                      'No SSH key available for node.'
+          success:                                'Sending encrypted SSH key to %{recipient}.'
+        sync_cloud_instances:
+          danger:                                 'Failed to schedule sync for cloud instances.'
+          success:                                'Successfully scheduled cloud instance sync.'
       create:
-        alert_limit_reached:                      'Unable to create node, limit reached.'
+        danger_limit_reached:                     'Unable to create node, limit reached.'
     subscriptions:
       charge:
         danger:                                   'Failed to charge subscription.'
         success:                                  'Subscription was successfully charged.'
       refund:
         danger:                                   'Failed to refund subscription.'
-        alert_complete:                           'Failed to refund subscription, already completely refunded.'
+        danger_complete:                          'Failed to refund subscription, already completely refunded.'
         success:                                  'Subscription was successfully refunded.'
     users:
       create:
-        alert_limit_reached:                      'Unable to create user, limit reached.'
+        danger_limit_reached:                     'Unable to create user, limit reached.'
       destroy:
-        alert_current_user:                       'Failed to destroy current user.'
+        danger_current_user:                      'Failed to destroy current user.'
 
   #
   # Accounts

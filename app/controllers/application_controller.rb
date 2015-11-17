@@ -12,29 +12,17 @@ class ApplicationController < ActionController::Base
   before_action :add_breadcrumbs
   before_action :set_locale
   before_action :collect_billing_info, if: :user_signed_in?
-  after_action  :update_invalid_flash_notifications
 
   protect_from_forgery with: :exception
 
   private
-
-  def update_invalid_flash_notifications
-    if flash[:notice].present?
-      flash[:success] = flash[:notice]
-      flash.delete(:notice)
-    end
-    if flash[:alert].present?
-      flash[:danger] = flash[:alert]
-      flash.delete(:alert)
-    end
-  end
 
   def collect_billing_info
     redirect_to billing_account_path(@current_account) if @current_account.requires_billing_info?
   end
 
   def deny_access(exception)
-    flash[:danger] ||= I18n.t('flash.actions.alert_access_denied')
+    flash['danger'] ||= I18n.t('flash.actions.danger_access_denied')
     logger.error %Q[ACCESS VIOLATION! IP: "#{request.ip}", User: "#{current_user.try(:email)}", Path: "#{request.fullpath}", Message: "#{exception.message}"]
     if request.xhr?
       render :js => %Q[window.location.replace("#{root_url}")]

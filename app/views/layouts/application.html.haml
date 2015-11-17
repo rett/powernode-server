@@ -18,6 +18,7 @@
       = render partial: 'layouts/footer'
       = render partial: 'layouts/modal'
       = render partial: 'layouts/control_sidebar'
-= flash_notification
+%script
+  = flash_messages
 - if Rails.env.development? && @current_user && @current_user.try(:global_admin?) && @preferences['admin_console']
   = console

@@ -105,7 +105,7 @@ class NodeInstance < ActiveRecord::Base
   end
 
   def enforce_limits
-    errors.add(:base, I18n.t('flash.node_instances.create.alert_limit_reached')) unless account.present? && account.node_instances.size < account.instance_limit
+    errors.add(:base, I18n.t('flash.node_instances.create.danger_limit_reached')) unless account.present? && account.node_instances.size < account.instance_limit
   end
 
   def image_file_name=(name)

@@ -110,6 +110,6 @@ class Node < ActiveRecord::Base
   end
 
   def enforce_limits
-    errors.add(:base, I18n.t('flash.nodes.create.alert_limit_reached')) unless account.present? && account.nodes.size < account.node_limit
+    errors.add(:base, I18n.t('flash.nodes.create.danger_limit_reached')) unless account.present? && account.nodes.size < account.node_limit
   end
 end

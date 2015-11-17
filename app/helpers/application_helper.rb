@@ -18,11 +18,20 @@ module ApplicationHelper
       warning:  'fa fa-warning'}[type.to_sym] || type.to_s
   end
 
-  def flash_notification
-    if (message = flash[:danger] || flash[:danger] || flash[:info] || flash[:success])
-      alert_type = flash.keys[0].to_s
-      javascript_tag %Q{$.notify({icon:"#{flash_icon(alert_type)}", title:"<strong>#{I18n.t("flash.headers.#{alert_type}")}</strong>", message:"<p>#{message}</p>"}, {mouse_over:"pause", newest_on_top:true, type:"#{alert_type}"});}
+  def flash_messages
+    messages = ''
+    if flash['notice'].present?
+      flash['success'] = flash['notice']
+      flash.delete('notice')
     end
+    if flash['alert'].present?
+      flash['danger'] = flash['alert']
+      flash.delete('alert')
+    end
+    flash.discard.each do |type, message|
+      messages << %Q{$.notify({icon:"#{flash_icon(type)}", title:"<strong>#{I18n.t("flash.headers.#{type}")}</strong>", message:"<p>#{message}</p>"}, {mouse_over:"pause", newest_on_top:true, placement: {from: "top", align: "left"}, type:"#{type}"});}
+    end
+    messages.html_safe
   end
 
   def link_to_add_fields(name, f, association)
