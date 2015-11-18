@@ -1,6 +1,7 @@
 .content-wrapper
-  %section.content-header
-    %h1= @title
-    = render_breadcrumbs builder: BreadcrumbBuilder
+  - if user_signed_in?
+    %section.content-header
+      %h1= @title
+      = render_breadcrumbs builder: BreadcrumbBuilder
   %section.content
     = yield
