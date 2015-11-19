@@ -19,7 +19,6 @@ module ApplicationHelper
   end
 
   def flash_messages
-    messages = ''
     if flash['notice'].present?
       flash['success'] = flash['notice']
       flash.delete('notice')
@@ -28,8 +27,12 @@ module ApplicationHelper
       flash['danger'] = flash['alert']
       flash.delete('alert')
     end
-    flash.discard.each do |type, message|
-      messages << %Q{$.notify({icon:"#{flash_icon(type)}", title:"<strong>#{I18n.t("flash.headers.#{type}")}</strong>", message:"<p>#{message}</p>"}, {mouse_over:"pause", newest_on_top:true, placement: {from: "top", align: "left"}, type:"#{type}"});}
+    messages = ''
+    if flash.any?
+      flash.discard.keys.each do |type|
+        next if type == 'timedout'
+        messages << %Q{$.notify({icon:"#{flash_icon(type)}", title:"<strong>#{I18n.t("flash.headers.#{type}")}</strong>", message:"<p>#{flash[type]}</p>"}, {mouse_over:"pause", newest_on_top:true, placement: {from: "top", align: "left"}, type:"#{type}"});}
+      end
     end
     messages.html_safe
   end
