@@ -72,7 +72,4 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
-  platforms :ruby do
-    gem 'sqlite3-ruby', require: 'sqlite3'
-  end
 end
