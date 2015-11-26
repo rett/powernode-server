@@ -20,7 +20,10 @@ class NodeModule < ActiveRecord::Base
   has_many :nodes, through: :node_module_subscriptions, dependent: :destroy
   has_many :node_module_puppet_module_subscriptions
   has_many :operations, as: :operable
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :puppet_modules, through: :node_module_puppet_module_subscriptions
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_readonly :variety
 

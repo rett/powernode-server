@@ -2,6 +2,7 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "admin-lte": "latest",
+    "clipboard": "latest",
     "CodeMirror": "latest",
     "eonasdan-bootstrap-datetimepicker": "latest",
     "jquery": "latest",
@@ -12,6 +13,7 @@
     "marked": "latest",
     "bootstrap-multiselect": "latest",
     "animate.css": "latest",
+    "bootstrap-fileinput": "latest",
     "remarkable-bootstrap-notify": "latest"
   }
 }

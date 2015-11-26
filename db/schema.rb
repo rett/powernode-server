@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114113308) do
+ActiveRecord::Schema.define(version: 20151122071219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "account_id",                                         null: false
     t.uuid     "user_id",                                            null: false
     t.string   "description", limit: 255,               default: "", null: false
-    t.text     "details",                               default: "", null: false
     t.datetime "expiration",              precision: 6
   end
 
@@ -59,7 +58,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "account_id",                                              null: false
     t.string   "name",          limit: 255,                               null: false
     t.string   "description",   limit: 255,               default: "",    null: false
-    t.text     "details",                                 default: "",    null: false
     t.string   "proxy_url",     limit: 255,               default: "",    null: false
     t.boolean  "enabled",                                 default: true,  null: false
     t.boolean  "primary",                                 default: false, null: false
@@ -87,7 +85,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "account_id",                                                     null: false
     t.string   "name",                 limit: 255,                               null: false
     t.string   "description",          limit: 255,               default: "",    null: false
-    t.text     "details",                                        default: "",    null: false
     t.boolean  "enabled",                                        default: true,  null: false
     t.boolean  "public",                                         default: false, null: false
     t.string   "kernel_file_name",     limit: 255
@@ -117,7 +114,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "provider_connection_id"
     t.string   "name",                          limit: 255,                               null: false
     t.string   "description",                   limit: 255,               default: "",    null: false
-    t.text     "details",                                                 default: "",    null: false
     t.boolean  "enabled",                                                 default: true,  null: false
     t.boolean  "private_netboot_enabled",                                 default: false, null: false
     t.float    "latitude"
@@ -166,7 +162,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.string   "variety",              limit: 255,                               null: false
     t.string   "name",                 limit: 255,                               null: false
     t.string   "description",          limit: 255,               default: "",    null: false
-    t.text     "details",                                        default: "",    null: false
     t.boolean  "enabled",                                        default: true,  null: false
     t.boolean  "public",                                         default: false, null: false
     t.integer  "priority",                                                       null: false
@@ -182,7 +177,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "account_id",                                            null: false
     t.string   "name",        limit: 255,                               null: false
     t.string   "description", limit: 255,               default: "",    null: false
-    t.text     "details",                               default: "",    null: false
     t.string   "path",        limit: 255,                               null: false
     t.boolean  "enabled",                               default: true,  null: false
     t.boolean  "public",                                default: false, null: false
@@ -248,7 +242,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "node_platform_id"
     t.string   "name",                        limit: 255
     t.string   "description",                 limit: 255,               default: "",    null: false
-    t.text     "details",                                               default: "",    null: false
     t.boolean  "configurable",                                          default: false, null: false
     t.boolean  "custom_build_script",                                   default: false, null: false
     t.boolean  "enabled",                                               default: true,  null: false
@@ -299,7 +292,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "mount_script_id"
     t.string   "name",                           limit: 255,                               null: false
     t.string   "description",                    limit: 255,               default: "",    null: false
-    t.text     "details",                                                  default: "",    null: false
     t.text     "options",                                                  default: "{}",  null: false
     t.string   "device",                         limit: 255,                               null: false
     t.string   "path",                           limit: 255,                               null: false
@@ -321,7 +313,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "node_architecture_id",                                           null: false
     t.string   "name",                 limit: 255,                               null: false
     t.string   "description",          limit: 255,               default: "",    null: false
-    t.text     "details",                                                        null: false
     t.boolean  "enabled",                                        default: true,  null: false
     t.boolean  "public",                                         default: false, null: false
   end
@@ -336,7 +327,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.string   "name",        limit: 255,                               null: false
     t.string   "description", limit: 255,               default: "",    null: false
     t.string   "variety",     limit: 255,                               null: false
-    t.text     "details",                               default: "",    null: false
     t.text     "data",                                  default: "",    null: false
     t.boolean  "enabled",                               default: true,  null: false
     t.boolean  "public",                                default: false, null: false
@@ -362,7 +352,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "node_platform_id",                                           null: false
     t.string   "name",             limit: 255,                               null: false
     t.string   "description",      limit: 255,               default: "",    null: false
-    t.text     "details",                                    default: "",    null: false
     t.boolean  "enabled",                                    default: true,  null: false
     t.boolean  "public",                                     default: false, null: false
     t.string   "admin_user",       limit: 255
@@ -380,7 +369,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "sync_script_id"
     t.string   "name",                   limit: 255,                               null: false
     t.string   "description",            limit: 255,               default: "",    null: false
-    t.text     "details",                                          default: "",    null: false
     t.boolean  "custom_sync_script",                               default: false, null: false
     t.boolean  "enabled",                                          default: true,  null: false
     t.boolean  "tmpfs_store",                                      default: false, null: false
@@ -416,27 +404,43 @@ ActiveRecord::Schema.define(version: 20151114113308) do
 
   add_index "operations", ["account_id"], name: "index_operations_on_account_id", using: :btree
 
+  create_table "page_resources", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.uuid     "page_id",                        null: false
+    t.string   "name",                           null: false
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "data_updated_at"
+    t.string   "data_checksum",     default: "", null: false
+  end
+
+  add_index "page_resources", ["page_id"], name: "index_page_resources_on_page_id", using: :btree
+
   create_table "pages", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
-    t.datetime "created_at",              precision: 6
-    t.datetime "updated_at",              precision: 6
-    t.string   "name",        limit: 255,                               null: false
-    t.string   "title",       limit: 255
-    t.string   "description", limit: 255,               default: "",    null: false
-    t.text     "content",                               default: "",    null: false
-    t.boolean  "enabled",                               default: true,  null: false
-    t.boolean  "public",                                default: false, null: false
+    t.datetime "created_at",                precision: 6
+    t.datetime "updated_at",                precision: 6
+    t.string   "name",          limit: 255,                               null: false
+    t.string   "title",         limit: 255
+    t.string   "description",   limit: 255,               default: "",    null: false
+    t.text     "content",                                 default: "",    null: false
+    t.boolean  "enabled",                                 default: true,  null: false
+    t.boolean  "public",                                  default: false, null: false
     t.uuid     "account_id"
+    t.uuid     "pageable_id"
+    t.string   "pageable_type"
   end
 
   add_index "pages", ["account_id"], name: "index_pages_on_account_id", using: :btree
   add_index "pages", ["name"], name: "index_pages_on_name", using: :btree
+  add_index "pages", ["pageable_id"], name: "index_pages_on_pageable_id", using: :btree
 
   create_table "plans", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
     t.datetime "created_at",                       precision: 6
     t.datetime "updated_at",                       precision: 6
     t.string   "name",                 limit: 255,                                             null: false
     t.string   "description",          limit: 255,                          default: "",       null: false
-    t.text     "details",                                                   default: "",       null: false
     t.boolean  "featured",                                                  default: false,    null: false
     t.decimal  "amount",                           precision: 10, scale: 2, default: 0.0
     t.string   "interval",             limit: 255,                          default: "months"
@@ -463,7 +467,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "provider_region_id",                                           null: false
     t.string   "name",               limit: 255,                               null: false
     t.string   "description",        limit: 255,               default: "",    null: false
-    t.text     "details",                                      default: "",    null: false
     t.string   "entity",             limit: 255,               default: "",    null: false
     t.boolean  "enabled",                                      default: false, null: false
     t.boolean  "public",                                       default: false, null: false
@@ -476,7 +479,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "provider_id",                                                        null: false
     t.string   "name",                      limit: 255,                              null: false
     t.string   "description",               limit: 255,               default: "",   null: false
-    t.text     "details",                                             default: "",   null: false
     t.boolean  "enabled",                                             default: true, null: false
     t.string   "access_key",                limit: 255
     t.string   "tenant",                    limit: 255,               default: "",   null: false
@@ -493,7 +495,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "account_id",                                            null: false
     t.string   "name",        limit: 255,                               null: false
     t.string   "description", limit: 255,               default: "",    null: false
-    t.text     "details",                               default: "",    null: false
     t.boolean  "enabled",                               default: true,  null: false
     t.boolean  "public",                                default: false, null: false
   end
@@ -506,7 +507,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "provider_network_id",                                                    null: false
     t.string   "name",                          limit: 255,                              null: false
     t.string   "description",                   limit: 255,               default: "",   null: false
-    t.text     "details",                                                 default: "",   null: false
     t.string   "entity",                        limit: 255,               default: "",   null: false
     t.inet     "network",                                                                null: false
     t.uuid     "account_id",                                                             null: false
@@ -524,7 +524,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.inet     "network",                                                     null: false
     t.string   "name",               limit: 255,                              null: false
     t.string   "description",        limit: 255,               default: "",   null: false
-    t.text     "details",                                      default: "",   null: false
     t.string   "entity",             limit: 255,               default: "",   null: false
     t.string   "dns1",               limit: 255,               default: "",   null: false
     t.string   "dns2",               limit: 255,               default: "",   null: false
@@ -564,7 +563,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "provider_id",                                             null: false
     t.string   "name",          limit: 255,                               null: false
     t.string   "description",   limit: 255,               default: "",    null: false
-    t.text     "details",                                 default: "",    null: false
     t.boolean  "enabled",                                 default: true,  null: false
     t.boolean  "public",                                  default: false, null: false
     t.string   "endpoint_url",  limit: 255,               default: "",    null: false
@@ -611,7 +609,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "mount_script_id",                                           null: false
     t.string   "name",            limit: 255,                               null: false
     t.string   "description",     limit: 255,               default: "",    null: false
-    t.text     "details",                                   default: "",    null: false
     t.text     "options",                                   default: "{}",  null: false
     t.boolean  "enabled",                                   default: false, null: false
     t.boolean  "public",                                    default: false, null: false
@@ -631,7 +628,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "provider_volume_type_id",                                           null: false
     t.string   "name",                    limit: 255,                               null: false
     t.string   "description",             limit: 255,               default: "",    null: false
-    t.text     "details",                                           default: "",    null: false
     t.string   "mount_point",             limit: 255,               default: "",    null: false
     t.text     "options",                                           default: "{}",  null: false
     t.string   "status",                  limit: 255,                               null: false
@@ -651,7 +647,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.datetime "updated_at",              precision: 6
     t.string   "name",        limit: 255,                               null: false
     t.string   "description", limit: 255,               default: "",    null: false
-    t.text     "details",                               default: "",    null: false
     t.boolean  "enabled",                               default: true,  null: false
     t.boolean  "public",                                default: false, null: false
     t.string   "variety",     limit: 255,               default: "aws", null: false
@@ -666,7 +661,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.uuid     "account_id",                                                  null: false
     t.string   "name",              limit: 255,                               null: false
     t.string   "description",       limit: 255,               default: "",    null: false
-    t.text     "details",                                     default: "",    null: false
     t.string   "data_file_name",    limit: 255
     t.string   "data_content_type", limit: 255
     t.integer  "data_file_size"
@@ -685,7 +679,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.string   "name",             limit: 255,                              null: false
     t.string   "description",      limit: 255,               default: "",   null: false
     t.text     "data",                                       default: "",   null: false
-    t.text     "details",                                    default: "",   null: false
     t.string   "path",             limit: 255,               default: "",   null: false
     t.boolean  "enabled",                                    default: true, null: false
   end
@@ -701,7 +694,6 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.integer  "failed_attempts",                                  default: 0,    null: false
     t.string   "locale",                 limit: 255,                              null: false
     t.string   "name",                   limit: 255,                              null: false
-    t.integer  "roles_mask",                                       default: 0,    null: false
     t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at",                       precision: 6
     t.datetime "confirmation_sent_at",               precision: 6
@@ -717,6 +709,7 @@ ActiveRecord::Schema.define(version: 20151114113308) do
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at",                          precision: 6
     t.text     "preferences",                                      default: "{}", null: false
+    t.text     "roles",                                            default: "[]", null: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

@@ -3,6 +3,9 @@
 # AdminLTE Template
 asset 'admin-lte'
 
+# Clipboard
+asset 'clipboard'
+
 # Codemirror
 asset 'CodeMirror'
 
@@ -28,6 +31,9 @@ asset 'bootstrap-multiselect'
 
 # Animate.css
 asset 'animate.css'
+
+# Bootstrap Fileinput
+asset 'bootstrap-fileinput'
 
 # Bootstrap Notify
 asset 'remarkable-bootstrap-notify'

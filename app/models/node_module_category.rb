@@ -4,6 +4,9 @@ class NodeModuleCategory < ActiveRecord::Base
 
   belongs_to :account
   has_many :node_modules, dependent: :destroy
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_readonly :variety
 

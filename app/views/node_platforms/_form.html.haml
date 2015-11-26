@@ -1,26 +1,24 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(node_platforms_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if @node_platform.persisted?
-          = link_to(node_platform_path(@node_platform), class: 'btn') do
-            = fa('list-alt')
-            = I18n.t('actions.show')
-      = semantic_form_for(@node_platform) do |form|
-        .box-body
-          .messages= form.semantic_errors class: 'error-msg'
-          = form.input :name
-          = form.input :description
-          = form.input :node_architecture, collection: options_for_select(@available_node_architectures.map { |a| ["#{a.name}: #{a.description}", a.id] }, @node_platform.node_architecture_id), input_html: { class: 'multiselect' }
-          = form.input :build_script, collection: @available_build_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :init_script, collection: @available_init_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :sync_script, collection: @available_utility_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :enabled, as: :boolean
-          - if can?(:manage, NodePlatform)
-            = form.input :public, as: :boolean
-          = form.input :details, input_html: { class: 'markdown' }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  .box-header.with-border
+    = link_to(node_platforms_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if @node_platform.persisted?
+      = link_to(node_platform_path(@node_platform), class: 'btn') do
+        = fa('list-alt')
+        = I18n.t('actions.show')
+  = semantic_form_for(@node_platform) do |form|
+    .box-body
+      .messages= form.semantic_errors class: 'error-msg'
+      = form.input :name
+      = form.input :description
+      = form.input :node_architecture, collection: options_for_select(@available_node_architectures.map { |a| ["#{a.name}: #{a.description}", a.id] }, @node_platform.node_architecture_id), input_html: { class: 'multiselect' }
+      = form.input :build_script, collection: @available_build_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :init_script, collection: @available_init_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :sync_script, collection: @available_utility_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :enabled, as: :boolean
+      - if can?(:manage, NodePlatform)
+        = form.input :public, as: :boolean
+      = render partial: 'pages/page_form_fields', locals: { f: form }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }

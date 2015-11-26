@@ -14,7 +14,6 @@ class NodePlatformsController < ApplicationController
   end
 
   def show
-    @details = @node_platform.details
     respond_with @node_platform
   end
 
@@ -47,15 +46,18 @@ class NodePlatformsController < ApplicationController
   end
 
   def node_platform_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :enabled,
                          :build_script_id,
                          :init_script_id,
                          :sync_script_id,
                          :name,
                          :node_architecture_id]
-    permitted_params += [:public] if can?(:manage, NodePlatform)
+    permitted_params += [:public] if can?(:publish, NodePlatform)
     params.require(:node_platform).permit(*permitted_params)
   end
 end

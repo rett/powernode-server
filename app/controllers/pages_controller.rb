@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  load_resource except: [:create, :show]
+  load_resource except: [:create, :resource, :show]
   authorize_resource
 
   before_action { add_breadcrumb @page if @page.try(:persisted?) }
@@ -20,7 +20,6 @@ class PagesController < ApplicationController
     end
     @page ||= Page.accessible_by(@current_ability, :show).find_by(name: 'welcome')
     @page ||= Page.new
-    @details = @page.content
     @title = @page.title if @page.persisted?
     respond_with @page
   end
@@ -42,17 +41,39 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
-    respond_with @page
+    if @page.pageable.present?
+      respond_with @page.pageable
+    else
+      respond_with @page
+    end
+  end
+
+  def resource
+    if params[:name].present?
+      params[:style] ||= 'medium'
+      @page = Page.accessible_by(@current_ability, :show).find_by(id: params[:page_id])
+      if @page && (@page_resource = @page.page_resources.find_by(name: params[:name]))
+        redirect_to @page_resource.data.url(params[:style]), status: :moved_permanently
+      else
+        render nothing: true, status: :not_found
+      end
+    else
+      render nothing: true, status: :not_found
+    end
   end
 
   private
 
   def page_params
-    permitted_params  = [:content,
+    permitted_params  = [{ page_resources_attributes: [:id,
+                                                       :data,
+                                                       :name,
+                                                       :_destroy] },
+                         :content,
                          :enabled,
                          :name,
                          :title]
-    permitted_params += [:public] if can?(:manage, Page)
+    permitted_params += [:public] if can?(:publish, Page)
     params.require(:page).permit(*permitted_params)
   end
 end

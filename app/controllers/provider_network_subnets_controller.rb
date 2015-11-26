@@ -14,7 +14,6 @@ class ProviderNetworkSubnetsController < ApplicationController
   end
 
   def show
-    @details = @provider_network_subnet.details
     respond_with @provider_network_subnet
   end
 
@@ -45,8 +44,11 @@ class ProviderNetworkSubnetsController < ApplicationController
   end
 
   def provider_network_subnet_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :entity,
                          :name,
                          :network,

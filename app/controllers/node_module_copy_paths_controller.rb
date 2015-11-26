@@ -13,7 +13,6 @@ class NodeModuleCopyPathsController < ApplicationController
   end
 
   def show
-    @details = @node_module_copy_path.details
     respond_with @node_module_copy_path
   end
 
@@ -39,8 +38,11 @@ class NodeModuleCopyPathsController < ApplicationController
   private
 
   def node_module_copy_path_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :enabled,
                          :name,
                          :path]

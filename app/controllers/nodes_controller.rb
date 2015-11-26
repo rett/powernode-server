@@ -16,7 +16,6 @@ class NodesController < ApplicationController
   end
 
   def show
-    @details = @node.details
     respond_with @node
   end
 
@@ -556,12 +555,15 @@ class NodesController < ApplicationController
   end
 
   def node_params
-    permitted_params = [{ node_mount_point_ids: [] },
+    permitted_params = [{ node_mount_point_ids: [],
+                          pages_attributes: [:id,
+                                             :name,
+                                             :title,
+                                             :_destroy] },
                         :agent_id,
                         :allocate_public_ip,
                         :custom_sync_script,
                         :description,
-                        :details,
                         :enabled,
                         :name,
                         :node_template_id,
@@ -573,7 +575,11 @@ class NodesController < ApplicationController
   end
 
   def node_instance_params
-    permitted_params = [:address,
+    permitted_params = [{ pages_attributes: [:id,
+                                             :name,
+                                             :title,
+                                             :_destroy] },
+                        :address,
                         :description,
                         :name,
                         :private_netboot_enabled,

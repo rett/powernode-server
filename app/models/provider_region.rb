@@ -4,6 +4,7 @@ class ProviderRegion < ActiveRecord::Base
 
   belongs_to :account
   belongs_to :provider
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_availability_zones
   has_many :provider_region_instance_type_subscriptions, dependent: :destroy
   has_many :provider_instance_types, through: :provider_region_instance_type_subscriptions
@@ -11,6 +12,8 @@ class ProviderRegion < ActiveRecord::Base
   has_many :provider_network_subnets, through: :provider_networks
   has_many :provider_region_volume_type_subscriptions, dependent: :destroy
   has_many :provider_volume_types, through: :provider_region_volume_type_subscriptions
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

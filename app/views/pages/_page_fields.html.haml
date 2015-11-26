@@ -1,0 +1,14 @@
+.nested-fields
+  .box.box-primary.box-solid
+    .box-header.with-border
+      %h4.box-title
+        - if f.object.persisted?
+          = f.object.name
+        - else
+          New page
+      .pull-right
+        = link_to_remove_association(f, class: 'btn', role: 'button') do
+          = fa('times')
+    .box-body
+      = f.input :name
+      = f.input :title

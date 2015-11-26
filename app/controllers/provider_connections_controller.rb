@@ -13,7 +13,6 @@ class ProviderConnectionsController < ApplicationController
   end
 
   def show
-    @details = @provider_connection.details
     respond_with @provider_connection
   end
 
@@ -39,9 +38,12 @@ class ProviderConnectionsController < ApplicationController
   private
 
   def provider_connection_params
-    permitted_params  = [:access_key,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :access_key,
                          :description,
-                         :details,
                          :enabled,
                          :name,
                          :provider_id,

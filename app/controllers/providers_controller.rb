@@ -12,7 +12,6 @@ class ProvidersController < ApplicationController
   end
 
   def show
-    @details = @provider.details
     respond_with @provider
   end
 
@@ -38,8 +37,11 @@ class ProvidersController < ApplicationController
   private
 
   def provider_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :enabled,
                          :name,
                          :variety]

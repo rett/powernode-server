@@ -14,7 +14,6 @@ class NodeModuleCategoriesController < ApplicationController
   end
 
   def show
-    @details = @node_module_category.details
     respond_with @node_module_category
   end
 
@@ -44,10 +43,13 @@ class NodeModuleCategoriesController < ApplicationController
   end
 
   def node_module_category_params
-    permitted_params = [:config_category_id,
+    permitted_params = [{ pages_attributes: [:id,
+                                             :name,
+                                             :title,
+                                             :_destroy] },
+                        :config_category_id,
                         :instance_category_id,
                         :description,
-                        :details,
                         :enabled,
                         :name,
                         :priority,

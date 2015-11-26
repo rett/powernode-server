@@ -91,17 +91,8 @@ class AccountsController < ApplicationController
     end
   end
 
-  def plan
+  def plans
     @plans = Plan.accessible_by(@current_ability, :use).order('amount asc')
-    if request.post?
-      @plan = Plan.find_by(id: params[:plan_id])
-      @account.plan = @plan if @account.qualifies_for?(@plan)
-      if @account.save
-        redirect_to account_path(@account), notice: I18n.t('flash.accounts.plan.success')
-      else
-        flash['danger'] = I18n.t('flash.accounts.plan.danger')
-      end
-    end
   end
 
   def select

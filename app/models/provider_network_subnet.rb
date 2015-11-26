@@ -5,6 +5,9 @@ class ProviderNetworkSubnet < ActiveRecord::Base
   belongs_to :account
   belongs_to :provider_availability_zone
   belongs_to :provider_network
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

@@ -1,35 +1,32 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(agents_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @agent)
-          = link_to(edit_agent_path(@agent), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:destroy, @agent)
-          .pull-right
-            = link_to(@agent, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
-              = fa('remove')
-              = I18n.t('actions.destroy')
-      - if @agent.details.present?
-        .details= find_and_preserve render_markdown(@agent.details)
-      .box-body
-        %dl.dl-horizontal
-          %dt Name
-          %dd= @agent.name
-          %dt Description
-          %dd= @agent.description
-          %dt Enabled
-          %dd= @agent.enabled? ? 'Yes' : 'No'
-          - if can?(:manage, Agent)
-            %dt Primary
-            %dd= @agent.primary? ? 'Yes' : 'No'
-            %dt Public
-            %dd= @agent.public? ? 'Yes' : 'No'
-          %dt Created
-          %dd= local_time(@agent.created_at)
-          %dt Updated
-          %dd= local_time(@agent.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(agents_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @agent)
+      = link_to(edit_agent_path(@agent), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:destroy, @agent)
+      .pull-right
+        = link_to(@agent, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+          = fa('remove')
+          = I18n.t('actions.destroy')
+  .box-body
+    %dl.dl-horizontal
+      %dt Name
+      %dd= @agent.name
+      %dt Description
+      %dd= @agent.description
+      %dt Enabled
+      %dd= @agent.enabled? ? 'Yes' : 'No'
+      - if can?(:manage, Agent)
+        %dt Primary
+        %dd= @agent.primary? ? 'Yes' : 'No'
+        %dt Public
+        %dd= @agent.public? ? 'Yes' : 'No'
+      %dt Created
+      %dd= local_time(@agent.created_at)
+      %dt Updated
+      %dd= local_time(@agent.updated_at)
+= render partial: 'pages/pages', locals: { pages: @agent.pages }

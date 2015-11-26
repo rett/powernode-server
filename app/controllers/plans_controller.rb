@@ -3,7 +3,6 @@ class PlansController < ApplicationController
   authorize_resource
 
   before_action { add_breadcrumb @plan if @plan.try(:persisted?) }
-  before_action :load_roles, only: [:create, :new, :edit, :update]
 
   respond_to :html
 
@@ -14,7 +13,6 @@ class PlansController < ApplicationController
   end
 
   def show
-    @details = @plan.details
     respond_with @plan
   end
 
@@ -39,16 +37,14 @@ class PlansController < ApplicationController
 
   private
 
-  def load_roles
-    @available_roles = User::ROLES
-  end
-
   def plan_params
-    permitted_params  = [{ default_roles: [] },
+    permitted_params  = [{ default_roles: [],
+                           pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
                          :amount,
                          :description,
-                         :details,
-                         :featured,
                          :instance_limit,
                          :interval,
                          :interval_count,
@@ -57,7 +53,7 @@ class PlansController < ApplicationController
                          :statement_descriptor,
                          :trial_period_days,
                          :user_limit]
-    permitted_params += [:public] if can?(:manage, Plan)
+    permitted_params += [:featured, :public] if can?(:manage, Plan)
     params.require(:plan).permit(*permitted_params)
   end
 end

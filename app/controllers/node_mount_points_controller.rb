@@ -14,7 +14,6 @@ class NodeMountPointsController < ApplicationController
   end
 
   def show
-    @details = @node_mount_point.details
     respond_with @node_mount_point
   end
 
@@ -46,8 +45,11 @@ class NodeMountPointsController < ApplicationController
   end
 
   def node_mount_point_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :device,
                          :enabled,
                          :mount_script_id,

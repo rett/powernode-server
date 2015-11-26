@@ -3,7 +3,7 @@
     %section.sidebar
       .user-panel
         .pull-left.image
-          = gravatar_image_tag @current_user.email, filetype: 'png', rating: 'pg', size: 15, class: 'user-image img-circle', alt: 'User Image', gravatar: { secure: true }
+          &nbsp;
         .pull-left.info
           %p= @current_user.name
           - if @current_account != @current_user.account

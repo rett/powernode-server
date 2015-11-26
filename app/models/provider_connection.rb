@@ -5,13 +5,16 @@ class ProviderConnection < ActiveRecord::Base
 
   belongs_to :account
   belongs_to :provider
+  has_many :node_instances
+  has_many :nodes
+  has_many :operations, as: :operable
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_regions, through: :provider
   has_many :provider_instance_types, through: :provider_regions
   has_many :provider_networks, through: :provider_regions
   has_many :provider_network_subnets, through: :provider_networks
-  has_many :node_instances
-  has_many :nodes
-  has_many :operations, as: :operable
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

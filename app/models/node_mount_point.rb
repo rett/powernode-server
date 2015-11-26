@@ -8,6 +8,9 @@ class NodeMountPoint < ActiveRecord::Base
   belongs_to :node_mount_point_dependency, class_name: 'NodeMountPoint'
   has_many :node_mount_point_subscriptions
   has_many :node_instances, through: :node_mount_point_subscriptions
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   serialize :options, JSON
 

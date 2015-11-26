@@ -1,22 +1,20 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(users_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if @user.persisted?
-          = link_to(user_path(@user), class: 'btn') do
-            = fa('list-alt')
-            = I18n.t('actions.show')
-      = semantic_form_for(@user) do |form|
-        .box-body
-          .messages= form.semantic_errors class: 'error-msg'
-          = form.input :name
-          = form.input :email
-          = form.input :password, required: @user.new_record?
-          = form.input :password_confirmation
-          - if @user != @current_user && @available_roles
-            = form.input :roles, as: :select, collection: @available_roles.map { |r| [r.titleize, r] }, disabled: @disabled_roles, selected: @user.roles.to_a, multiple: true, required: true, input_html: { class: 'multiselect' }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  .box-header.with-border
+    = link_to(users_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if @user.persisted?
+      = link_to(user_path(@user), class: 'btn') do
+        = fa('list-alt')
+        = I18n.t('actions.show')
+  = semantic_form_for(@user) do |form|
+    .box-body
+      .messages= form.semantic_errors class: 'error-msg'
+      = form.input :name
+      = form.input :email
+      = form.input :password, required: @user.new_record?
+      = form.input :password_confirmation
+      - if @user != @current_user && @available_roles
+        = form.input :roles, as: :select, collection: @available_roles.map { |r| [r.titleize, r] }, disabled: @disabled_roles, selected: @user.roles.to_a, multiple: true, required: true, input_html: { class: 'multiselect' }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }

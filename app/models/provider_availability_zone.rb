@@ -6,7 +6,10 @@ class ProviderAvailabilityZone < ActiveRecord::Base
   belongs_to :account
   belongs_to :provider_region
   has_many :node_instances
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_network_subnets
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

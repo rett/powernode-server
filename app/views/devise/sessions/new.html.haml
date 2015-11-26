@@ -15,6 +15,4 @@
             = form.input :remember_me, as: :boolean
           .col-xs-4
             = form.submit 'Sign in', class: 'btn btn-primary btn-block btn-flat'
-    .row
-      .col-xs-12
-        = render partial: 'devise/shared/links'
+    = render partial: 'devise/shared/links'

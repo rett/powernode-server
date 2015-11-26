@@ -16,8 +16,11 @@ class NodeInstance < ActiveRecord::Base
   has_many :node_mount_point_subscriptions, dependent: :destroy
   has_many :node_mount_points, through: :node_mount_point_subscriptions
   has_many :operations, as: :operable
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_volumes
   has_many :active_volumes, class_name: 'ProviderVolume', foreign_key: 'active_instance_id'
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_encrypted :key, key: :encryption_key, mode: :per_attribute_iv_and_salt
   attr_readonly :entity, :variety

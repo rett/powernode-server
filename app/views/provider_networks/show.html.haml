@@ -1,46 +1,43 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(provider_networks_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @provider_network)
-          = link_to(edit_provider_network_path(@provider_network), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:destroy, @provider_network)
-          .pull-right
-            = link_to(@provider_network, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
-              .text-red
-                = fa('remove')
-                = I18n.t('actions.destroy')
-      .box-body
-        - if @provider_network.details.present?
-          .details= find_and_preserve render_markdown(@provider_network.details)
-        %dl.dl-horizontal
-          %dt Name
-          %dd= @provider_network.name
-          %dt Description
-          %dd= @provider_network.description
-          %dt Provider Region
-          %dd= @provider_network.provider_region
-          %dt Enabled
-          %dd= @provider_network.enabled? ? 'Yes' : 'No'
-          %dt Entity
-          %dd= @provider_network.entity
-          %dt Address
-          %dd= @provider_network.network.to_pretty
-          %dt DNS 1
-          %dd= @provider_network.dns1
-          %dt DNS 2
-          %dd= @provider_network.dns2
-          %dt Subnets
-          %dd
-            %ul
-              - @provider_network.provider_network_subnets.each do |provider_network_subnet|
-                %li= provider_network_subnet
-          %dt Created
-          %dd= local_time(@provider_network.created_at)
-          %dt Updated
-          %dd= local_time(@provider_network.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(provider_networks_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @provider_network)
+      = link_to(edit_provider_network_path(@provider_network), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:destroy, @provider_network)
+      .pull-right
+        = link_to(@provider_network, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+          .text-red
+            = fa('remove')
+            = I18n.t('actions.destroy')
+  .box-body
+    %dl.dl-horizontal
+      %dt Name
+      %dd= @provider_network.name
+      %dt Description
+      %dd= @provider_network.description
+      %dt Provider Region
+      %dd= @provider_network.provider_region
+      %dt Enabled
+      %dd= @provider_network.enabled? ? 'Yes' : 'No'
+      %dt Entity
+      %dd= @provider_network.entity
+      %dt Address
+      %dd= @provider_network.network.to_pretty
+      %dt DNS 1
+      %dd= @provider_network.dns1
+      %dt DNS 2
+      %dd= @provider_network.dns2
+      %dt Subnets
+      %dd
+        %ul
+          - @provider_network.provider_network_subnets.each do |provider_network_subnet|
+            %li= provider_network_subnet
+      %dt Created
+      %dd= local_time(@provider_network.created_at)
+      %dt Updated
+      %dd= local_time(@provider_network.updated_at)
+= render partial: 'pages/pages', locals: { pages: @node_module.pages }

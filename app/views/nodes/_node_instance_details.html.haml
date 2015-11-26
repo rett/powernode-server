@@ -1,5 +1,3 @@
-- if node_instance.details.present?
-  .details= find_and_preserve render_markdown(node_instance.details)
 .box.box-primary
   .box-header.with-border
     = I18n.t('nodes.control_node.instance_details.header')
@@ -13,9 +11,9 @@
       %dl.dl-horizontal
         %dt Name
         %dd
+          = link_to(node_instance.name, node_instance)
           = link_to(edit_node_instance_path(node_instance)) do
             = fa('edit')
-            = node_instance.name
         - unless node_instance.physical_variety?
           %dt Entity ID
           %dd= node_instance.entity
@@ -25,19 +23,28 @@
           %dd= node_instance.provider_instance_type
         %dt Status
         %dd= node_instance.status.capitalize
-        %dt Private IP:
-        %dd= node_instance.private_ip_address.present? ? node_instance.private_ip_address : 'None'
-        %dt Public IP
-        %dd
-          = node_instance.public_ip_address.present? ? node_instance.public_ip_address : 'None'
-          - unless node_instance.physical_variety?
-            - if node_instance.public_ip_address.blank?
-              = control_node_button(:instance_public_ip_associate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default',  data: { confirm: I18n.t('actions.confirm') } })
-            - else
-              = control_node_button(:instance_public_ip_disassociate, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default',  data: { confirm: I18n.t('actions.confirm') } })
         - if node_instance.address.present?
           %li
             Address: #{node_instance.address}
+        - if node_instance.private_ip_address.present?
+          %dt Private IP
+          %dd
+            = node_instance.private_ip_address.present? ? node_instance.private_ip_address : 'None'
+            &nbsp;
+            = content_tag('a', class: 'clipboard', type: 'button', data: { 'clipboard-text' => node_instance.private_ip_address }) do
+              = fa('clipboard')
+        - if node_instance.public_ip_address.present?
+          %dt Public IP
+          %dd
+            = node_instance.public_ip_address
+            &nbsp;
+            = content_tag('a', class: 'clipboard', type: 'span', data: { 'clipboard-text' => node_instance.public_ip_address }) do
+              = fa('clipboard')
+            &nbsp;
+            = control_node_button(:instance_public_ip_disassociate, icon: 'minus-circle', label: '', options: { node_instance_id: node_instance.id }, html_options: { class: 'text-red',  data: { confirm: I18n.t('actions.confirm') } })
+        - elsif !node_instance.physical_variety?
+          %dt Public IP
+          %dd= control_node_button(:instance_public_ip_associate, icon: 'plus-circle', label: '', options: { node_instance_id: node_instance.id }, html_options: { class: 'text-blue',  data: { confirm: I18n.t('actions.confirm') } })
     .col-md-6
       - if node_instance.image_file_size
         %dl.dl-horizontal

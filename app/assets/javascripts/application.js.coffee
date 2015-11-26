@@ -3,11 +3,13 @@
 #= require jquery-ui/jquery-ui
 #= require jquery-ujs/src/rails
 #= require bootstrap
+#= require bootstrap-fileinput/js/fileinput
 #= require bootstrap-multiselect/dist/js/bootstrap-multiselect
 #= require bootstrap-markdown/js/bootstrap-markdown
 #= require remarkable-bootstrap-notify/dist/bootstrap-notify
 #= require admin-lte/dist/js/app
 #= require admin-lte/plugins/slimScroll/jquery.slimscroll
+#= require clipboard/dist/clipboard
 #= require CodeMirror/lib/codemirror
 #= require CodeMirror/mode/shell/shell
 #= require moment/moment
@@ -32,6 +34,13 @@
 
 @AdminLTEOptions =
   controlSidebarOptions: {}
+
+$(document).bind 'fileinput.init', (e, obj) =>
+  $("form .fileinput").each ->
+    $(this).fileinput({'showUpload':false, 'previewFileType':'any'})
+
+# Clipboard.js
+clipboard = new Clipboard('.clipboard')
 
 # Codemirror editor
 @codemirror_options =
@@ -85,6 +94,7 @@ load_javascript = (controller, action) ->
   action = 'edit' if action in ['create', 'new', 'update']
   $.event.trigger("#{controller}.load")
   $.event.trigger("#{action}_#{controller}.load")
+  $.event.trigger('fileinput.init')
   $.event.trigger('codemirror.init')
   $.event.trigger('datetimepicker.init')
   $.event.trigger('markdown.init')
@@ -92,8 +102,10 @@ load_javascript = (controller, action) ->
 
 # Cocoon after-insert hook
 $(document).bind 'cocoon:after-insert', (e, inserted_item) =>
-  CodeMirror.fromTextArea(inserted_item.find('.codemirror').get(0), codemirror_options)
+  codemirror = inserted_item.find('.codemirror')
+  CodeMirror.fromTextArea(codemirror.get(0), codemirror_options) if codemirror.length != 0
   inserted_item.find('.markdown').markdown(markdown_options)
+  $.event.trigger('fileinput.init')
   $.event.trigger('multiselect.init')
 
 # Document ready

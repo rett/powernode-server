@@ -1,24 +1,22 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(provider_connections_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if @provider_connection.persisted?
-          = link_to(provider_connection_path(@provider_connection), class: 'btn') do
-            = fa('list-alt')
-            = I18n.t('actions.show')
-      = semantic_form_for(@provider_connection) do |form|
-        .box-body
-          .messages= form.semantic_errors class: 'error-msg'
-          = form.input :name
-          = form.input :description
-          = form.input :provider, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :access_key
-          = form.input :secret_key, as: :password
-          = form.input :tenant
-          = form.input :enabled, as: :boolean
-          = form.input :details, input_html: { class: 'markdown' }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  .box-header.with-border
+    = link_to(provider_connections_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if @provider_connection.persisted?
+      = link_to(provider_connection_path(@provider_connection), class: 'btn') do
+        = fa('list-alt')
+        = I18n.t('actions.show')
+  = semantic_form_for(@provider_connection) do |form|
+    .box-body
+      .messages= form.semantic_errors class: 'error-msg'
+      = form.input :name
+      = form.input :description
+      = form.input :provider, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :access_key
+      = form.input :secret_key, as: :password
+      = form.input :tenant
+      = form.input :enabled, as: :boolean
+      = render partial: 'pages/page_form_fields', locals: { f: form }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }

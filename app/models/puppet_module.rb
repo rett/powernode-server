@@ -5,8 +5,10 @@ class PuppetModule < ActiveRecord::Base
   belongs_to :account
   has_many :node_module_puppet_module_subscriptions
   has_many :node_modules, through: :node_module_puppet_module_subscriptions
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :puppet_resources, dependent: :destroy
 
+  accepts_nested_attributes_for :pages, allow_destroy: true
   accepts_nested_attributes_for :puppet_resources, allow_destroy: true
 
   default_scope { order('name ASC') }
@@ -26,9 +28,9 @@ class PuppetModule < ActiveRecord::Base
 
   after_data_post_process :generate_data_checksum
 
-  def data_file_name=(name)
+  def data_file_name=(_)
     self.id ||= UUIDTools::UUID.timestamp_create.to_s
-    self[:data_file_name] = "#{id}.tar.gz"
+    self[:data_file_name] = id
   end
 
   def encoded_data

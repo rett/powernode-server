@@ -14,7 +14,6 @@ class ProviderVolumesController < ApplicationController
   end
 
   def show
-    @details = @provider_volume.details
     respond_with @provider_volume
   end
 
@@ -55,8 +54,11 @@ class ProviderVolumesController < ApplicationController
   end
 
   def provider_volume_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :mount_point,
                          :mount_script_id,
                          :name,

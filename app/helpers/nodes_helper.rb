@@ -1,9 +1,11 @@
 module NodesHelper
-  def control_node_button(operation, label: nil, options: nil, html_options: nil)
+  def control_node_button(operation, icon: nil, label: nil, options: nil, html_options: nil)
     label ||= I18n.t("nodes.control_node.#{operation.to_s}.label")
-    button_to(label,
-              { action: 'control_node', operation: operation }.merge(options || {}),
-              { remote: true }.merge(html_options || {}))
+    link_to({ action: 'control_node', operation: operation }.merge(options || {}),
+            { remote: true }.merge(html_options || {})) do
+      label = label.prepend(fa(icon) + '&nbsp;'.html_safe) if icon
+      label.html_safe
+    end
   end
 
   def refresh_button(object_type, node_instance_id: nil, node_module_id: nil, &block)

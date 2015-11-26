@@ -1,51 +1,49 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(accounts_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @account)
-          = link_to(edit_account_path(@account), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:select, @account) && @account != @current_account
-          = link_to(select_account_path(@account), class: 'btn') do
-            = fa('home')
-            = I18n.t('actions.select')
-      .box-body
-        %dl.dl-horizontal
-          %dt Account Name
-          %dd= @account.name
-          %dt Plan
-          %dd
-            = @account.plan
-            = link_to 'Change', plan_account_path
-            or
-            = link_to 'Cancel', cancel_account_path
-          %dt Plan amount
-          %dd #{number_to_currency(@account.plan.amount)} / #{@account.plan.interval}
-          %dt Payment Information
-          %dd
-            - if @account.stripe_card.present?
-              XXXX-XXXX-XXXX-#{@account.stripe_card_last4}
-              (exp: #{@account.stripe_card_exp_month}/#{@account.stripe_card_exp_year})
-            = link_to 'Change', billing_account_path(@account)
-          - if can?(:show, @account.agent)
-            %dt Agent
-            %dd= @account.agent
-            %dt Users
-            %dd
-              %ul
-                - @account.users.each do |user|
-                  %li #{user.name} (#{link_to(user.email, user)})
-          - if @account.account_delegations.size > 0
-            %dt Delegations
-            %dd
-              %ul
-                - @account.account_delegations.each do |delegation|
-                  %li #{delegation.user.name} (#{delegation.user.email})
-            %dt Created
-            %dd= local_time(@account.created_at)
-            %dt Updated
-            %dd= local_time(@account.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(accounts_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @account)
+      = link_to(edit_account_path(@account), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:select, @account) && @account != @current_account
+      = link_to(select_account_path(@account), class: 'btn') do
+        = fa('home')
+        = I18n.t('actions.select')
+  .box-body
+    %dl.dl-horizontal
+      %dt Account Name
+      %dd= @account.name
+      %dt Plan
+      %dd
+        = @account.plan
+        = link_to 'Change', plans_account_path
+        or
+        = link_to 'Cancel', cancel_account_path
+      %dt Plan amount
+      %dd #{number_to_currency(@account.plan.amount)} / #{@account.plan.interval}
+      %dt Payment Information
+      %dd
+        - if @account.stripe_card.present?
+          XXXX-XXXX-XXXX-#{@account.stripe_card_last4}
+          (exp: #{@account.stripe_card_exp_month}/#{@account.stripe_card_exp_year})
+        = link_to 'Change', billing_account_path(@account)
+      - if can?(:show, @account.agent)
+        %dt Agent
+        %dd= @account.agent
+        %dt Users
+        %dd
+          %ul
+            - @account.users.each do |user|
+              %li #{user.name} (#{link_to(user.email, user)})
+      - if @account.account_delegations.size > 0
+        %dt Delegations
+        %dd
+          %ul
+            - @account.account_delegations.each do |delegation|
+              %li #{delegation.user.name} (#{delegation.user.email})
+        %dt Created
+        %dd= local_time(@account.created_at)
+        %dt Updated
+        %dd= local_time(@account.updated_at)

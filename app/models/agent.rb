@@ -4,6 +4,9 @@ class Agent < ActiveRecord::Base
 
   belongs_to :account
   has_many :accounts
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_accessor :key, :key_confirmation
 

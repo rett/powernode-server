@@ -53,6 +53,7 @@ class Account < ActiveRecord::Base
   end
 
   before_destroy :destroy_stripe_customer
+  before_save :update_roles
   before_save :update_stripe_customer
 
   aasm column: :state do
@@ -115,6 +116,15 @@ class Account < ActiveRecord::Base
 
   def destroy_stripe_customer
     stripe_customer.destroy!
+  end
+
+  def update_roles
+    users.each do |user|
+      user.roles.delete_if { |role| !plan.default_roles.include?(role) }
+      user.save if user.changed?
+    end
+    owner.roles << plan.default_roles
+    owner.save if owner.changed?
   end
 
   def update_stripe_customer

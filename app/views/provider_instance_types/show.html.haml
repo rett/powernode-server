@@ -1,34 +1,31 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(provider_instance_types_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @provider_instance_type)
-          = link_to(edit_provider_instance_type_path(@provider_instance_type), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:destroy, @provider_instance_type)
-          .pull-right
-            = link_to(@provider_instance_type, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
-              .text-red
-                = fa('remove')
-                = I18n.t('actions.destroy')
-      .box-body
-        - if @provider_instance_type.details.present?
-          .details= find_and_preserve render_markdown(@provider_instance_type.details)
-        %dl.dl-horizontal
-          %dt Name
-          %dd= @provider_instance_type.name
-          %dt Description
-          %dd= @provider_instance_type.description
-          %dt Enabled
-          %dd= @provider_instance_type.enabled? ? 'Yes' : 'No'
-          - if @provider_instance_type.public?
-            %dt Public
-            %dd Yes
-          %dt Created
-          %dd= local_time(@provider_instance_type.created_at)
-          %dt Updated
-          %dd= local_time(@provider_instance_type.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(provider_instance_types_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @provider_instance_type)
+      = link_to(edit_provider_instance_type_path(@provider_instance_type), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:destroy, @provider_instance_type)
+      .pull-right
+        = link_to(@provider_instance_type, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+          .text-red
+            = fa('remove')
+            = I18n.t('actions.destroy')
+  .box-body
+    %dl.dl-horizontal
+      %dt Name
+      %dd= @provider_instance_type.name
+      %dt Description
+      %dd= @provider_instance_type.description
+      %dt Enabled
+      %dd= @provider_instance_type.enabled? ? 'Yes' : 'No'
+      - if @provider_instance_type.public?
+        %dt Public
+        %dd Yes
+      %dt Created
+      %dd= local_time(@provider_instance_type.created_at)
+      %dt Updated
+      %dd= local_time(@provider_instance_type.updated_at)
+= render partial: 'pages/pages', locals: { pages: @provider_instance_type.pages }

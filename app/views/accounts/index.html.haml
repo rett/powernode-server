@@ -1,18 +1,16 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        &nbsp;
-        .box-tools
-          .has_feedback
-            = search_form_for @search do |form|
-              = form.text_field :name_cont, class: 'form-control input-sm', placeholder: 'Search'
-              %i.glyphicon.glyphicon-search.form-control-feedback
-      .box-body
-        %table.table.table-bordered.table-striped
-          %thead
-            %th= sort_link @search, :name
-          %tbody
-            = render @accounts
-      .box-footer
-        = will_paginate renderer: BootstrapPagination::Rails, class: 'pagination pagination-sm no-margin'
+.box.box-primary
+  .box-header.with-border
+    &nbsp;
+    .box-tools
+      .has_feedback
+        = search_form_for @search do |form|
+          = form.text_field :name_cont, class: 'form-control input-sm', placeholder: 'Search'
+          %i.glyphicon.glyphicon-search.form-control-feedback
+  .box-body
+    %table.table.table-bordered.table-striped
+      %thead
+        %th= sort_link @search, :name
+      %tbody
+        = render @accounts
+  .box-footer
+    = will_paginate renderer: BootstrapPagination::Rails, class: 'pagination pagination-sm no-margin'

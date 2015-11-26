@@ -1,22 +1,20 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        - if can?(:create, Node)
-          = link_to({ action: 'new' }, class: 'btn') do
-            = fa('plus-square-o')
-            = I18n.t('actions.new')
-        .box-tools
-          .has_feedback
-            = search_form_for @search do |form|
-              = form.text_field :name_or_description_cont, class: 'form-control', placeholder: 'Search'
-              %i.glyphicon.glyphicon-search.form-control-feedback
-      .box-body
-        %table.table.table-bordered.table-striped
-          %thead
-            %th= sort_link @search, :name
-            %th= sort_link @search, :description
-          %tbody
-            = render @nodes
-      .box-footer
-        = will_paginate renderer: BootstrapPagination::Rails, class: 'pagination pagination-sm no-margin'
+.box.box-primary
+  .box-header.with-border
+    - if can?(:create, Node)
+      = link_to({ action: 'new' }, class: 'btn') do
+        = fa('plus-square-o')
+        = I18n.t('actions.new')
+    .box-tools
+      .has_feedback
+        = search_form_for @search do |form|
+          = form.text_field :name_or_description_cont, class: 'form-control', placeholder: 'Search'
+          %i.glyphicon.glyphicon-search.form-control-feedback
+  .box-body
+    %table.table.table-bordered.table-striped
+      %thead
+        %th= sort_link @search, :name
+        %th= sort_link @search, :description
+      %tbody
+        = render @nodes
+  .box-footer
+    = will_paginate renderer: BootstrapPagination::Rails, class: 'pagination pagination-sm no-margin'

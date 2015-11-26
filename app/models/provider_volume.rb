@@ -10,8 +10,11 @@ class ProviderVolume < ActiveRecord::Base
   belongs_to :node_module
   belongs_to :provider_region
   belongs_to :provider_volume_type
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_volume_members, dependent: :destroy
   has_many :provider_volume_snapshots, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_readonly :provider_id, :raid, :raid_level, :size
 

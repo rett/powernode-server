@@ -13,7 +13,6 @@ class NodeInstancesController < ApplicationController
   respond_to :html
 
   def show
-    @details = @node_instance.details
     redirect_to @node_instance.node
   end
 
@@ -29,9 +28,12 @@ class NodeInstancesController < ApplicationController
   end
 
   def node_instance_params
-    permitted_params  = [{ node_mount_point_ids: [] },
+    permitted_params  = [{ node_mount_point_ids: [],
+                           pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
                          :description,
-                         :details,
                          :name]
     permitted_params += [:address,
                          :address_full,

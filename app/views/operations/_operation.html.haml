@@ -29,7 +29,7 @@
             &nbsp;
           .col-md-2
             .pull-right
-              - if operation.pending? && operation.scheduled_at >= Time.now
+              - if operation.pending?
                 = button_to(I18n.t('actions.cancel'), operation_path(operation), remote: true, method: :delete, class: 'btn btn-danger btn-xs')
               - elsif operation.pending? && operation.scheduled_at < Time.now
                 &nbsp;

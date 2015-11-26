@@ -9,7 +9,7 @@ class Ability
     #
     # Page permissions
     #
-    can [:show],                                          [Page],                     public: true, enabled: true
+    can [:resource, :show],                               [Page],                     public: true, enabled: true
     if user.has_role?(:page_manager)
       can [:create, :index, :show, :update, :destroy],    [Page],                     account_id: account.id
     end
@@ -107,7 +107,7 @@ class Ability
       # Operation permissions
       #
       if user.has_role?(:account_manager)
-        can [:control, :reschedule, :index, :show, :destroy],  [Operation],                account_id: account.id
+        can [:control, :reschedule, :index, :show, :destroy],  [Operation],           account_id: account.id
       end
 
       #
@@ -143,7 +143,6 @@ class Ability
       #
       if user.has_role?(:puppet_manager)
         can [:create, :index, :show, :update, :destroy],  [PuppetModule],             account_id: account.id
-        can [:create, :index, :show, :update, :destroy],  [PuppetResource],           account_id: account.id
       end
 
       #
@@ -184,6 +183,16 @@ class Ability
       can [:use], [ProviderVolumeMember],     enabled: true, account_id: account.id
       can [:use], [PuppetModule],             enabled: true, public: true
       can [:use], [PuppetModule],             enabled: true, account_id: account.id
+
+      #
+      # Publisher permissions
+      #
+      can [:publish], [NodeModule],   account_id: account.id if user.has_role?(:node_module_publisher)
+      can [:publish], [NodePlatform], account_id: account.id if user.has_role?(:node_platform_publisher)
+      can [:publish], [NodeScript],   account_id: account.id if user.has_role?(:node_script_publisher)
+      can [:publish], [NodeTemplate], account_id: account.id if user.has_role?(:node_template_publisher)
+      can [:publish], [Page],         account_id: account.id if user.has_role?(:page_publisher)
+      can [:publish], [PuppetModule], account_id: account.id if user.has_role?(:puppet_publisher)
 
       #
       # Admin Permissions

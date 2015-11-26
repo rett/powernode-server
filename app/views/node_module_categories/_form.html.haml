@@ -1,27 +1,25 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(node_module_categories_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if @node_module_category.persisted?
-          = link_to(node_module_category_path(@node_module_category), class: 'btn') do
-            = fa('list-alt')
-            = I18n.t('actions.show')
-      = semantic_form_for(@node_module_category) do |form|
-        .box-body
-          .messages= form.semantic_errors class: 'error-msg'
-          = form.input :name
-          = form.input :description
-          = form.input :variety, as: :select, collection: NodeModule::VARIETIES.map { |v| [v.titleize, v] }, include_blank: 'None', input_html: { disabled: @node_module_category.persisted?, class: 'multiselect' }
-          #config_category_inputs
-            = form.input :config_category, as: :select, collection: @available_node_module_categories.config_variety, include_blank: 'None', input_html: { class: 'multiselect' }
-            = form.input :instance_category, as: :select, collection: @available_node_module_categories.instance_variety, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :priority, as: :select, collection: Powernode.config.module_priority_range[0]..Powernode.config.module_priority_range[1], include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :enabled, as: :boolean
-          - if can?(:manage, NodeModuleCategory)
-            = form.input :public, as: :boolean
-          = form.input :details, input_html: { class: 'markdown' }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  .box-header.with-border
+    = link_to(node_module_categories_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if @node_module_category.persisted?
+      = link_to(node_module_category_path(@node_module_category), class: 'btn') do
+        = fa('list-alt')
+        = I18n.t('actions.show')
+  = semantic_form_for(@node_module_category) do |form|
+    .box-body
+      .messages= form.semantic_errors class: 'error-msg'
+      = form.input :name
+      = form.input :description
+      = form.input :variety, as: :select, collection: NodeModule::VARIETIES.map { |v| [v.titleize, v] }, include_blank: 'None', input_html: { disabled: @node_module_category.persisted?, class: 'multiselect' }
+      #config_category_inputs
+        = form.input :config_category, as: :select, collection: @available_node_module_categories.config_variety, include_blank: 'None', input_html: { class: 'multiselect' }
+        = form.input :instance_category, as: :select, collection: @available_node_module_categories.instance_variety, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :priority, as: :select, collection: Powernode.config.module_priority_range[0]..Powernode.config.module_priority_range[1], include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :enabled, as: :boolean
+      - if can?(:publish, NodeModuleCategory)
+        = form.input :public, as: :boolean
+      = render partial: 'pages/page_form_fields', locals: { f: form }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }

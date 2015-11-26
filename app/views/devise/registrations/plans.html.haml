@@ -65,6 +65,12 @@
                   = fa('check text-blue')
               %td
                 %small Puppet Management
+            %tr
+              %td
+                - if plan.default_roles.include?('provider_manager')
+                  = fa('check text-blue')
+              %td
+                %small Provider Management
       .panel-footer
         - if plan.trial_period_days.present? && plan.trial_period_days > 0
           = link_to("Free #{plan.trial_period_days} day trial", new_user_registration_path(plan_id: plan.id, invitation_id: params[:invitation_id]), class: 'btn btn-primary')

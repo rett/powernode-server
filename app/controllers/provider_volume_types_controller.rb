@@ -14,7 +14,6 @@ class ProviderVolumeTypesController < ApplicationController
   end
 
   def show
-    @details = @provider_volume_type.details
     respond_with @provider_volume_type
   end
 
@@ -44,8 +43,11 @@ class ProviderVolumeTypesController < ApplicationController
   end
 
   def provider_volume_type_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :name,
                          :mount_script_id]
     permitted_params += [:public] if can?(:manage, ProviderVolumeType)

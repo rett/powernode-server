@@ -13,7 +13,6 @@ class AgentsController < ApplicationController
   end
 
   def show
-    @details = @agent.details
     respond_with @agent
   end
 
@@ -43,9 +42,12 @@ class AgentsController < ApplicationController
   private
 
   def agent_params
-    permitted_params = [{ roles: [] },
+    permitted_params = [{ roles: [],
+                          pages_attributes: [:id,
+                                             :name,
+                                             :title,
+                                             :_destroy] },
                         :description,
-                        :details,
                         :enabled,
                         :name,
                         :proxy_url,

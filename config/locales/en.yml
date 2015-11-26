@@ -17,9 +17,14 @@ en:
     abort:                                        'Abort'
     add:                                          'Add'
     back:                                         'Back'
+    build:                                        'Build'
     cancel:                                       'Cancel'
+    cleanse:                                      'Cleanse'
+    clipboard:                                    'Copy to clipboard'
     close:                                        'Close'
+    commit:                                       'Commit'
     confirm:                                      'Are you sure?'
+    create:                                       'Create'
     destroy:                                      'Destroy'
     dismiss:                                      'Dismiss'
     download:                                     'Download'
@@ -30,11 +35,20 @@ en:
     never:                                        'Never'
     new:                                          'New'
     please_wait:                                  'Please wait...'
+    reboot:                                       'Reboot'
     refresh:                                      'Refresh'
+    refresh_all:                                  'Refresh All'
     reschedule:                                   'Reschedule'
     show:                                         'Show'
     select:                                       'Select'
+    start:                                        'Start'
+    stop:                                         'Stop'
     submit:                                       'Submit'
+    subscribe:                                    'Subscribe'
+    sync:                                         'Sync'
+    terminate:                                    'Terminate'
+    unsubscribe:                                  'Unsubscribe'
+    update:                                       'Update'
 
   #
   # Global headers
@@ -81,7 +95,7 @@ en:
         remove:
           danger:                                 'Failed to remove account delegation.'
           success:                                'Successfully removed account delegation.'
-      plan:
+      plans:
         danger:                                   'Failed to change plan.'
         success:                                  'Successfully changed plan.'
       select:
@@ -226,7 +240,7 @@ en:
     header:
       billing:                                    'Payment details'
       cancel:                                     'Cancel subscription'
-      plan:                                       'Plan'
+      plans:                                      'Plans'
 
   #
   # Registrations
@@ -255,15 +269,15 @@ en:
       header:                                     'Node Control'
       instance_cleanse:
         description:                              'Cleanse instance %{node_instance}'
-        label:                                    'Cleanse'
       instance_create_image:
         description:                              'Create %{image_format} image for %{node_instance}'
         label:                                    'Create %{image_format}'
       instance_destroy:
         description:                              'Destroy instance %{node_instance}'
-        label:                                    'Destroy'
       instance_exec:
         description:                              'Send %{command} command to %{node_instance}'
+      instance_management:
+        header:                                   'Instance Management'
       instance_public_ip_associate:
         description:                              'Associate public IP on instance %{node_instance}'
         label:                                    'Associate'
@@ -272,7 +286,6 @@ en:
         label:                                    'Disassociate'
       instance_reboot:
         description:                              'Reboot instance %{node_instance}'
-        label:                                    'Reboot'
       instance_reset_key:
         description:                              'Reset key'
         label:                                    'Reset key'
@@ -281,38 +294,20 @@ en:
         label:                                    'Set as primary'
       instance_start:
         description:                              'Start instance %{node_instance}'
-        label:                                    'Start'
       instance_stop:
         description:                              'Stop instance %{node_instance}'
-        label:                                    'Stop'
       instance_sync:
         description:                              'Sync instance %{node_instance}'
-        label:                                    'Sync'
       instance_terminate:
         description:                              'Terminate instance %{node_instance}'
-        label:                                    'Terminate'
+      key_management:
+        header:                                   'Key Management'
       module_build:
         description:                              'Build module %{node_module} on %{node_instance}'
       module_commit:
         description:                              'Commit module %{node_module} on %{node_instance}'
       module_control:
         header:                                   'Module Control'
-      module_subscribe:
-        label:                                    'Subscribe'
-      module_unsubscribe:
-        label:                                    'Unsubscribe'
-      refresh_all:
-        label:                                    'Refresh All'
-      refresh_node_instance:
-        label:                                    'Refresh'
-      refresh_node_instances:
-        label:                                    'Refresh Instances'
-      refresh_node_module:
-        label:                                    'Refresh'
-      refresh_node_modules:
-        label:                                    'Refresh Modules'
-      refresh_operations:
-        label:                                    'Refresh Operations'
       send_ssh_key:
         description:                              'Send SSH key for node %{node}'
         label:                                    'Send SSH key'
@@ -362,6 +357,15 @@ en:
       scheduled:                                  'Scheduled'
       title:                                      'Operations'
     none_pending:                                 'No operations pending.'
+
+  #
+  # Pages
+  #
+  pages:
+    header:                                       'Pages'
+    resources:
+      header:                                     'Page Resources'
+
 
   #
   # Puppet modules

@@ -4,7 +4,6 @@
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     = favicon_link_tag
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
     = yield(:head)
     = csrf_meta_tags
   - body_classes = []
@@ -20,5 +19,6 @@
       = render partial: 'layouts/control_sidebar'
 %script
   = flash_messages
-- if Rails.env.development? && @current_user && @current_user.try(:global_admin?) && @preferences['admin_console']
+= javascript_include_tag 'application'
+- if Rails.env.development? && @current_user && @current_user.has_role?(:global_admin) && @preferences['admin_console']
   = console

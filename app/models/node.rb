@@ -12,9 +12,12 @@ class Node < ActiveRecord::Base
   has_many :node_module_subscriptions, dependent: :destroy
   has_many :node_modules, through: :node_module_subscriptions, source: :node_module
   has_many :operations, as: :operable
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_volumes, through: :node_instances
   has_many :puppet_modules, through: :node_modules
   has_many :puppet_resources, through: :puppet_modules
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_accessor :node_instance
   attr_encrypted :ssh_key, key: :encryption_key, mode: :per_attribute_iv_and_salt

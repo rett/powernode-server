@@ -5,6 +5,9 @@ class NodeScript < ActiveRecord::Base
   VARIETIES = %w[build init mount utility]
 
   belongs_to :account
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_readonly :variety
 

@@ -13,7 +13,6 @@ class NodeArchitecturesController < ApplicationController
   end
 
   def show
-    @details = @node_architecture.details
     respond_with @node_architecture
   end
 
@@ -46,9 +45,12 @@ class NodeArchitecturesController < ApplicationController
   private
 
   def node_architecture_params
-    permitted_params  = [:architecture,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :architecture,
                          :description,
-                         :details,
                          :enabled,
                          :name,
                          :kernel,

@@ -5,7 +5,10 @@ class Provider < ActiveRecord::Base
   VARIETIES = %w[aws openstack]
 
   belongs_to :account
+  has_many :pages, as: :pageable, dependent: :destroy
   has_many :provider_regions
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_readonly :variety
 

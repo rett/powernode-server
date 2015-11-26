@@ -1,14 +1,12 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      = semantic_form_for @credit_card, as: :credit_card, url: { :action => 'billing' } do |form|
-        .box-body
-          .messages
-          = form.input :name, input_html: { data: { stripe: 'name' } }
-          = form.input :number, input_html: { data: { stripe: 'number' } }
-          = form.input :exp_month, as: :select, collection: (1..12), include_blank: 'None', input_html: { class: 'multiselect', data: { stripe: 'exp_month' } }
-          = form.input :exp_year, as: :select, collection: (Time.now.year..10.years.from_now.year), include_blank: 'None', input_html: { class: 'multiselect', data: { stripe: 'exp_year' } }
-          = form.input :cvc, input_html: { data: { stripe: 'cvc' }, size: 3, maxlength: 4 }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  = semantic_form_for @credit_card, as: :credit_card, url: { :action => 'billing' } do |form|
+    .box-body
+      .messages
+      = form.input :name, input_html: { data: { stripe: 'name' } }
+      = form.input :number, input_html: { data: { stripe: 'number' } }
+      = form.input :exp_month, as: :select, collection: (1..12), include_blank: 'None', input_html: { class: 'multiselect', data: { stripe: 'exp_month' } }
+      = form.input :exp_year, as: :select, collection: (Time.now.year..10.years.from_now.year), include_blank: 'None', input_html: { class: 'multiselect', data: { stripe: 'exp_year' } }
+      = form.input :cvc, input_html: { data: { stripe: 'cvc' }, size: 3, maxlength: 4 }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }
 = render :partial => 'stripe/js'

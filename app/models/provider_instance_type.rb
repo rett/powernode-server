@@ -3,6 +3,9 @@ class ProviderInstanceType < ActiveRecord::Base
   include Powernode::UUIDExtensions
 
   belongs_to :account
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

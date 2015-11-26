@@ -13,7 +13,6 @@ class NodeScriptsController < ApplicationController
   end
 
   def show
-    @details = @node_script.details
     respond_with @node_script
   end
 
@@ -39,13 +38,16 @@ class NodeScriptsController < ApplicationController
   private
 
   def node_script_params
-    permitted_params  = [:data,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :data,
                          :description,
-                         :details,
                          :enabled,
                          :name,
                          :variety]
-    permitted_params += [:public] if can?(:manage, NodeScript)
+    permitted_params += [:public] if can?(:publish, NodeScript)
     params.require(:node_script).permit(*permitted_params)
   end
 end

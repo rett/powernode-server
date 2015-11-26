@@ -12,7 +12,6 @@ class PuppetModulesController < ApplicationController
   end
 
   def show
-    @details = @puppet_module.details
     respond_with @puppet_module
   end
 
@@ -38,17 +37,19 @@ class PuppetModulesController < ApplicationController
   private
 
   def puppet_module_params
-    permitted_params  = [{ puppet_resources_attributes: [:id,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy],
+                           puppet_resources_attributes: [:id,
                                                          :data,
                                                          :description,
-                                                         :details,
                                                          :enabled,
                                                          :name,
                                                          :path,
                                                          :_destroy] },
                          :data,
                          :description,
-                         :details,
                          :enabled,
                          :name]
     permitted_params += [:public] if can?(:manage, PuppetModule)

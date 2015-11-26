@@ -1,6 +1,4 @@
 #node_details
-  - if @node.details.present?
-    .details= find_and_preserve render_markdown(@node.details)
   %dl.dl-horizontal
     %dt Name
     %dd= @node.name

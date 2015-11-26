@@ -25,7 +25,7 @@ Powernode::Application.routes.draw do
       match 'billing', via: [:get, :post]
       match 'cancel', via: [:get, :post]
       match 'delegation', via: [:delete, :post]
-      match 'plan', via: [:get, :post]
+      match 'plans', via: [:get]
       match 'select', via: [:get]
     end
   end
@@ -58,6 +58,7 @@ Powernode::Application.routes.draw do
   # Page Routes
   #
   resources :pages
+  get '/resource/:page_id/:name(/:style)' => 'pages#resource', as: :resource
 
   #
   # Node Management Routes

@@ -1,0 +1,20 @@
+- if can?(:publish, Page)
+  .nested-fields
+    %br
+    .box.box-primary.box-solid
+      .box-header.with-border
+        %h3.box-title
+          - if f.object.persisted?
+            = f.object.name
+          - else
+            New attachment
+        .pull-right
+          = link_to_remove_association(f, class: 'btn', role: 'button') do
+            = fa('times')
+      .box-body
+        = f.input :name
+        = f.input :data, as: :file, input_html: { class: 'fileinput' }
+        - if f.object.persisted?
+          = image_tag(f.object.data.url(:thumb))
+          %br
+          Image: #{Powernode.config.server_url}/resource/#{@page.id}/#{f.object.name}/medium

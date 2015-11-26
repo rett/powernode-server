@@ -16,9 +16,15 @@ common: &common
   password_length: [8, 64]
   server_hostname: localhost:3000
   server_url: http://localhost:3000
+  assets_url: http://localhost:3000
   session_key: _nodealchemy_session
   encryption_key_length: 64
   x_sendfile_header: X-Accel-Redirect
+
+  # S3 options
+  s3_bucket:
+  s3_access_key:
+  s3_secret_key:
 
   # Server directories
   arch_dir: /var/lib/powernode/architectures
@@ -92,6 +98,7 @@ common: &common
   devise_secret_key:
   secret_key_base:
   key_pepper:
+
 
 development:
   <<: *common

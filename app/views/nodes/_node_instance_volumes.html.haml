@@ -11,8 +11,7 @@
         - if can?(:update, node_instance)
           %small= link_to('Edit volume', edit_volume_path(volume))
           %br
-        - if volume.details.present?
-          .details= find_and_preserve render_markdown(volume.details)
+        %ul
           %li
             %small Status: #{volume.status.titleize}
           - if volume.mount_point.present?

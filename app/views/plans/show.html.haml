@@ -1,57 +1,53 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(plans_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @plan)
-          = link_to(edit_plan_path(@plan), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:destroy, @plan)
-          .pull-right
-            = link_to(@plan, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
-              .text-red
-                = fa('remove')
-                = I18n.t('actions.destroy')
-      .box-body
-        - if @plan.details.present?
-          .details= find_and_preserve render_markdown(@plan.details)
-        %dl.dl-horizontal
-          %dt Name
-          %dd= @plan.name
-          %dt Description
-          %dd= @plan.description
-          - if @plan.statement_descriptor.present?
-            %dt Statement descriptor
-            %dd= @plan.statement_descriptor
-          %dt Amount
-          %dd= number_to_currency(@plan.amount)
-          %dt Featured
-          %dd= @plan.featured? ? 'Yes' : 'No'
-          - if can?(:manage, Plan)
-            %dt Public
-            %dd= @plan.public? ? 'Yes' : 'No'
-          %dt Interval count
-          %dd= @plan.interval_count
-          %dt Interval
-          %dd= @plan.interval.titleize
-          - if @plan.trial_period_days.present?
-            %dt Trial period days
-            %dd= @plan.trial_period_days
-          %dt User Limit
-          %dd= @plan.user_limit
-          %dt Node Limit
-          %dd= @plan.node_limit
-          %dt Instance Limit
-          %dd= @plan.instance_limit
-          %dt Default Roles
-          %dd
-            %ul
-              - @plan.default_roles.each do |role|
-                %li= role.titleize
-          %dt Created
-          %dd= local_time(@plan.created_at)
-          %dt Updated
-          %dd= local_time(@plan.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(plans_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @plan)
+      = link_to(edit_plan_path(@plan), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:destroy, @plan)
+      .pull-right
+        = link_to(@plan, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+          .text-red
+            = fa('remove')
+            = I18n.t('actions.destroy')
+  .box-body
+    %dl.dl-horizontal
+      %dt Name
+      %dd= @plan.name
+      %dt Description
+      %dd= @plan.description
+      - if @plan.statement_descriptor.present?
+        %dt Statement descriptor
+        %dd= @plan.statement_descriptor
+      %dt Amount
+      %dd= number_to_currency(@plan.amount)
+      %dt Featured
+      %dd= @plan.featured? ? 'Yes' : 'No'
+      - if can?(:manage, Plan)
+        %dt Public
+        %dd= @plan.public? ? 'Yes' : 'No'
+      %dt Interval count
+      %dd= @plan.interval_count
+      %dt Interval
+      %dd= @plan.interval.titleize
+      - if @plan.trial_period_days.present?
+        %dt Trial period days
+        %dd= @plan.trial_period_days
+      %dt User Limit
+      %dd= @plan.user_limit
+      %dt Node Limit
+      %dd= @plan.node_limit
+      %dt Instance Limit
+      %dd= @plan.instance_limit
+      %dt Default Roles
+      %dd
+        %ul
+          - @plan.default_roles.each do |role|
+            %li= role.titleize
+      %dt Created
+      %dd= local_time(@plan.created_at)
+      %dt Updated
+      %dd= local_time(@plan.updated_at)

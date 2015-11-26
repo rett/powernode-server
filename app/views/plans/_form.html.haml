@@ -1,31 +1,29 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(plans_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if @plan.persisted?
-          = link_to(plan_path(@plan), class: 'btn') do
-            = fa('list-alt')
-            = I18n.t('actions.show')
-      = semantic_form_for(@plan) do |form|
-        .box-body
-          .messages= form.semantic_errors class: 'error-msg'
-          = form.input :name
-          = form.input :description
-          = form.input :statement_descriptor
-          = form.input :amount, input_html: { disabled: @plan.persisted? }
-          = form.input :featured, as: :boolean
-          - if can?(:manage, Plan)
-            = form.input :public, as: :boolean
-          = form.input :interval_count, input_html: { disabled: @plan.persisted? }
-          = form.input :interval, as: :select, collection: [['Day', 'day'], ['Month', 'month']], include_blank: 'None', input_html: { class: 'multiselect', disabled: @plan.persisted? }
-          = form.input :trial_period_days
-          = form.input :user_limit
-          = form.input :node_limit
-          = form.input :instance_limit
-          = form.input :default_roles, as: :select, collection: @available_roles.map { |r| [r.titleize, r] }, multiple: true, input_html: { class: 'multiselect' }
-          = form.input :details, input_html: { class: 'markdown' }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  .box-header.with-border
+    = link_to(plans_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if @plan.persisted?
+      = link_to(plan_path(@plan), class: 'btn') do
+        = fa('list-alt')
+        = I18n.t('actions.show')
+  = semantic_form_for(@plan) do |form|
+    .box-body
+      .messages= form.semantic_errors class: 'error-msg'
+      = form.input :name
+      = form.input :description
+      = form.input :statement_descriptor
+      = form.input :amount, input_html: { disabled: @plan.persisted? }
+      = form.input :featured, as: :boolean
+      - if can?(:manage, Plan)
+        = form.input :public, as: :boolean
+      = form.input :interval_count, input_html: { disabled: @plan.persisted? }
+      = form.input :interval, as: :select, collection: [['Day', 'day'], ['Month', 'month']], include_blank: 'None', input_html: { class: 'multiselect', disabled: @plan.persisted? }
+      = form.input :trial_period_days
+      = form.input :user_limit
+      = form.input :node_limit
+      = form.input :instance_limit
+      = form.input :default_roles, as: :select, collection: User.available_default_roles.map { |r| [r.titleize, r] }, multiple: true, input_html: { class: 'multiselect' }
+      = render partial: 'pages/page_form_fields', locals: { f: form }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }

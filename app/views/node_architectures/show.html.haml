@@ -1,65 +1,62 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(node_architectures_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @node_architecture)
-          = link_to(edit_node_architecture_path(@node_architecture), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:destroy, @node_architecture)
-          .pull-right
-            = link_to(@node_architecture, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
-              .text-red
-                = fa('remove')
-                = I18n.t('actions.destroy')
-      .box-body
-        - if @node_architecture.details.present?
-          .details= find_and_preserve render_markdown(@node_architecture.details)
-        %dl.dl-horizontal
-          %dt Name
-          %dd= @node_architecture.name
-          %dt Description
-          %dd= @node_architecture.description
-          %dt Enabled
-          %dd= @node_architecture.enabled? ? 'Yes' : 'No'
-          - if @node_architecture.public?
-            %dt Public
-            %dd Yes
-          - if @node_architecture.kernel_file_size
-            %dt Kernel
-            %dd
-              %ul
-                %li Size: #{number_to_human_size(@node_architecture.kernel_file_size)}
-                %li Updated: #{local_time(@node_architecture.kernel_updated_at)}
-                %li
-                  Checksum:
-                  %br
-                  #{@node_architecture.kernel_checksum}
-          - if @node_architecture.ramdisk_file_size
-            %dt Ramdisk
-            %dd
-              %ul
-                %li Size: #{number_to_human_size(@node_architecture.ramdisk_file_size)}
-                %li Updated: #{local_time(@node_architecture.ramdisk_updated_at)}
-                %li
-                  Checksum:
-                  %br
-                  #{@node_architecture.ramdisk_checksum}
-          - if @node_architecture.image_file_size
-            %dt Image
-            %dd
-              %ul
-                %li Size: #{number_to_human_size(@node_architecture.image_file_size)}
-                %li Updated: #{local_time(@node_architecture.image_updated_at)}
-                %li
-                  Checksum:
-                  %br
-                  #{@node_architecture.image_checksum}
-                %li= link_to 'Download', download_image_node_architecture_url(@node_architecture)
-          %dt Created
-          %dd= local_time(@node_architecture.created_at)
-          %dt Updated
-          %dd= local_time(@node_architecture.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(node_architectures_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @node_architecture)
+      = link_to(edit_node_architecture_path(@node_architecture), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:destroy, @node_architecture)
+      .pull-right
+        = link_to(@node_architecture, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+          .text-red
+            = fa('remove')
+            = I18n.t('actions.destroy')
+  .box-body
+    %dl.dl-horizontal
+      %dt Name
+      %dd= @node_architecture.name
+      %dt Description
+      %dd= @node_architecture.description
+      %dt Enabled
+      %dd= @node_architecture.enabled? ? 'Yes' : 'No'
+      - if @node_architecture.public?
+        %dt Public
+        %dd Yes
+      - if @node_architecture.kernel_file_size
+        %dt Kernel
+        %dd
+          %ul
+            %li Size: #{number_to_human_size(@node_architecture.kernel_file_size)}
+            %li Updated: #{local_time(@node_architecture.kernel_updated_at)}
+            %li
+              Checksum:
+              %br
+              #{@node_architecture.kernel_checksum}
+      - if @node_architecture.ramdisk_file_size
+        %dt Ramdisk
+        %dd
+          %ul
+            %li Size: #{number_to_human_size(@node_architecture.ramdisk_file_size)}
+            %li Updated: #{local_time(@node_architecture.ramdisk_updated_at)}
+            %li
+              Checksum:
+              %br
+              #{@node_architecture.ramdisk_checksum}
+      - if @node_architecture.image_file_size
+        %dt Image
+        %dd
+          %ul
+            %li Size: #{number_to_human_size(@node_architecture.image_file_size)}
+            %li Updated: #{local_time(@node_architecture.image_updated_at)}
+            %li
+              Checksum:
+              %br
+              #{@node_architecture.image_checksum}
+            %li= link_to 'Download', download_image_node_architecture_url(@node_architecture)
+      %dt Created
+      %dd= local_time(@node_architecture.created_at)
+      %dt Updated
+      %dd= local_time(@node_architecture.updated_at)
+= render partial: 'pages/pages', locals: { pages: @node_architecture.pages }

@@ -8,6 +8,9 @@ class NodeTemplate < ActiveRecord::Base
   has_many :node_modules, through: :node_template_module_subscriptions
   has_many :node_module_categories, through: :node_modules
   has_many :nodes, dependent: :destroy
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

@@ -13,7 +13,6 @@ class ProviderInstanceTypesController < ApplicationController
   end
 
   def show
-    @details = @provider_instance_type.details
     respond_with @provider_instance_type
   end
 
@@ -34,9 +33,12 @@ class ProviderInstanceTypesController < ApplicationController
   private
 
   def provider_instance_type_params
-    permitted_params  = [:name,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :name,
                          :description,
-                         :details,
                          :enabled]
     permitted_params += [:public] if can?(:manage, ProviderInstanceType)
     params.require(:provider_instance_type).permit(*permitted_params)

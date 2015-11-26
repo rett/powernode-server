@@ -12,7 +12,7 @@ class OperationsController < ApplicationController
     @operations = Operation.accessible_by(@current_ability, :destroy)
     if @operation.running?
       @operation.abort!
-    elsif @operation.complete? || @operation.failed? || (@operation.pending? && @operation.scheduled_at > Time.now)
+    elsif @operation.complete? || @operation.failed? || @operation.pending?
       @operation.destroy
     end
     respond_to do |format|

@@ -1,26 +1,24 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(node_mount_points_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if @node_mount_point.persisted?
-          = link_to(node_mount_point_path(@node_mount_point), class: 'btn') do
-            = fa('list-alt')
-            = I18n.t('actions.show')
-      = semantic_form_for(@node_mount_point) do |form|
-        .box-body
-          .messages= form.semantic_errors class: 'error-msg'
-          = form.input :name
-          = form.input :description
-          = form.input :device
-          = form.input :path
-          = form.input :parameters
-          = form.input :node_module, collection: @available_node_modules, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :mount_script, collection: @available_mount_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :node_mount_point_dependency, as: :select, label: 'Dependency', collection: @available_dependencies, include_blank: 'None', input_html: { class: 'multiselect' }
-          = form.input :enabled, as: :boolean
-          = form.input :details, input_html: { class: 'markdown' }
-        .box-footer
-          = render partial: 'layouts/form_actions', locals: { form: form }
+.box.box-primary
+  .box-header.with-border
+    = link_to(node_mount_points_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if @node_mount_point.persisted?
+      = link_to(node_mount_point_path(@node_mount_point), class: 'btn') do
+        = fa('list-alt')
+        = I18n.t('actions.show')
+  = semantic_form_for(@node_mount_point) do |form|
+    .box-body
+      .messages= form.semantic_errors class: 'error-msg'
+      = form.input :name
+      = form.input :description
+      = form.input :device
+      = form.input :path
+      = form.input :parameters
+      = form.input :node_module, collection: @available_node_modules, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :mount_script, collection: @available_mount_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :node_mount_point_dependency, as: :select, label: 'Dependency', collection: @available_dependencies, include_blank: 'None', input_html: { class: 'multiselect' }
+      = form.input :enabled, as: :boolean
+      = render partial: 'pages/page_form_fields', locals: { f: form }
+    .box-footer
+      = render partial: 'layouts/form_actions', locals: { f: form }

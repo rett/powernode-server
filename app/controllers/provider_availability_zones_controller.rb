@@ -14,7 +14,6 @@ class ProviderAvailabilityZonesController < ApplicationController
   end
 
   def show
-    @details = @provider_availability_zone.details
     respond_with @provider_availability_zone
   end
 
@@ -44,8 +43,11 @@ class ProviderAvailabilityZonesController < ApplicationController
   end
 
   def provider_availability_zone_params
-    permitted_params  = [:description,
-                         :details,
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy] },
+                         :description,
                          :enabled,
                          :entity,
                          :name,

@@ -15,7 +15,6 @@ class ProviderRegionsController < ApplicationController
   end
 
   def show
-    @details = @provider_region.details
     respond_with @provider_region
   end
 
@@ -51,11 +50,14 @@ class ProviderRegionsController < ApplicationController
   end
 
   def provider_region_params
-    permitted_params  = [{ provider_instance_type_ids: [],
+    permitted_params  = [{ pages_attributes: [:id,
+                                              :name,
+                                              :title,
+                                              :_destroy],
+                           provider_instance_type_ids: [],
                            provider_volume_type_ids: [] },
                          :availability_zones,
                          :description,
-                         :details,
                          :enabled,
                          :endpoint_url,
                          :kernel_image,

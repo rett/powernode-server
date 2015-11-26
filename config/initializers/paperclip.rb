@@ -7,6 +7,17 @@ module Paperclip
   end
 end
 
+Paperclip::Attachment.default_options.merge!(
+  s3_credentials: {
+    bucket: Powernode.config.s3_bucket,
+    access_key_id: Powernode.config.s3_access_key,
+    secret_access_key: Powernode.config.s3_secret_key
+  },
+  s3_permissions: {
+    original: :private
+  }
+)
+
 Paperclip.interpolates :uuid_partition do |attachment, _|
   attachment.instance.uuid_partition
 end

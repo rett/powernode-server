@@ -10,6 +10,9 @@ class NodePlatform < ActiveRecord::Base
   has_many :node_modules, dependent: :destroy
   has_many :node_templates, dependent: :destroy
   has_many :nodes, through: :node_templates
+  has_many :pages, as: :pageable, dependent: :destroy
+
+  accepts_nested_attributes_for :pages, allow_destroy: true
 
   default_scope { order('name ASC') }
 

@@ -16,14 +16,12 @@ class NodeTemplatesController < ApplicationController
                                            :node_platform_id,
                                            :name,
                                            :description,
-                                           :details,
                                            :admin_user,
                                            :public)
         if can?(:manage, @node_template.node_architecture)
           json.node_architecture(@node_template.node_architecture, :id,
                                                                    :name,
                                                                    :description,
-                                                                   :details,
                                                                    :enabled,
                                                                    :public)
         end
@@ -32,7 +30,6 @@ class NodeTemplatesController < ApplicationController
                                                            :node_architecture_id,
                                                            :name,
                                                            :description,
-                                                           :details,
                                                            :enabled,
                                                            :public)
         end
@@ -50,7 +47,6 @@ class NodeTemplatesController < ApplicationController
                                           :node_platform_id,
                                           :name,
                                           :description,
-                                          :details,
                                           :configurable,
                                           :enabled,
                                           :immutable,
@@ -77,7 +73,6 @@ class NodeTemplatesController < ApplicationController
                                                               :instance_category_id,
                                                               :name,
                                                               :description,
-                                                              :details,
                                                               :priority,
                                                               :enabled,
                                                               :public,
@@ -184,7 +179,6 @@ class NodeTemplatesController < ApplicationController
   end
 
   def show
-    @details = @node_template.details
     respond_with @node_template
   end
 
@@ -250,14 +244,17 @@ class NodeTemplatesController < ApplicationController
   end
 
   def node_template_params(attributes = params)
-    permitted_params = [{ node_module_ids: [] },
+    permitted_params = [{ node_module_ids: [],
+                          pages_attributes: [:id,
+                                             :name,
+                                             :title,
+                                             :_destroy] },
                         :admin_user,
                         :description,
-                        :details,
                         :enabled,
                         :name,
                         :node_platform_id]
-    permitted_params += [:public] if can?(:manage, NodeTemplate)
+    permitted_params += [:public] if can?(:publish, NodeTemplate)
     if can?(:manage, NodeTemplate)
       attributes.require(:node_template).permit!
     else

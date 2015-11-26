@@ -1,41 +1,38 @@
-.row
-  .col-xs-12
-    .box.box-primary
-      .box-header.with-border
-        = link_to(node_module_categories_path, class: 'btn') do
-          = fa('list')
-          = I18n.t('actions.index')
-        - if can?(:update, @node_module_category)
-          = link_to(edit_node_module_category_path(@node_module_category), class: 'btn') do
-            = fa('edit')
-            = I18n.t('actions.edit')
-        - if can?(:destroy, @node_module_category)
-          .pull-right
-            = link_to(@node_module_category, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
-              .text-red
-                = fa('remove')
-                = I18n.t('actions.destroy')
-      .box-body
-        - if @node_module_category.details.present?
-          .details= find_and_preserve render_markdown(@node_module_category.details)
-        %dl.dl-horizontal
-          %dt Name
-          %dd= @node_module_category.name
-          %dt Description
-          %dd= @node_module_category.description
-          %dt Category Type
-          %dd= @node_module_category.variety.titleize
-          - if @node_module_category.subscription_variety?
-            %dt Configuration Category
-            %dd= @node_module_category.config_category
-            %dt Instance Category
-            %dd= @node_module_category.instance_category
-          %dt Priority
-          %dd= @node_module_category.priority
-          - if @node_module_category.public?
-            %dt Public
-            %dd= @node_module_category.public? ? 'Yes' : 'No'
-          %dt Created
-          %dd= local_time(@node_module_category.created_at)
-          %dt Updated
-          %dd= local_time(@node_module_category.updated_at)
+.box.box-primary
+  .box-header.with-border
+    = link_to(node_module_categories_path, class: 'btn') do
+      = fa('list')
+      = I18n.t('actions.index')
+    - if can?(:update, @node_module_category)
+      = link_to(edit_node_module_category_path(@node_module_category), class: 'btn') do
+        = fa('edit')
+        = I18n.t('actions.edit')
+    - if can?(:destroy, @node_module_category)
+      .pull-right
+        = link_to(@node_module_category, class: 'btn', method: :delete, title: 'Delete', data: { confirm: I18n.t('actions.confirm') }) do
+          .text-red
+            = fa('remove')
+            = I18n.t('actions.destroy')
+  .box-body
+    %dl.dl-horizontal
+      %dt Name
+      %dd= @node_module_category.name
+      %dt Description
+      %dd= @node_module_category.description
+      %dt Category Type
+      %dd= @node_module_category.variety.titleize
+      - if @node_module_category.subscription_variety?
+        %dt Configuration Category
+        %dd= @node_module_category.config_category
+        %dt Instance Category
+        %dd= @node_module_category.instance_category
+      %dt Priority
+      %dd= @node_module_category.priority
+      - if @node_module_category.public?
+        %dt Public
+        %dd= @node_module_category.public? ? 'Yes' : 'No'
+      %dt Created
+      %dd= local_time(@node_module_category.created_at)
+      %dt Updated
+      %dd= local_time(@node_module_category.updated_at)
+= render partial: 'pages/pages', locals: { pages: @node_module_category.pages }
