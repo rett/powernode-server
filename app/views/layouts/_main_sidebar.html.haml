@@ -3,9 +3,10 @@
     %section.sidebar
       .user-panel
         .pull-left.image
-          &nbsp;
+          = fa('cloud', 'fa-3x')
         .pull-left.info
-          %p= @current_user.name
+          %p
+            %strong= @current_user.name
           - if @current_account != @current_user.account
             %p= @current_account
       = semantic_navigation :navigation, builder: NavBuilder

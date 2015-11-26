@@ -5,6 +5,7 @@ Navigasmic.setup do |config|
     builder.is_nested_class = 'treeview-menu'
   end
   config.semantic_navigation :navigation do |menu|
+    menu.item 'NAVIGATION', class: 'header'
     menu.item 'Account', '#', icon: 'building', hidden_unless: proc { user_signed_in? && can?(:index, Account) } do
       menu.item 'My Account', proc { @current_account }, icon: 'home', highlights_on: proc { [account_path(@current_account),
                                                                                               edit_account_path(@current_account)] },
