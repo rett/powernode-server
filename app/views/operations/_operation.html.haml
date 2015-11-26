@@ -23,7 +23,7 @@
         - if operation.running?
           .col-md-5
             .progress.with-border
-              .progress-bar.progress-bar-primary.progress-bar-striped{ role: 'progressbar', 'aria-valuenow' => operation.progress, 'aria-valuemin' => '0', 'aria-valuemax' => '100', style: "width: #{operation.progress}%" }
+              .progress-bar.progress-bar-primary.progress-bar-striped.active{ role: 'progressbar', 'aria-valuenow' => operation.progress, 'aria-valuemin' => '0', 'aria-valuemax' => '100', style: "width: #{operation.progress}%" }
         - else
           .col-md-3
             &nbsp;
