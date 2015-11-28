@@ -7,13 +7,13 @@ class User < ActiveRecord::Base
              account_manager
              agent_admin
              agent_manager
+             invitation_admin
+             invitation_manager
              page_admin
              page_manager
              page_publisher
              plan_admin
              plan_manager
-             user_admin
-             user_manager
              node_admin
              node_manager
              node_module_admin
@@ -35,8 +35,8 @@ class User < ActiveRecord::Base
              puppet_admin
              puppet_manager
              puppet_publisher
-             invitation_admin
-             invitation_manager]
+             user_admin
+             user_manager]
 
   belongs_to :account
   has_many :account_delegations, dependent: :destroy
