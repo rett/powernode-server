@@ -12,7 +12,7 @@
       .messages= form.semantic_errors class: 'error-msg'
       = form.input :name
       = form.input :description
-      = form.input :node_architecture, collection: options_for_select(@available_node_architectures.map { |a| ["#{a.name}: #{a.description}", a.id] }, @node_platform.node_architecture_id), input_html: { class: 'multiselect' }
+      = form.input :node_architecture, include_blank: 'None', collection: options_for_select(@available_node_architectures.map { |a| ["#{a.name}: #{a.description}", a.id] }, @node_platform.node_architecture_id), input_html: { class: 'multiselect' }
       = form.input :build_script, collection: @available_build_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
       = form.input :init_script, collection: @available_init_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
       = form.input :sync_script, collection: @available_utility_scripts, include_blank: 'None', input_html: { class: 'multiselect' }
