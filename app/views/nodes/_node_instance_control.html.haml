@@ -22,11 +22,12 @@
             = control_node_button(:instance_sync, icon: 'refresh', label: I18n.t('actions.sync'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
           .pull-right
             .btn-group
-              = control_node_button(:instance_reboot, icon: 'exclamation-triangle', label: I18n.t('actions.reboot'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+              = control_node_button(:instance_reboot, icon: 'exclamation-triangle', label: I18n.t('actions.reboot'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-warning', data: { confirm: I18n.t('actions.confirm') } })
               = control_node_button(:instance_stop, icon: 'power-off', label: I18n.t('actions.stop'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
               = control_node_button(:instance_terminate, icon: 'times-circle', label: I18n.t('actions.terminate'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
         - when 'shutoff', 'stopped'
-          .btn-group
-            = control_node_button(:instance_start, icon: 'power-off', label: I18n.t('actions.start'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
-            = control_node_button(:instance_terminate, icon: 'times', label: I18n.t('actions.terminate'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+          .pull-right
+            .btn-group
+              = control_node_button(:instance_start, icon: 'power-off', label: I18n.t('actions.start'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
+              = control_node_button(:instance_terminate, icon: 'times', label: I18n.t('actions.terminate'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
 
