@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122071219) do
+ActiveRecord::Schema.define(version: 20151205080250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,17 +53,19 @@ ActiveRecord::Schema.define(version: 20151122071219) do
   add_index "accounts", ["owner_id"], name: "index_accounts_on_owner_id", using: :btree
 
   create_table "agents", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
-    t.datetime "created_at",                precision: 6
-    t.datetime "updated_at",                precision: 6
-    t.uuid     "account_id",                                              null: false
-    t.string   "name",          limit: 255,                               null: false
-    t.string   "description",   limit: 255,               default: "",    null: false
-    t.string   "proxy_url",     limit: 255,               default: "",    null: false
-    t.boolean  "enabled",                                 default: true,  null: false
-    t.boolean  "primary",                                 default: false, null: false
-    t.boolean  "public",                                  default: false, null: false
-    t.integer  "roles_mask",                              default: 0,     null: false
-    t.text     "encrypted_key",                           default: "",    null: false
+    t.datetime "created_at",                     precision: 6
+    t.datetime "updated_at",                     precision: 6
+    t.uuid     "account_id",                                                   null: false
+    t.string   "name",               limit: 255,                               null: false
+    t.string   "description",        limit: 255,               default: "",    null: false
+    t.string   "proxy_url",          limit: 255,               default: "",    null: false
+    t.boolean  "enabled",                                      default: true,  null: false
+    t.boolean  "primary",                                      default: false, null: false
+    t.boolean  "public",                                       default: false, null: false
+    t.text     "encrypted_key",                                default: "",    null: false
+    t.string   "encrypted_key_iv"
+    t.string   "encrypted_key_salt"
+    t.string   "roles",                                        default: "[]",  null: false
   end
 
   add_index "agents", ["account_id"], name: "index_agents_on_account_id", using: :btree
@@ -144,7 +146,7 @@ ActiveRecord::Schema.define(version: 20151122071219) do
     t.uuid     "provider_region_id"
     t.uuid     "provider_network_subnet_id"
     t.uuid     "provider_availability_zone_id"
-    t.string   "encrypted_key"
+    t.text     "encrypted_key",                                           default: "",    null: false
     t.string   "encrypted_key_iv"
     t.string   "encrypted_key_salt"
   end
@@ -361,25 +363,29 @@ ActiveRecord::Schema.define(version: 20151122071219) do
   add_index "node_templates", ["node_platform_id"], name: "index_node_templates_on_node_platform_id", using: :btree
 
   create_table "nodes", id: :uuid, default: "uuid_generate_v1()", force: :cascade do |t|
-    t.datetime "created_at",                         precision: 6
-    t.datetime "updated_at",                         precision: 6
-    t.uuid     "account_id",                                                       null: false
-    t.uuid     "node_template_id",                                                 null: false
+    t.datetime "created_at",                              precision: 6
+    t.datetime "updated_at",                              precision: 6
+    t.uuid     "account_id",                                                            null: false
+    t.uuid     "node_template_id",                                                      null: false
     t.uuid     "primary_instance_id"
     t.uuid     "sync_script_id"
-    t.string   "name",                   limit: 255,                               null: false
-    t.string   "description",            limit: 255,               default: "",    null: false
-    t.boolean  "custom_sync_script",                               default: false, null: false
-    t.boolean  "enabled",                                          default: true,  null: false
-    t.boolean  "tmpfs_store",                                      default: false, null: false
-    t.decimal  "runtime_amount",                                   default: 0.0
-    t.string   "public_address",         limit: 255,               default: "",    null: false
-    t.string   "ssh_key_fingerprint",    limit: 255,               default: "",    null: false
-    t.boolean  "allocate_public_ip",                               default: true,  null: false
+    t.string   "name",                        limit: 255,                               null: false
+    t.string   "description",                 limit: 255,               default: "",    null: false
+    t.boolean  "custom_sync_script",                                    default: false, null: false
+    t.boolean  "enabled",                                               default: true,  null: false
+    t.boolean  "tmpfs_store",                                           default: false, null: false
+    t.decimal  "runtime_amount",                                        default: 0.0
+    t.string   "public_address",              limit: 255,               default: "",    null: false
+    t.string   "ssh_key_fingerprint",         limit: 255,               default: "",    null: false
+    t.boolean  "allocate_public_ip",                                    default: true,  null: false
     t.uuid     "agent_id"
     t.string   "encrypted_ssh_key"
     t.string   "encrypted_ssh_key_iv"
     t.string   "encrypted_ssh_key_salt"
+    t.text     "encrypted_ssh_host_key"
+    t.string   "encrypted_ssh_host_key_iv"
+    t.string   "encrypted_ssh_host_key_salt"
+    t.string   "ssh_host_key_fingerprint"
   end
 
   add_index "nodes", ["account_id"], name: "index_nodes_on_account_id", using: :btree
@@ -710,6 +716,7 @@ ActiveRecord::Schema.define(version: 20151122071219) do
     t.datetime "locked_at",                          precision: 6
     t.text     "preferences",                                      default: "{}", null: false
     t.text     "roles",                                            default: "[]", null: false
+    t.text     "authorized_keys",                                  default: "[]", null: false
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree

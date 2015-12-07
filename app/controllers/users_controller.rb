@@ -67,7 +67,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    permitted_params  = [:email,
+    permitted_params  = [:authorized_keys,
+                         :email,
                          :locale,
                          :login,
                          :name,

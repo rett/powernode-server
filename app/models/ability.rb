@@ -60,13 +60,16 @@ class Ability
       # Node Manager permissions
       #
       if user.has_role?(:node_manager)
-        can [:update_provider_items, :download_image],    [Node],                     account_id: account.id
+        can [:download_image, :update_provider_items],    [Node],                     account_id: account.id
         can [:create, :index, :show, :update, :destroy],  [Node],                     account_id: account.id
         can [:create, :index, :show, :update, :destroy],  [NodeInstance],             node: { account_id: account.id }
         can [:select_provider_instance_types],            [Node],                     account_id: account.id
         can [:control_node],                              [Node],                     account_id: account.id
         can [:select_provider_instance_types],            [Node],                     account_id: account.id
         can [:create, :index, :retry, :show, :update, :destroy],  [Operation],        account_id: account.id
+        user.account_delegations.enabled.each do |delegation|
+          delegation.account.nodes.each { |node| can [:control_node], node }
+        end
       end
 
       #

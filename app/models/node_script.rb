@@ -1,6 +1,5 @@
 class NodeScript < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   VARIETIES = %w[build init mount utility]
 

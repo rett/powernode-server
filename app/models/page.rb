@@ -1,6 +1,5 @@
 class Page < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   belongs_to :pageable, polymorphic: true

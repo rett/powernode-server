@@ -7,7 +7,7 @@
       - else
         = control_node_button(:instance_set_primary, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
   .box-body
-    .col-md-6
+    .col-xs-6
       %dl.dl-horizontal
         %dt Name
         %dd
@@ -45,7 +45,7 @@
         - elsif !node_instance.physical_variety?
           %dt Public IP
           %dd= control_node_button(:instance_public_ip_associate, icon: 'plus-circle', label: '', options: { node_instance_id: node_instance.id }, html_options: { class: 'text-blue',  data: { confirm: I18n.t('actions.confirm') } })
-    .col-md-6
+    .col-xs-6
       - if node_instance.image_file_size
         %dl.dl-horizontal
           %dt Boot Image

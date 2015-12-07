@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   ROLES = %w[global_admin
              account_admin
@@ -68,7 +67,7 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
-
+  serialize :authorized_keys, JSON
   serialize :preferences, JSON
   serialize :roles, JSON
 
@@ -78,12 +77,14 @@ class User < ActiveRecord::Base
   validates :id, uniqueness: true
   validates :name, presence: true
   validates_inclusion_of :locale, in: I18n.available_locales.map(&:to_s)
+  validate  :validate_authorized_keys
 
   after_initialize do
     self.id ||= UUIDTools::UUID.timestamp_create.to_s
     self.locale ||= 'en'
   end
 
+  before_validation :encode_authorized_keys
   before_validation on: :create do
     unless account.present?
       create_account(name: name,
@@ -94,7 +95,7 @@ class User < ActiveRecord::Base
                      stripe_card_exp_month: stripe_card_exp_month,
                      stripe_card_exp_year: stripe_card_exp_year,
                      stripe_token: stripe_token)
-      self.invitation = Invitation.find_by(id: invitation_id)
+      self.invitation   = Invitation.find_by(id: invitation_id)
       self.invitation ||= Invitation.find_by(recipient: email)
       self.invitation ||= Invitation.available.first
       self.roles = account.plan.default_roles
@@ -107,11 +108,15 @@ class User < ActiveRecord::Base
   end
 
   before_save do
-    self.roles = roles.flatten.uniq.map(&:to_s).reject { |r| !ROLES.include?(r) }
+    self.roles = roles.flatten.uniq.map(&:to_s).sort.reject { |r| !ROLES.include?(r) }
   end
 
   def self.available_default_roles
     ROLES.select { |r| r[/\A\w+(_manager|_publisher)\z/] }
+  end
+
+  def authorized_keys_text
+    authorized_keys.is_a?(Array) ? authorized_keys.map { |k| k + "\n" }.join : authorized_keys
   end
 
   def admin_roles
@@ -136,5 +141,22 @@ class User < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  private
+
+  def encode_authorized_keys
+    if authorized_keys_changed?
+      self[:authorized_keys] = authorized_keys.is_a?(String) ? authorized_keys.split(/\r?\n/).map(&:strip).uniq.sort.delete_if(&:empty?) : authorized_keys
+    end
+  end
+
+  def validate_authorized_keys
+    self.authorized_keys = [] unless authorized_keys.is_a?(Array)
+    authorized_keys.each do |authorized_key|
+      unless authorized_key =~ /\Assh-(d|r)sa\s\S*\s\S*\z/
+        errors.add(:base, I18n.t('flash.users.update.danger_invalid_authorized_key'))
+      end
+    end
   end
 end

@@ -1,6 +1,5 @@
 class ProviderVolumeSnapshot < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   belongs_to :provider_volume

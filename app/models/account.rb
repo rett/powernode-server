@@ -1,7 +1,6 @@
 class Account < ActiveRecord::Base
   include AASM
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :agent
   belongs_to :owner, class_name: 'User'

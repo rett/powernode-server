@@ -1,3 +1,68 @@
+= form_tag(control_node_path, as: 'javascript', remote: true) do
+  = hidden_field_tag :operation, :create_cloud_instance
+  .box.box-primary
+    .box-header.with-border
+      = I18n.t('nodes.control_node.create_cloud_instance.header')
+    .box-body
+      .col-xs-10
+        #provider_connection_select
+          %dl.dl-horizontal
+            %dt Provider Connection
+            %dd= collection_select nil, :provider_connection_id, @available_provider_connections, :id, :name, { include_blank: 'Select option', selected: @provider_connection.try(:id) }, { class: 'multiselect', id: 'provider_connection_id' }
+        #provider_region_select
+          %dl.dl-horizontal
+            %dt Provider Region
+            %dd= collection_select nil, :provider_region_id, @available_provider_regions, :id, :name, { include_blank: 'Select option', selected: @provider_region.try(:id) }, { class: 'multiselect', id: 'provider_region_id' }
+        #provider_instance_type_select
+          %dl.dl-horizontal
+            %dt Instance Type
+            %dd= collection_select nil, :provider_instance_type_id, @available_provider_instance_types, :id, :name, { include_blank: 'Select option', selected: @provider_instance_type.try(:id) }, { class: 'multiselect', id: 'provider_instance_type_id' }
+        #provider_availability_zone_select
+          %dl.dl-horizontal
+            %dt Availability Zone
+            %dd= collection_select nil, :provider_availability_zone_id, @available_provider_availability_zones, :id, :name, { include_blank: 'Select option', selected: @provider_availability_zone.try(:id) }, { class: 'multiselect', id: 'provider_availability_zone_id' }
+        #provider_network_subnet_select
+          %dl.dl-horizontal
+            %dt Network Subnet
+            %dd= collection_select nil, :provider_network_subnet_id, @available_provider_network_subnets, :id, :name, { include_blank: 'Select option', selected: @provider_network_subnet.try(:id) }, { class: 'multiselect', id: 'provider_network_subnet_id' }
+      .col-xs-2
+        = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm'), disable_with: I18n.t('actions.submit') }, id: 'create_cloud_instance_button') do
+          = fa('plus-square-o')
+          = I18n.t('actions.create')
+= form_tag(control_node_path, as: 'javascript', remote: true) do
+  = hidden_field_tag :operation, :create_physical_instance
+  = hidden_field :node_instance_params, :variety, value: 'physical'
+  .box.box-primary
+    .box-header.with-border
+      = I18n.t('nodes.control_node.create_physical_instance.header')
+    .box-body
+      .col-xs-10
+        %dl.dl-horizontal
+          %dt Name
+          %dd= text_field :node_instance_params, :name, class: 'form-control', size: 60
+      .col-xs-2
+        = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm'), disable_with: I18n.t('actions.submit') }, id: 'create_physical_instance_button') do
+          = fa('plus-square-o')
+          = I18n.t('actions.create')
+= form_tag(control_node_path, as: 'javascript', remote: true) do
+  = hidden_field_tag :operation, :sync_cloud_instances
+  .box.box-primary
+    .box-header.with-border
+      = I18n.t('nodes.control_node.instance_management.header')
+    .box-body
+      .col-xs-10
+        %dl.dl-horizontal
+          %dt Sync cloud instances
+          %dd
+            #sync_cloud_instances_scheduled_at_picker
+              .input-group.input-group-sm.date
+                = datetime_field_tag 'sync_cloud_instances_scheduled_at', '', class: 'form-control'
+                %span.input-group-addon
+                  = fa('calendar')
+      .col-xs-2
+        = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm'), disable_with: I18n.t('actions.submit') }, id: 'sync_cloud_instances_scheduled_at_button') do
+          = fa('calendar')
+          = I18n.t('nodes.control_node.sync_cloud_instances.label')
 - @available_provider_connections.each do |provider_connection|
   - if @node.node_instances.cloud_variety.where(provider_connection: provider_connection).size > 0
     - if provider_connection.description

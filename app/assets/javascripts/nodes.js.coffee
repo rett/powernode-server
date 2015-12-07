@@ -9,6 +9,13 @@ $(document).bind 'edit_nodes.load', (e, obj) =>
         $('#custom_sync_script_settings').slideUp()
 
 $(document).bind 'show_nodes.load', (e, obj) =>
+  $('#create_physical_instance_button').attr('disabled', 'disabled')
+  $('input#node_instance_params_name')
+    .on 'input', ->
+      if $('#node_instance_params_name').val() is ''
+        $('#create_physical_instance_button').attr('disabled', 'disabled')
+      else
+        $('#create_physical_instance_button').removeAttr('disabled')
   $('#provider_connection_id')
     .change ->
       if $('select#provider_connection_id :selected').val() is ''

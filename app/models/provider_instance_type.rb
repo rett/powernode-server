@@ -1,6 +1,5 @@
 class ProviderInstanceType < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   has_many :pages, as: :pageable, dependent: :destroy

@@ -1,7 +1,5 @@
 class ProviderAvailabilityZone < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::EncryptionExtensions
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   belongs_to :provider_region

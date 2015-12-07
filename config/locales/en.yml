@@ -201,11 +201,6 @@ en:
         operation_unschedule_id:
           danger:                                 'Failed to unschedule command.'
           success:                                'Successfully unscheduled command.'
-        send_ssh_key:
-          danger:                                 'Failed to send SSH key to %{recipient}.'
-          danger_invalid_encryption_key:          'Invalid encryption key, must be a %{key_length} character long hex string.'
-          danger_no_ssh_key:                      'No SSH key available for node.'
-          success:                                'Sending encrypted SSH key to %{recipient}.'
         sync_cloud_instances:
           danger:                                 'Failed to schedule sync for cloud instances.'
           success:                                'Successfully scheduled cloud instance sync.'
@@ -224,6 +219,8 @@ en:
         danger_limit_reached:                     'Unable to create user, limit reached.'
       destroy:
         danger_current_user:                      'Failed to destroy current user.'
+      update:
+        danger_invalid_authorized_key:            'Invalid DSA or RSA public SSH key.'
 
   #
   # Accounts
@@ -257,11 +254,11 @@ en:
     control_node:
       create_cloud_instance:
         description:                              'Create cloud instance for node %{node}'
-        header:                                   'Create Cloud Instance'
+        header:                                   'Create cloud instance'
         label:                                    'Create'
       create_physical_instance:
         description:                              'Create cloud instance for node %{node}'
-        header:                                   'Create Physical Instance'
+        header:                                   'Create physical instance'
         label:                                    'Create'
       create_iso:
         description:                              'Create ISO for %{node_instance}'
@@ -277,7 +274,7 @@ en:
       instance_exec:
         description:                              'Send %{command} command to %{node_instance}'
       instance_management:
-        header:                                   'Instance Management'
+        header:                                   'Instance management'
       instance_public_ip_associate:
         description:                              'Associate public IP on instance %{node_instance}'
         label:                                    'Associate'
@@ -300,8 +297,6 @@ en:
         description:                              'Sync instance %{node_instance}'
       instance_terminate:
         description:                              'Terminate instance %{node_instance}'
-      key_management:
-        header:                                   'Key Management'
       module_build:
         description:                              'Build module %{node_module} on %{node_instance}'
       module_commit:
@@ -319,9 +314,9 @@ en:
       instance_control:
         header:                                   'Instance Control'
       instance_dynamic:
-        header:                                   'Dynamic Instances'
+        header:                                   'Dynamic'
       instance_physical:
-        header:                                   'Physical Instances'
+        header:                                   'Physical'
       instance_details:
         header:                                   'Instance Details'
       mount_points:
@@ -332,8 +327,6 @@ en:
       puppet_modules:
         header:                                   'Puppet Modules'
     show:
-      node_control:
-        header:                                   'Control'
       node_modules:
         header:                                   'Modules'
       node_instances:

@@ -1,6 +1,5 @@
 class NodeModule < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   VARIETIES = %w[config instance subscription]
 
@@ -46,8 +45,8 @@ class NodeModule < ActiveRecord::Base
   validates_inclusion_of :variety, in: NodeModule::VARIETIES
   validates_uniqueness_of :name, scope: :node_platform_id
   validates_numericality_of :priority, only_integer: true,
-                            greater_than_or_equal_to: Powernode.config.module_priority_range[0],
-                            less_than_or_equal_to: Powernode.config.module_priority_range[1]
+                                       greater_than_or_equal_to: Powernode.config.module_priority_range[0],
+                                       less_than_or_equal_to: Powernode.config.module_priority_range[1]
 
   validate :reject_modifying_spec, on: :update, if: :lock_spec?
 
@@ -202,6 +201,7 @@ class NodeModule < ActiveRecord::Base
   end
 
   def uuid_partition
+    uuid = UUIDTools::UUID.parse(id)
     sprintf('%04d/%02d/%02d/%02d/%02d', uuid.timestamp.year,
                                         uuid.timestamp.month,
                                         uuid.timestamp.day,

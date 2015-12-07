@@ -1,6 +1,5 @@
 class NodeModuleSubscription < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :node
   belongs_to :node_module

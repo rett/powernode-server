@@ -19,11 +19,6 @@
 .nav-tabs-custom
   %ul.nav.nav-tabs
     %li.active
-      = link_to('#node_controls_tab', data: { toggle: 'tab' }) do
-        = fa('laptop')
-        &nbsp;
-        = I18n.t('nodes.show.node_control.header')
-    %li
       = link_to('#node_instances_tab', data: { toggle: 'tab' }) do
         = fa('server')
         &nbsp;
@@ -34,7 +29,8 @@
         &nbsp;
         = I18n.t('nodes.show.node_modules.header')
   .tab-content
-    .tab-pane#node_controls_tab.active= render partial: 'node_controls_tab'
-    .tab-pane#node_instances_tab= render partial: 'node_instances_tab', locals: { node: @node, node_instances: @node.node_instances }
-    .tab-pane#node_modules_tab= render partial: 'node_modules_tab', locals: { node: @node, node_modules: @available_node_modules }
+    .tab-pane#node_instances_tab.active
+      = render partial: 'node_instances_tab', locals: { node: @node, node_instances: @node.node_instances }
+    .tab-pane#node_modules_tab
+      = render partial: 'node_modules_tab', locals: { node: @node, node_modules: @available_node_modules }
 = render partial: 'pages/pages', locals: { pages: @node.pages }

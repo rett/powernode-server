@@ -10,9 +10,15 @@ module Api
         end
       end
 
-      def node_instance_ssh_keys
+      def node_instance_authorized_keys
         respond_to do |format|
-          format.text { render 'ssh_keys' }
+          format.text { render 'authorized_keys' }
+        end
+      end
+
+      def node_instance_host_keys
+        respond_to do |format|
+          format.text { render 'host_keys' }
         end
       end
 

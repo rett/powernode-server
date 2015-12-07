@@ -1,6 +1,5 @@
 class Operation < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   STATUSES = %w[abort complete failed pending running]
 

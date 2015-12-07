@@ -1,6 +1,5 @@
 class Provider < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   VARIETIES = %w[aws openstack]
 

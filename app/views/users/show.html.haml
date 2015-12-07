@@ -13,17 +13,36 @@
       %dd= @user.name
       %dt Email
       %dd= @user.email
-      %dt Roles
+      %dt Account delegations
       %dd
         %ul
-          - @user.roles.each do |role|
-            %li= role.to_s.titleize
-      - if @user.accounts.size > 0
-        %dt Account Delegations
-        %dd
-          %ul
-            - @user.accounts.each do |account|
-              %li= account.name
+          - if @user.account_delegations.count > 0
+            - @user.account_delegations.each do |account_delegation|
+              %li= account_delegation.user.name
+          - else
+            %li None
+      %dt Authorized keys
+      %dd
+        %ul
+          - if @user.authorized_keys.count > 0
+            - @user.authorized_keys.each do |authorized_key|
+              %li
+                - key_type, key_data, key_comment = authorized_key.split(' ')
+                %strong #{key_comment}:
+                #{key_type}
+                - if key_data.size > 20
+                  #{key_data.first(10)}...#{key_data.last(10)}
+                - else
+                  = key_data
+          - else
+            %li None
+      - %w[admin manager publisher].each do |role_type|
+        - if @user.send("#{role_type}_roles").size > 0
+          %dt #{role_type.titleize} roles
+          %dd
+            %ul
+              - @user.send("#{role_type}_roles").each do |role|
+                %li= role.to_s.titleize
       %dt Created
       %dd= local_time(@user.created_at)
       %dt Updated

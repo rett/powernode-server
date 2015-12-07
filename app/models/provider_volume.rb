@@ -1,6 +1,5 @@
 class ProviderVolume < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   RAID_LEVELS = [0, 1]
 

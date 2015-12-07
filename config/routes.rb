@@ -234,18 +234,20 @@ Powernode::Application.routes.draw do
     end
 
     namespace :node_v1, defaults: { format: 'text' } do
-      match '/instance/config'                  => 'node_api#node_instance_config',         via: [:get]
-      match '/instance/ssh_keys'                => 'node_api#node_instance_ssh_keys',       via: [:get]
-      match '/modules'                          => 'node_api#node_modules',                 via: [:get]
-      match '/module/:node_module_id'           => 'node_api#node_module',                  via: [:get]
-      match '/module/:node_module_id/:resource' => 'node_api#node_module_resource',         via: [:get]
-      match '/mount_points'                     => 'node_api#node_mount_points',            via: [:get]
-      match '/puppet/resources'                 => 'node_api#puppet_resources',             via: [:get]
-      match '/script/:node_script_id'           => 'node_api#node_script',                  via: [:get]
-      match '/status'                           => 'node_api#status',                       via: [:get]
+      match '/instance/config'                  => 'node_api#node_instance_config',           via: [:get]
+      match '/instance/authorized_keys'         => 'node_api#node_instance_authorized_keys',  via: [:get]
+      match '/instance/host_keys'               => 'node_api#node_instance_host_keys',        via: [:get]
+      match '/modules'                          => 'node_api#node_modules',                   via: [:get]
+      match '/module/:node_module_id'           => 'node_api#node_module',                    via: [:get]
+      match '/module/:node_module_id/:resource' => 'node_api#node_module_resource',           via: [:get]
+      match '/mount_points'                     => 'node_api#node_mount_points',              via: [:get]
+      match '/puppet/resources'                 => 'node_api#puppet_resources',               via: [:get]
+      match '/script/:node_script_id'           => 'node_api#node_script',                    via: [:get]
+      match '/status'                           => 'node_api#status',                         via: [:get]
 
       # Catch all invalid routes
-      match '/(*)'                              => 'node_api#not_found',                    via: [:get, :post, :put, :delete], anchor: false
+      match '/(*)'                              => 'node_api#not_found',                      anchor: false,
+                                                                                              via: [:get, :post, :put, :delete]
     end
   end
 

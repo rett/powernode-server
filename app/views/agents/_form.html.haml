@@ -16,6 +16,7 @@
       = form.input :key, as: :password, required: @agent.new_record?
       = form.input :key_confirmation, as: :password, required: @agent.new_record?
       = form.input :enabled, as: :boolean
+      = form.input :roles, as: :select, collection: Agent::ROLES.map { |r| [r.titleize, r] }, selected: @agent.roles.to_a, multiple: true, input_html: { class: 'multiselect' }
       - if can?(:manage, Agent)
         = form.input :primary, as: :boolean
         = form.input :public, as: :boolean

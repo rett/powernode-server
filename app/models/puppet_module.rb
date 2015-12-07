@@ -1,6 +1,5 @@
 class PuppetModule < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   has_many :node_module_puppet_module_subscriptions
@@ -46,6 +45,7 @@ class PuppetModule < ActiveRecord::Base
   end
 
   def uuid_partition
+    uuid = UUIDTools::UUID.parse(id)
     sprintf('%04d/%02d/%02d/%02d/%02d', uuid.timestamp.year,
                                         uuid.timestamp.month,
                                         uuid.timestamp.day,

@@ -1,6 +1,5 @@
 class PageResource < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   default_scope { order('name ASC') }
 
@@ -31,11 +30,12 @@ class PageResource < ActiveRecord::Base
   end
 
   def uuid_partition
+    uuid = UUIDTools::UUID.parse(id)
     sprintf('%04d/%02d/%02d/%02d/%02d', uuid.timestamp.year,
-            uuid.timestamp.month,
-            uuid.timestamp.day,
-            uuid.timestamp.hour,
-            uuid.timestamp.min)
+                                        uuid.timestamp.month,
+                                        uuid.timestamp.day,
+                                        uuid.timestamp.hour,
+                                        uuid.timestamp.min)
   end
 
   private

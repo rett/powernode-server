@@ -1,7 +1,5 @@
 class ProviderConnection < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::EncryptionExtensions
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   belongs_to :provider
@@ -30,6 +28,10 @@ class ProviderConnection < ActiveRecord::Base
   validates :name, presence: true, format: { with: /\A[a-zA-Z0-9 ._-]*\z/ }
   validates :provider, presence: true
   validates_uniqueness_of :name, scope: :account_id
+
+  def encryption_key
+    account.present? ? account.encryption_key + Powernode.config.key_pepper : nil
+  end
 
   def to_s
     name

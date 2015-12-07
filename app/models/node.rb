@@ -1,7 +1,5 @@
 class Node < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::EncryptionExtensions
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   belongs_to :agent
@@ -20,7 +18,9 @@ class Node < ActiveRecord::Base
   accepts_nested_attributes_for :pages, allow_destroy: true
 
   attr_accessor :node_instance
-  attr_encrypted :ssh_key, key: :encryption_key, mode: :per_attribute_iv_and_salt
+
+  attr_encrypted :ssh_key,      key: :encryption_key, mode: :per_attribute_iv_and_salt
+  attr_encrypted :ssh_host_key, key: :encryption_key, mode: :per_attribute_iv_and_salt
 
   default_scope { order('name ASC') }
 
@@ -43,8 +43,20 @@ class Node < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :account_id
   validate  :enforce_limits, on: :create
 
+  after_initialize :initialize_ssh_keys
+
   before_destroy { |n| n.node_instances.cloud_variety.size == 0 && n.node_instances.dynamic_variety.size == 0 }
   before_save :destroy_invalid_associations, if: :node_template_id_changed?
+
+  def authorized_keys
+    unless @authorized_keys
+      @authorized_keys = ["ssh-rsa #{[OpenSSL::PKey::RSA.new(ssh_key).to_blob].pack('m0')} #{admin_user}@#{name}"]
+      account.users.each { |u| @authorized_keys << u.authorized_keys if Ability.new(user: u).can?(:control_node, self) }
+      account.account_delegations.each { |d| @authorized_keys << d.user.authorized_keys if Ability.new(user: d.user).can?(:control_node, self) }
+      @authorized_keys = @authorized_keys.flatten.uniq
+    end
+    @authorized_keys
+  end
 
   def copy_path(node_module)
     node_module_subscriptions.find_by(node_module_id: node_module).try(:node_module_copy_path).try(:path)
@@ -58,6 +70,10 @@ class Node < ActiveRecord::Base
     new_record? || account.enabled? ? self[:enabled] : false
   end
   alias enabled? enabled
+
+  def encryption_key
+    account.present? ? account.encryption_key + Powernode.config.key_pepper : nil
+  end
 
   def init_script_id
     init_script.try(:id)
@@ -84,6 +100,10 @@ class Node < ActiveRecord::Base
     sync_script.try(:id)
   end
 
+  def to_s
+    name
+  end
+
   def total_instances
     node_instances.size
   end
@@ -94,10 +114,6 @@ class Node < ActiveRecord::Base
     else
       nil
     end
-  end
-
-  def to_s
-    name
   end
 
   def node_module_subscription(node_module)
@@ -114,5 +130,18 @@ class Node < ActiveRecord::Base
 
   def enforce_limits
     errors.add(:base, I18n.t('flash.nodes.create.danger_limit_reached')) unless account.present? && account.nodes.size < account.node_limit
+  end
+
+  def initialize_ssh_keys
+    unless ssh_key.present?
+      new_key = OpenSSL::PKey::RSA.new(2048)
+      self.ssh_key = new_key.to_pem
+      self.ssh_key_fingerprint = new_key.fingerprint
+    end
+    unless ssh_host_key.present?
+      new_key = OpenSSL::PKey::RSA.new(2048)
+      self.ssh_host_key = new_key.to_pem
+      self.ssh_host_key_fingerprint = new_key.fingerprint
+    end
   end
 end

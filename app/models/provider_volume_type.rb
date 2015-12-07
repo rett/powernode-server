@@ -1,6 +1,5 @@
 class ProviderVolumeType < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   belongs_to :mount_script, class_name: 'NodeScript'

@@ -1,6 +1,5 @@
 class NodeModuleCategory < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   has_many :node_modules, dependent: :destroy

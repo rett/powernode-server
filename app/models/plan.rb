@@ -1,7 +1,6 @@
 class Plan < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include ActionView::Helpers::NumberHelper
-  include Powernode::UUIDExtensions
 
   belongs_to :account
   has_many :accounts

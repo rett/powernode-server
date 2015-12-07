@@ -1,7 +1,5 @@
 class NodeInstance < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
-  include Powernode::EncryptionExtensions
-  include Powernode::UUIDExtensions
 
   CLOUD_VARIETIES = %w[cloud dynamic]
   PHYSICAL_VARIETIES = %w[physical]
@@ -107,6 +105,10 @@ class NodeInstance < ActiveRecord::Base
     "#{name}.#{image_format}"
   end
 
+  def encryption_key
+    account.present? ? account.encryption_key + Powernode.config.key_pepper : nil
+  end
+
   def enforce_limits
     errors.add(:base, I18n.t('flash.node_instances.create.danger_limit_reached')) unless account.present? && account.node_instances.size < account.instance_limit
   end
@@ -131,6 +133,7 @@ class NodeInstance < ActiveRecord::Base
   end
 
   def uuid_partition
+    uuid = UUIDTools::UUID.parse(id)
     sprintf('%04d/%02d/%02d/%02d/%02d', uuid.timestamp.year,
                                         uuid.timestamp.month,
                                         uuid.timestamp.day,

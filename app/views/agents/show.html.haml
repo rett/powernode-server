@@ -25,6 +25,14 @@
         %dd= @agent.primary? ? 'Yes' : 'No'
         %dt Public
         %dd= @agent.public? ? 'Yes' : 'No'
+      %dt Roles
+      %dd
+        - if @agent.roles.count > 0
+          %ul
+            - @agent.roles.each do |role|
+              %li= role.titleize
+        - else
+          None
       %dt Created
       %dd= local_time(@agent.created_at)
       %dt Updated

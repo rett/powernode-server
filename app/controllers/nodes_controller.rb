@@ -481,27 +481,6 @@ class NodesController < ApplicationController
     end
   end
 
-  def do_send_ssh_key
-    ssh_encryption_key = params[:ssh_encryption_key] if params[:ssh_encryption_key].length == Powernode.config.encryption_key_length && params[:ssh_encryption_key].match(/\A[0-9a-f]*\z/i)
-    operation = @node.operations.build(account: @current_account,
-                                       command: 'send_ssh_key',
-                                       description: I18n.t('nodes.control_node.send_ssh_key.description', node: @node.name),
-                                       options: { async: true,
-                                                  ssh_encryption_key: ssh_encryption_key,
-                                                  recipient: @current_user.email }) if ssh_encryption_key && @node.ssh_key.present?
-    if ssh_encryption_key.present? && @node.enabled? && @node.ssh_key.present? && operation.save
-      flash['success'] = I18n.t('flash.nodes.control_node.send_ssh_key.success',
-                                recipient: @current_user.email)
-    elsif @node.ssh_key.empty? && @node.enabled?
-      flash['danger'] = I18n.t('flash.nodes.control_node.send_ssh_key.danger_no_ssh_key')
-    elsif !ssh_encryption_key && @node.enabled?
-      flash['danger'] = I18n.t('flash.nodes.control_node.send_ssh_key.danger_invalid_encryption_key',
-                               key_length: Powernode.config.encryption_key_length)
-    else
-      flash['danger'] = I18n.t('flash.nodes.control_node.send_ssh_key.danger')
-    end
-  end
-
   def do_sync_cloud_instances
     operation = @node.operations.build(account: @current_account,
                                        command: 'sync_cloud_instances',
