@@ -43,9 +43,10 @@ class Node < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :account_id
   validate  :enforce_limits, on: :create
 
-  before_create :initialize_ssh_keys
+
   before_destroy { |n| n.node_instances.cloud_variety.size == 0 && n.node_instances.dynamic_variety.size == 0 }
   before_save :destroy_invalid_associations, if: :node_template_id_changed?
+  before_save :initialize_ssh_keys
 
   def authorized_keys
     unless @authorized_keys
