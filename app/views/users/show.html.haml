@@ -18,7 +18,7 @@
         %ul
           - if @user.account_delegations.count > 0
             - @user.account_delegations.each do |account_delegation|
-              %li= account_delegation.user.name
+              %li= account_delegation.account.name
           - else
             %li None
       %dt Authorized keys
