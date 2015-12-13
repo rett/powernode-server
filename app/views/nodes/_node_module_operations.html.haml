@@ -20,37 +20,40 @@
         %dd= node_module.version
         %dt Updated
         %dd= local_time(node_module.updated_at)
-      = form_tag(control_node_path, remote: true) do
-        = hidden_field_tag :node_module_id, node_module.id
-        = hidden_field_tag :operation, 'module_update'
-        .col-lg-10
-          %dl.dl-horizontal
-            - if @node.node_module_subscription(node_module)
-              %dt Enabled
-              %dd= select_tag :enabled, options_for_select([['No', false], ['Yes', true]], selected: @node.node_module_subscription(node_module).try(:enabled?) ? true : false), { class: 'multiselect', id: "enabled_#{node_module.id}" }
-              %dt Copy path
-              %dd= select nil, :node_module_copy_path_id, options_for_select(@available_node_module_copy_paths.map { |c| [c.name, c.id] }, selected: @node.node_module_subscription(node_module).node_module_copy_path_id), { include_blank: 'None' }, { class: 'multiselect', id: "copy_path_#{node_module.id}" }
-        .col-lg-2
-          .pull-right
-            = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') }) do
-              = fa('floppy-o')
-              = I18n.t('actions.update')
-      = form_tag(control_node_path, remote: true) do
-        = hidden_field_tag :node_module_id, node_module.id
-        .col-lg-10
-          %dl.dl-horizontal
-            %dt Operation
-            %dd= select_tag(:operation, options_for_select([['Restore', 'module_restore'],
-                                                            ['Delete',  'module_delete'],
-                                                            ['Purge',  'module_purge']]),
-                                        { class: 'multiselect', id: "operation_#{node_module.id}" })
-            %dt Version
-            %dd= select_tag :version, options_for_select(node_module.versions.sort_by(&:version).select { |v| v.data_checksum.present? }.map { |v| ["#{v.version} - #{v.data_checksum[0..5]} (#{time_ago_in_words(v.updated_at)} ago)", v.version] }, selected: node_module.version), { class: 'multiselect', id: "version_#{node_module.id}" }
-        .col-lg-2
-          .pull-right
-            = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') }) do
-              = fa('history')
-              = I18n.t('actions.submit')
+      .row
+        = form_tag(control_node_path, remote: true) do
+          = hidden_field_tag :node_module_id, node_module.id
+          = hidden_field_tag :operation, 'module_update'
+          .col-lg-10
+            %dl.dl-horizontal
+              - if @node.node_module_subscription(node_module)
+                %dt Enabled
+                %dd= select_tag :enabled, options_for_select([['No', false], ['Yes', true]], selected: @node.node_module_subscription(node_module).try(:enabled?) ? true : false), { class: 'multiselect', id: "enabled_#{node_module.id}" }
+                %dt Copy path
+                %dd= select nil, :node_module_copy_path_id, options_for_select(@available_node_module_copy_paths.map { |c| [c.name, c.id] }, selected: @node.node_module_subscription(node_module).node_module_copy_path_id), { include_blank: 'None' }, { class: 'multiselect', id: "copy_path_#{node_module.id}" }
+          .col-lg-2
+            .pull-right
+              = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') }) do
+                = fa('floppy-o')
+                = I18n.t('actions.update')
+      %br
+      .row
+        = form_tag(control_node_path, remote: true) do
+          = hidden_field_tag :node_module_id, node_module.id
+          .col-lg-10
+            %dl.dl-horizontal
+              %dt Operation
+              %dd= select_tag(:operation, options_for_select([['Restore', 'module_restore'],
+                                                              ['Delete',  'module_delete'],
+                                                              ['Purge',  'module_purge']]),
+                                          { class: 'multiselect', id: "operation_#{node_module.id}" })
+              %dt Version
+              %dd= select_tag :version, options_for_select(node_module.versions.sort_by(&:version).select { |v| v.data_checksum.present? }.map { |v| ["#{v.version} - #{v.data_checksum[0..5]} (#{time_ago_in_words(v.updated_at)} ago)", v.version] }, selected: node_module.version), { class: 'multiselect', id: "version_#{node_module.id}" }
+          .col-lg-2
+            .pull-right
+              = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') }) do
+                = fa('history')
+                = I18n.t('actions.submit')
     .box-footer
       .btn-group
         = control_node_button(:module_commit, label: I18n.t('actions.commit'), icon: 'floppy-o', options: { node_module_id: node_module.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
