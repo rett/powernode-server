@@ -5,7 +5,7 @@
       - if node_instance.primary?
         (Primary)
       - else
-        = control_node_button(:instance_set_primary, options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
+        = control_node_button(:instance_set_primary, icon: 'exclamation-circle', options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
   .box-body
     .col-xs-6
       %dl.dl-horizontal
@@ -24,21 +24,21 @@
         %dt Status
         %dd= node_instance.status.capitalize
         - if node_instance.address.present?
-          %li
-            Address: #{node_instance.address}
+          %dt Address
+          %dd= node_instance.address
         - if node_instance.private_ip_address.present?
           %dt Private IP
           %dd
             = node_instance.private_ip_address.present? ? node_instance.private_ip_address : 'None'
             &nbsp;
-            = content_tag('a', class: 'clipboard', type: 'button', data: { 'clipboard-text' => node_instance.private_ip_address }) do
+            = content_tag('a', class: 'clipboard', type: 'button', data: { 'clipboard-text' => node_instance.private_ip_address.to_s }) do
               = fa('clipboard')
         - if node_instance.public_ip_address.present?
           %dt Public IP
           %dd
             = node_instance.public_ip_address
             &nbsp;
-            = content_tag('a', class: 'clipboard', type: 'span', data: { 'clipboard-text' => node_instance.public_ip_address }) do
+            = content_tag('a', class: 'clipboard', type: 'span', data: { 'clipboard-text' => node_instance.public_ip_address.to_s }) do
               = fa('clipboard')
             &nbsp;
             = control_node_button(:instance_public_ip_disassociate, icon: 'minus-circle', label: '', options: { node_instance_id: node_instance.id }, html_options: { class: 'text-red',  data: { confirm: I18n.t('actions.confirm') } })

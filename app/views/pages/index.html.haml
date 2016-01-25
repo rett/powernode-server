@@ -12,8 +12,8 @@
   .box-body
     %table.table.table-bordered.table-striped
       %thead
-        %th= sort_link @search, :pageable_type, 'Item'
         %th= sort_link @search, :name
+        %th= sort_link @search, :pageable_type, 'Item'
         %th= sort_link @search, :title
       %tbody
         = render @pages

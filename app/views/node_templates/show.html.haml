@@ -37,7 +37,7 @@
         - if @node_template.node_modules
           %ul
             - @node_template.node_modules.each do |node_module|
-              %li= node_module.name
+              %li= link_to(node_module.name, node_module)
         - else
           &nbsp;
       %dt Created

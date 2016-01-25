@@ -1,6 +1,6 @@
 %tr
+  %td= link_to(page.name, page)
   %td
     - if page.pageable.present?
       = link_to page.pageable.name, page.pageable
-  %td= link_to(page.name, page)
   %td= page.title

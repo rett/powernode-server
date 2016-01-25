@@ -5,10 +5,10 @@
     .box-body
       .btn-group
         - Powernode.config.image_formats.each do |f|
-          = control_node_button(:instance_create_image, options: { image_format: f, node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } }, label: I18n.t('nodes.control_node.instance_create_image.label', image_format: f.upcase))
+          = control_node_button(:instance_create_image, icon: 'save', options: { image_format: f, node_instance_id: node_instance.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } }, label: I18n.t('nodes.control_node.instance_create_image.label', image_format: f.upcase))
       .pull-right
         .btn-group
-          = control_node_button(:instance_reset_key, icon: 'exclamation-triangle', options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
+          = control_node_button(:instance_reset_key, icon: 'exclamation-triangle', options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-warning', data: { confirm: I18n.t('actions.confirm') } })
           = control_node_button(:instance_destroy, icon: 'times-circle', label: I18n.t('actions.destroy'), options: { node_instance_id: node_instance.id }, html_options: { class: 'btn btn-danger', data: { confirm: I18n.t('actions.confirm') } })
   - else
     .box-body

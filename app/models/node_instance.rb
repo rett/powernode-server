@@ -33,7 +33,7 @@ class NodeInstance < ActiveRecord::Base
   validates :id, uniqueness: true
   validates :name, format: { with: /\A[a-zA-Z0-9_-]*\z/ }, presence: true, uniqueness: true
   validates :private_ip_address, :public_ip_address, ip: { forbidden: :netmask }
-  validates :private_mac_address, uniqueness: true, format: { with: /\A([0-9a-f]{2}-){5}[0-9a-f]{2}\z/ }, allow_blank: true
+  validates :private_mac_address, uniqueness: true, format: { with: /\A([0-9A-Fa-f]{2}[-:.]?){5}[0-9A-Fa-f]{2}\z/ }, allow_blank: true
   validates_inclusion_of :image_format, in: Powernode.config.image_formats, allow_blank: true
   validates_inclusion_of :variety, in: NodeInstance::VARIETIES
   validate  :enforce_limits, on: :create
@@ -48,10 +48,17 @@ class NodeInstance < ActiveRecord::Base
   end
 
   before_save do
+    if private_ip_static_changed? && !private_ip_static?
+      self.private_ip_address = nil
+      self.private_ip_netmask = nil
+      self.private_ip_gateway = nil
+    end
     self.private_netboot_updated_at = Time.now if private_mac_address_changed?
     self.status.downcase! if status_changed?
   end
-  after_save { self.node.update_attribute(:primary_instance, self) if self.cloud_variety? && !self.node.primary_instance.try(:valid?) }
+  after_save do
+    self.node.update_attribute(:primary_instance, self) unless self.node.primary_instance.try(:valid?)
+  end
 
   geocoded_by :address
   after_validation :geocode, if: :address_changed?

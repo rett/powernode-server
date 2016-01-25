@@ -17,6 +17,11 @@ class NodeInstancesController < ApplicationController
   end
 
   def update
+    if params[:node_instance].try(:[], :private_mac_address).present?
+      params[:node_instance][:private_mac_address] = params[:node_instance][:private_mac_address].gsub(/[^0-9A-Fa-f]/, '').slice(0, 12)
+    else
+      params[:node_instance][:private_mac_address] = nil
+    end
     @node_instance.update_attributes(node_instance_params)
     respond_with @node_instance, location: node_path(@node_instance.node)
   end
@@ -42,7 +47,6 @@ class NodeInstancesController < ApplicationController
                          :longitude,
                          :private_ip_address,
                          :private_ip_device,
-                         :private_ip_domain,
                          :private_ip_gateway,
                          :private_ip_netmask,
                          :private_ip_primary_dns,

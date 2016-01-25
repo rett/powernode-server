@@ -56,9 +56,9 @@
                 = I18n.t('actions.submit')
     .box-footer
       .btn-group
-        = control_node_button(:module_commit, label: I18n.t('actions.commit'), icon: 'floppy-o', options: { node_module_id: node_module.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
         - unless node_module.node_module_subscription.present?
           = control_node_button(:module_build, label: I18n.t('actions.build'), icon: 'cog', options: { node_module_id: node_module.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
+        = control_node_button(:module_commit, label: I18n.t('actions.commit'), icon: 'floppy-o', options: { node_module_id: node_module.id }, html_options: { class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') } })
       - if node_module.node_module_subscription.present?
         .pull-right
           .btn-group

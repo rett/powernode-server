@@ -1,9 +1,13 @@
 module NodesHelper
-  def control_node_button(operation, icon: nil, label: nil, options: nil, html_options: nil)
+  def control_node_button(operation, glyphicon: nil, icon: nil, label: nil, options: nil, html_options: nil)
     label ||= I18n.t("nodes.control_node.#{operation.to_s}.label")
     link_to({ action: 'control_node', operation: operation }.merge(options || {}),
             { remote: true }.merge(html_options || {})) do
-      label = label.prepend(fa(icon) + '&nbsp;'.html_safe) if icon
+      if icon
+        label = label.prepend(fa(icon) + '&nbsp;'.html_safe)
+      elsif glyphicon
+        label = label.prepend(glyph(glyphicon) + '&nbsp;'.html_safe)
+      end
       label.html_safe
     end
   end

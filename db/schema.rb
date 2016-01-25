@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205080250) do
+ActiveRecord::Schema.define(version: 20151222185040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,18 +129,8 @@ ActiveRecord::Schema.define(version: 20151205080250) do
     t.string   "address",                       limit: 255
     t.string   "address_full",                  limit: 255
     t.string   "entity",                        limit: 255
-    t.string   "private_ip_address",            limit: 255
-    t.string   "private_mac_address",           limit: 255
-    t.string   "public_ip_address",             limit: 255
     t.string   "status",                        limit: 255,                               null: false
     t.string   "variety",                       limit: 255,                               null: false
-    t.boolean  "private_ip_static",                                       default: false, null: false
-    t.string   "private_ip_device",             limit: 255
-    t.string   "private_ip_domain",             limit: 255
-    t.string   "private_ip_gateway",            limit: 255
-    t.string   "private_ip_netmask",            limit: 255
-    t.string   "private_ip_primary_dns",        limit: 255
-    t.string   "private_ip_secondary_dns",      limit: 255
     t.datetime "private_netboot_updated_at",                precision: 6
     t.datetime "started_at",                                precision: 6
     t.uuid     "provider_region_id"
@@ -149,6 +139,16 @@ ActiveRecord::Schema.define(version: 20151205080250) do
     t.text     "encrypted_key",                                           default: "",    null: false
     t.string   "encrypted_key_iv"
     t.string   "encrypted_key_salt"
+    t.inet     "private_ip_address"
+    t.string   "private_ip_device",             limit: 255,               default: "",    null: false
+    t.inet     "private_ip_gateway"
+    t.inet     "private_ip_netmask"
+    t.inet     "private_ip_primary_dns"
+    t.inet     "private_ip_secondary_dns"
+    t.boolean  "private_ip_static",                                       default: false, null: false
+    t.macaddr  "private_mac_address"
+    t.inet     "public_ip_address"
+    t.inet     "vpn_ip_address"
   end
 
   add_index "node_instances", ["name"], name: "index_node_instances_on_name", using: :btree
