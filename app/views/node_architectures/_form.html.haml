@@ -12,11 +12,12 @@
       .messages= form.semantic_errors class: 'error-msg'
       = form.input :name
       = form.input :description
-      = form.input :kernel
-      = form.input :ramdisk
+      = form.input :kernel_options
       = form.input :enabled, as: :boolean
       - if can?(:manage, NodeArchitecture)
         = form.input :public, as: :boolean
+      = form.input :kernel
+      = form.input :ramdisk
       = render partial: 'pages/page_form_fields', locals: { f: form }
     .box-footer
       = render partial: 'layouts/form_actions', locals: { f: form }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222185040) do
+ActiveRecord::Schema.define(version: 20160126175455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20151222185040) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at",                 precision: 6
     t.string   "image_checksum",       limit: 255,               default: "",    null: false
+    t.string   "kernel_options",       limit: 255,               default: "",    null: false
   end
 
   add_index "node_architectures", ["account_id"], name: "index_node_architectures_on_account_id", using: :btree

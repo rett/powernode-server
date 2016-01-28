@@ -54,6 +54,7 @@ class NodeArchitecturesController < ApplicationController
                          :enabled,
                          :name,
                          :kernel,
+                         :kernel_options,
                          :ramdisk]
     permitted_params += [:public] if can?(:manage, NodeArchitecture)
     params.require(:node_architecture).permit(*permitted_params)
