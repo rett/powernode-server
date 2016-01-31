@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126175455) do
+ActiveRecord::Schema.define(version: 20160128234909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -266,7 +266,7 @@ ActiveRecord::Schema.define(version: 20160126175455) do
     t.string   "variety",                     limit: 255,                               null: false
     t.text     "dependency_spec",                                       default: "[]",  null: false
     t.text     "package_spec",                                          default: "[]",  null: false
-    t.text     "spec",                                                  default: "[]",  null: false
+    t.text     "file_spec",                                             default: "[]",  null: false
     t.text     "mask",                                                  default: "[]",  null: false
     t.boolean  "lock_spec",                                             default: false, null: false
   end

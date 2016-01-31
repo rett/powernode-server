@@ -49,6 +49,7 @@ class NodeTemplatesController < ApplicationController
                                           :description,
                                           :configurable,
                                           :enabled,
+                                          :file_spec,
                                           :immutable,
                                           :provisional,
                                           :reboot_required,
@@ -59,7 +60,6 @@ class NodeTemplatesController < ApplicationController
                                           :init_stop,
                                           :dependency_spec,
                                           :package_spec,
-                                          :spec,
                                           :mask,
                                           :public,
                                           :variety)

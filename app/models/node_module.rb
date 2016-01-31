@@ -32,8 +32,8 @@ class NodeModule < ActiveRecord::Base
   scope :required, -> { enabled.where(required: true) }
 
   serialize :mask, JSON
+  serialize :file_spec, JSON
   serialize :package_spec, JSON
-  serialize :spec, JSON
   serialize :dependency_spec, JSON
 
   validates :account, presence: true
@@ -48,7 +48,7 @@ class NodeModule < ActiveRecord::Base
                                        greater_than_or_equal_to: Powernode.config.module_priority_range[0],
                                        less_than_or_equal_to: Powernode.config.module_priority_range[1]
 
-  validate :reject_modifying_spec, on: :update, if: :lock_spec?
+  validate :enforce_lock_spec, on: :update, if: :lock_spec?
 
   before_validation(on: :create) { self.variety = node_module_category.try(:variety) }
   before_validation :encode_specs
@@ -120,6 +120,10 @@ class NodeModule < ActiveRecord::Base
   end
   alias :enabled? :enabled
 
+  def file_spec
+    parent_module.present? ? parent_module.dependency_spec : self[:file_spec]
+  end
+
   def info
     <<-EOF.strip_heredoc
       name=#{name}
@@ -137,10 +141,6 @@ class NodeModule < ActiveRecord::Base
     status == 'ready'
   end
   alias :ready? :ready
-
-  def spec
-    parent_module.present? ? parent_module.dependency_spec : self[:spec]
-  end
 
   def scope_to_node_instance(node_instance)
     @node_instance = node_instance
@@ -255,7 +255,7 @@ class NodeModule < ActiveRecord::Base
       @node_instance.node_modules_with_dependencies.each do |node_module|
         if node_module != self && node_module.effective_priority > effective_priority
           if node_module.immutable?
-            final_mask << node_module.spec
+            final_mask << node_module.file_spec
             final_mask << node_module.dependency_spec
           end
           final_mask << node_module.mask
@@ -267,15 +267,15 @@ class NodeModule < ActiveRecord::Base
 
   def rsync_spec
     @rsync_spec ||= (decode_spec(effective_mask).map { |l| "- #{l}\n" } +
-                     decode_spec(spec).map { |l| "+ #{l}\n" }).join + "- *\n"
+                     decode_spec(file_spec).map { |l| "+ #{l}\n" }).join + "- *\n"
+  end
+
+  def file_spec_text
+    decode_spec_text(file_spec)
   end
 
   def package_spec_text
     decode_spec_text(package_spec)
-  end
-
-  def spec_text
-    decode_spec_text(spec)
   end
 
   def dependency_spec_text
@@ -315,13 +315,16 @@ class NodeModule < ActiveRecord::Base
 
   def encode_specs
     self[:dependency_spec] = encode_spec(dependency_spec) if dependency_spec_changed?
+    self[:file_spec] = encode_spec(file_spec) if file_spec_changed?
     self[:package_spec] = encode_spec(package_spec) if package_spec_changed?
-    self[:spec] = encode_spec(spec) if spec_changed?
     self[:mask] = encode_spec(mask) if mask_changed?
   end
 
-  def reject_modifying_spec
-    errors[:spec] << 'cannot be changed while spec is locked!' if self.spec_changed?
+  def enforce_lock_spec
+    errors[:mask] << 'cannot be changed while locked!' if self.mask_changed?
+    errors[:dependency_spec] << 'cannot be changed while locked!' if self.dependency_spec_changed?
+    errors[:file_spec] << 'cannot be changed while locked!' if self.file_spec_changed?
+    errors[:package_spec] << 'cannot be changed while locked!' if self.package_spec_changed?
   end
 
   def remove_invalid_template_subscriptions

@@ -188,9 +188,9 @@ module Api
 
       def node_module_attributes
         { except:  [:dependency_spec,
+                    :file_spec,
                     :mask,
-                    :package_spec,
-                    :spec],
+                    :package_spec],
           methods: [:data_file_version,
                     :ready,
                     :uuid_partition] }
@@ -248,12 +248,12 @@ module Api
             end
           when 'info'
             render text: @node_module.info
+          when 'file_spec'
+            render text: @node_module.file_spec
           when 'package_spec'
             render text: @node_module.package_spec
           when 'rsync_spec'
             render text: @node_module.rsync_spec
-          when 'spec'
-            render text: @node_module.spec
           else
             render nothing: true, status: :not_found
           end
@@ -272,8 +272,8 @@ module Api
           else
             render nothing: true, status: :not_found
           end
-        when 'spec'
-          @node_module.spec = params.require(:spec)
+        when 'file_spec'
+          @node_module.file_spec = params.require(:file_spec)
           if @node_module.save
             render nothing: true, status: :ok
           else
