@@ -8,7 +8,7 @@ Powernode::Application.routes.draw do
   # Sidekiq Web Interface
   #
   require 'sidekiq/web'
-  authenticate :user, lambda { |u| u.roles.include?(:global_admin) } do
+  authenticate :user, lambda { |u| u.roles.include?('global_admin') } do
     mount Sidekiq::Web => '/sidekiq'
   end
 

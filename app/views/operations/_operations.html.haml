@@ -4,6 +4,11 @@
     %ul.timeline
       - @operations.scheduled.each do |operation|
         = render partial: 'operation', locals: { operation: operation }
+  - if @operations.failed.size > 0
+    %h3= I18n.t('operations.header.failed')
+    %ul.timeline
+      - @operations.failed.each do |operation|
+        = render partial: 'operation', locals: { operation: operation }
   - if @operations.complete.size > 0
     %h3= I18n.t('operations.header.complete')
     %ul.timeline

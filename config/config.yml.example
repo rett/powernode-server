@@ -19,12 +19,12 @@ common: &common
   assets_url: http://localhost:3000
   session_key: _nodealchemy_session
   encryption_key_length: 64
-  x_sendfile_header: X-Accel-Redirect
+  x_sendfile_header:
 
   # S3 options
-  s3_bucket:
-  s3_access_key:
-  s3_secret_key:
+  s3_bucket: _s3_bucket_
+  s3_access_key: _s3_access_key_
+  s3_secret_key: _s3_secret_key_
 
   # Server directories
   arch_dir: /var/lib/powernode/architectures
@@ -55,9 +55,9 @@ common: &common
 
   # Billing options
   currency: USD
-  stripe_secret_key:
-  stripe_publishable_key:
-  stripe_webhook_secret:
+  stripe_secret_key: _stripe_secret_key_
+  stripe_publishable_key: _stripe_publishable_key_
+  stripe_webhook_secret: _stripe_webhook_secret_
 
   # SCrypt options
   scrypt_key_len: 128
@@ -94,10 +94,10 @@ common: &common
   sidekiq_job_expiration: <%= 1.hour %>
 
   # Secrets
-  devise_pepper:
-  devise_secret_key:
-  secret_key_base:
-  key_pepper:
+  devise_pepper: _devise_pepper_
+  devise_secret_key: _devise_secret_key_
+  secret_key_base: _secret_key_base_
+  key_pepper: _key_pepper_
 
 
 development:

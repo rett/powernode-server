@@ -347,6 +347,7 @@ en:
     button:                                       'Operations'
     header:
       complete:                                   'Complete'
+      failed:                                     'Failed'
       scheduled:                                  'Scheduled'
       title:                                      'Operations'
     none_pending:                                 'No operations pending.'

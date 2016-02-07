@@ -11,9 +11,10 @@ class Operation < ActiveRecord::Base
 
   default_scope { order('scheduled_at DESC') }
 
-  scope :complete, -> { where(status: 'complete' )}
-  scope :failed, -> { where(status: 'failed' )}
-  scope :scheduled, -> { where.not(status: 'complete' )}
+  scope :complete,  -> { where(status: 'complete') }
+  scope :failed,    -> { where(status: 'failed' ) }
+  scope :pending,   -> { where(status: 'pending') }
+  scope :scheduled, -> { where.not(status: %w[complete failed]) }
 
   validates :account, presence: true
   validates :command, presence: true
