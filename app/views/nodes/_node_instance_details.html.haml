@@ -11,7 +11,7 @@
       %dl.dl-horizontal
         %dt Name
         %dd
-          = link_to(node_instance.name, node_instance)
+          = node_instance.name
           = link_to(edit_node_instance_path(node_instance)) do
             = fa('edit')
         - unless node_instance.physical_variety?
