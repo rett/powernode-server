@@ -240,7 +240,7 @@ class NodeModule < ActiveRecord::Base
       end
       if File.exist?(new_file)
         self.data_checksum = Digest::SHA2.new(Powernode.config.checksum_bitlength || 256).hexdigest(File.binread(new_file))
-        self.save
+        self.data.reprocess!
       end
     end
   end

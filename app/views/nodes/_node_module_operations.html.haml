@@ -48,7 +48,7 @@
                                                               ['Purge',  'module_purge']]),
                                           { class: 'multiselect', id: "operation_#{node_module.id}" })
               %dt Version
-              %dd= select_tag :version, options_for_select(node_module.versions.sort_by(&:version).select { |v| v.data_checksum.present? }.map { |v| ["#{v.version} - #{v.data_checksum[0..5]} (#{time_ago_in_words(v.updated_at)} ago)", v.version] }, selected: node_module.version), { class: 'multiselect', id: "version_#{node_module.id}" }
+              %dd= select_tag :version, options_for_select(node_module.versions.sort_by(&:version).select { |v| v.data_checksum.present? }.map { |v| ["#{v.version} - #{number_to_human_size(v.data_file_size)}, #{v.data_checksum[0..5]} (#{time_ago_in_words(v.updated_at)} ago)", v.version] }, selected: node_module.version), { class: 'multiselect', id: "version_#{node_module.id}" }
           .col-lg-2
             .pull-right
               = button_tag(class: 'btn btn-default', data: { confirm: I18n.t('actions.confirm') }) do
